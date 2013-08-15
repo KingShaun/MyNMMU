@@ -33,17 +33,17 @@
                 Menu items
             </li>
             <li data-theme="d">
-                <a href="#mainPage" data-transition="slide">
+                <a href="#PageNews" data-transition="slide">
                     News
                 </a>
             </li>
             <li data-theme="d">
-                <a href="#page1" data-transition="slide">
-                    Maps
+                <a href="#PageEvents" data-transition="slide">
+                    Events
                 </a>
             </li>
             <li data-theme="d">
-                <a href="#page1" data-transition="slide">
+                <a href="#PageExamResults" data-transition="slide">
                     Exam results
                 </a>
             </li>
@@ -64,35 +64,60 @@
 </div>
 <!-- End Home -->
 <!-- News -->
-	<div data-role="page" id="mainPage">
+	<div data-role="page" id="PageNews">
 	
 	
 	    <div data-role="header">
-	        <a href="#PageHome" data-role="button" data-icon="back" data-iconpos="notext" data-transition="fade">Back</a><h1></h1>
+	        <a href="#PageHome" data-rel="back">Back</a><h1>News</h1>
 	    </div>
 	
-	    <div data-role="content">
-	    
-	    <div id="spinner"></div>
-	        
-	        <ul id="linksList" data-role="listview" data-inset="true"></ul>
+	    <div data-role="content">	    
+	        <div class="spinner"></div>	        
+	        <ul id="NewsLinksList" data-role="listview" data-inset="true"></ul>
 	    </div>
 	        
 	</div>
 	
-	<div data-role="page" id="contentPage">
+	<div data-role="page" id="PageNewsContent">
 	
 	    <div data-role="header">
-	    	<!--<a href="#mainPage" data-role="button" data-icon="back" data-iconpos="notext" data-transition="fade">Back</a>-->
-	        <a href="#mainPage" data-rel="back">Back</a>
-	        <h1></h1>
+	        <a href="#PageNews" data-rel="back">Back</a><h1>News details</h1>
 	    </div>
 	
-	    <div data-role="content" id="entryText">
+	    <div data-role="content" id="NewsEntryText">
 	    </div>
 	        
 	</div>
 <!-- End News -->
+<!-- Events -->
+	<div data-role="page" id="PageEvents">
+	
+	
+	    <div data-role="header">
+	        <a href="#PageHome" data-rel="back">Back</a><h1>Events</h1>            
+	    </div>
+	
+	    <div data-role="content">
+	    
+	    <div class="spinner"></div>
+	        
+	        <ul id="EventsLinksList" data-role="listview" data-inset="true"></ul>
+	    </div>
+	        
+	</div>
+	
+	<div data-role="page" id="PageEventsContent">
+	
+	    <div data-role="header">
+	    	<a href="#PageEvents" data-rel="back">Back</a><h1>Event details</h1>	        
+	    </div>
+	
+	    <div data-role="content" id="EventsEntryText">
+	    </div>
+	        
+	</div>
+<!-- End Events -->
+
 <!-- Login -->	
 	<div data-role="page" id="PageLogin">
 	
@@ -119,5 +144,21 @@
 	    </div> <!-- Content -->	        
 	</div>
 <!-- End Login -->
+
+<!-- Exam Results -->	
+	<div data-role="page" id="PageExamResults">
+	
+	    <div data-role="header">
+			<a href="#PageHome" data-role="button" data-icon="back" data-iconpos="notext" data-transition="fade">Back</a><h1>Exam results</h1>	    
+		</div>
+	
+	    <div data-role="content">
+	    
+<p>Exam results</p>
+            	    
+	    </div> <!-- Content -->	        
+	</div>
+<!-- End Exam Results -->
+
 </body>
 </html>
