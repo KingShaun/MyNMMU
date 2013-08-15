@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>NMMU Mobile Application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css">
+    <link rel="stylesheet" href="css/NMMU.css">
+    
+    
+    <!--<script src="js/jquery-1.10.2.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>--> 
+    <script src="js/jquery-1.7.min.js"></script>
+    
+    <script src="js/jquery.mobile-1.3.2.min.js"></script>
+    <script src="js/main.js"></script>
+    
+  
+    
+</head>
+<body>
+<!-- Home -->
+<div data-role="page" id="PageHome">
+    <div style="text-align:center; background-color:#003058">
+    	<img src="images/bannerNMMULogo.png" alt="NMMU Logo" />
+    </div>
+    <div data-role="content">
+    
+        <ul data-role="listview" data-divider-theme="d" data-inset="true">
+            <li data-role="list-divider" role="heading">
+                Menu items
+            </li>
+            <li data-theme="d">
+                <a href="#mainPage" data-transition="slide">
+                    News
+                </a>
+            </li>
+            <li data-theme="d">
+                <a href="#page1" data-transition="slide">
+                    Maps
+                </a>
+            </li>
+            <li data-theme="d">
+                <a href="#page1" data-transition="slide">
+                    Exam results
+                </a>
+            </li>
+            <li data-theme="d">
+                <a href="#PageLogin" data-transition="slide">
+                    My NMMU
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div data-theme="a" data-role="footer" data-position="fixed">
+		<div data-role="controlgroup" data-type="horizontal" style="text-align:center">
+		<a href="#PageHome" data-role="button" data-icon="home">Home</a>
+		<a href="#PageLogin" data-role="button" data-icon="star">My NMMU</a>
+		<a href="index.html" data-role="button" data-icon="info">About us</a>
+		</div>
+    </div>
+</div>
+<!-- End Home -->
+<!-- News -->
+	<div data-role="page" id="mainPage">
+	
+	
+	    <div data-role="header">
+	        <a href="#PageHome" data-role="button" data-icon="back" data-iconpos="notext" data-transition="fade">Back</a><h1></h1>
+	    </div>
+	
+	    <div data-role="content">
+	    
+	    <div id="spinner"></div>
+	        
+	        <ul id="linksList" data-role="listview" data-inset="true"></ul>
+	    </div>
+	        
+	</div>
+	
+	<div data-role="page" id="contentPage">
+	
+	    <div data-role="header">
+	    	<!--<a href="#mainPage" data-role="button" data-icon="back" data-iconpos="notext" data-transition="fade">Back</a>-->
+	        <a href="#mainPage" data-rel="back">Back</a>
+	        <h1></h1>
+	    </div>
+	
+	    <div data-role="content" id="entryText">
+	    </div>
+	        
+	</div>
+<!-- End News -->
+<!-- Login -->	
+	<div data-role="page" id="PageLogin">
+	
+	    <div data-role="header">
+			<a href="#PageHome" data-role="button" data-icon="back" data-iconpos="notext" data-transition="fade">Back</a><h1>Login</h1>	    
+		</div>
+	
+	    <div data-role="content">
+	    
+           <form id="check-user" class="ui-body ui-body-d ui-corner-all" data-ajax="false">
+                <fieldset>
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="username">Enter your username:</label>
+                        <input type="text" value="" name="username" id="username" placeholder="NMMU username"/>
+                    </div>                                  
+                    <div data-role="fieldcontain" class="ui-hide-label">                                      
+                        <label for="password">Enter your password:</label>
+                        <input type="password" value="" name="password" id="password" autocomplete="off" placeholder="NMMU password"/> 
+                    </div>
+                    <input type="button" data-theme="b" name="submit" id="submitButton" value="Login">
+                </fieldset>
+            </form> 
+            	    
+	    </div> <!-- Content -->	        
+	</div>
+<!-- End Login -->
+</body>
+</html>
