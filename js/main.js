@@ -41,6 +41,20 @@ $(document).ready(function () {
         SelectedEventsEntry = $(this).data("entryid");
     });
 
+    //Listen for exam results page
+    $("#PageExamResults").live("pageinit", function () {
+        var storage = window.localStorage;
+        var username = storage["username"];
+        var password = storage["password"];
+
+        if (!username) {
+            alert("No!");
+            return;
+        }
+
+        GetExamResults(username, password);
+    });
+
     // ########## News main page ###############
     //Listen for main page
     $("#PageNews").live("pageinit", function () {
@@ -142,6 +156,30 @@ $(document).ready(function () {
 
 });
 
+function GetExamResults(username, password) {
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/ExamResults.asmx/GetExamResults",
+        contentType: 'application/json',
+        //data: '{ StudentNumber: "' + username + '" }',
+        data: '{ username: "' + username + '", password: "' + password + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        var tablerowsHTML;
+        $.each(msg.d, function (i, v) {
+            tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Mark + "</td><td>" + v.Outcome + "</td></tr>";
+        });
+        
+        $("#ExamResultsRows").html(tablerowsHTML);
+        $("#ExamResultsTable").table("refresh");
+
+    }).fail(function (msg) {
+        alert("fail:" + msg);
+    }).always(function () {
+        
+    });
+}
+
 function handleLogin() {
     var form = $("#loginForm");
     //disable the button so we can't resubmit while we wait
@@ -150,37 +188,23 @@ function handleLogin() {
     var p = $("#password", form).val();
     console.log("click");
     if (u != '' && p != '') {
-        //alert("Username: " + u);
-        //$.post("http://www.coldfusionjedi.com/demos/2011/nov/10/service.cfc?method=login&returnformat=json", { username: u, password: p }, function (res) {
-        //    if (res == true) {
-        //        //store
-        //        window.localStorage["username"] = u;
-        //        window.localStorage["password"] = p;
-        //        $.mobile.changePage("some.html");
-        //    } else {
-        //        navigator.notification.alert("Your login failed", function () { });
-        //    }
-        //    $("#submitButton").removeAttr("disabled");
-        //}, "json");
-
         $.ajax({
             type: "POST",
             url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
-            //url: "http://nmmu.azurewebsites.net/Login.asmx/Auth",
             contentType: 'application/json',
             data: '{ username: "' + u + '", password: "' + p + '" }',
             dataType: "json"
         }).done(function (msg) {
             if (msg.d.IsAuthenticated == true) {
                 //$("#loginPage").hide();
-                //alert("Welcome: " + msg.d.FirstName);
+                //alert("Welcome: " + msg.d.Email);
                 //$.mobile.changePage("#PageExamResults");
                 //store
                 window.localStorage["username"] = u;
                 window.localStorage["password"] = p;
 
                 //Go to My NMMU menu page
-                $.mobile.changePage("#PageExamResults");
+                $.mobile.changePage("#PageLoggedInHome");
             }
             else {
                 //alert("No!");
@@ -190,7 +214,7 @@ function handleLogin() {
         }).fail(function (msg) {
             alert("fail:" + msg);
         }).always(function () {
-            $("#submitButton").removeAttr("disabled");
+            
         });
 
     } else {
