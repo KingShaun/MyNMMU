@@ -10,6 +10,8 @@ var hideLoader = function () {
 
 $(document).ready(function () {
 
+    //Listen for login form submit
+    $("#loginForm").on("submit", handleLogin);
 
     //News RSS url
     var RSSNews = "http://news.nmmu.ac.za/home?rss=nmmu-news";
@@ -139,3 +141,59 @@ $(document).ready(function () {
     });
 
 });
+
+function handleLogin() {
+    var form = $("#loginForm");
+    //disable the button so we can't resubmit while we wait
+    $("#submitButton", form).attr("disabled", "disabled");
+    var u = $("#username", form).val();
+    var p = $("#password", form).val();
+    console.log("click");
+    if (u != '' && p != '') {
+        //alert("Username: " + u);
+        //$.post("http://www.coldfusionjedi.com/demos/2011/nov/10/service.cfc?method=login&returnformat=json", { username: u, password: p }, function (res) {
+        //    if (res == true) {
+        //        //store
+        //        window.localStorage["username"] = u;
+        //        window.localStorage["password"] = p;
+        //        $.mobile.changePage("some.html");
+        //    } else {
+        //        navigator.notification.alert("Your login failed", function () { });
+        //    }
+        //    $("#submitButton").removeAttr("disabled");
+        //}, "json");
+
+        $.ajax({
+            type: "POST",
+            url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
+            //url: "http://nmmu.azurewebsites.net/Login.asmx/Auth",
+            contentType: 'application/json',
+            data: '{ username: "' + u + '", password: "' + p + '" }',
+            dataType: "json"
+        }).done(function (msg) {
+            if (msg.d.IsAuthenticated == true) {
+                //$("#loginPage").hide();
+                //alert("Welcome: " + msg.d.FirstName);
+                //$.mobile.changePage("#PageExamResults");
+                //store
+                window.localStorage["username"] = u;
+                window.localStorage["password"] = p;
+            }
+            else {
+                //alert("No!");
+                // Dialog present in a multipage document
+                $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
+            }
+        }).fail(function (msg) {
+            alert("fail:" + msg);
+        }).always(function () {
+            $("#submitButton").removeAttr("disabled");
+        });
+
+    } else {
+        //Thanks Igor!
+        navigator.notification.alert("You must enter a username and password", function () { });
+        $("#submitButton").removeAttr("disabled");
+    }
+    return false;
+}

@@ -43,6 +43,11 @@
                 </a>
             </li>
             <li data-theme="d">
+                <a href="#" data-transition="slide">
+                    My journey
+                </a>
+            </li>
+            <li data-theme="d">
                 <a href="#PageExamResults" data-transition="slide">
                     Exam results
                 </a>
@@ -63,6 +68,20 @@
     </div>
 </div>
 <!-- End Home -->
+
+<div id="LoginFailureDialog" data-role="page" data-close-btn="none">
+	
+		<div data-role="header">
+			<h1>Failure</h1>
+		</div>
+
+		<div data-role="content">
+			<h1>your login failed.</h1>
+			<p>Enter your NMMU login details correctly.</p>
+			<a href="#LoginPage" data-role="button" data-rel="back" data-theme="b">Ok, I get it</a>       
+		</div>
+	</div>
+
 <!-- News -->
 	<div data-role="page" id="PageNews">
 	
@@ -127,7 +146,7 @@
 	
 	    <div data-role="content">
 	    
-           <form id="check-user" class="ui-body ui-body-d ui-corner-all" data-ajax="false">
+           <form id="loginForm" class="ui-body ui-body-d ui-corner-all" data-ajax="false">
                     <div data-role="fieldcontain" class="ui-hide-label">
                         <label for="username">Enter your username:</label>
                         <input type="text" value="" name="username" id="username" placeholder="NMMU username"/>
@@ -136,7 +155,7 @@
                         <label for="password">Enter your password:</label>
                         <input type="password" value="" name="password" id="password" autocomplete="off" placeholder="NMMU password"/> 
                     </div>
-                    <input type="button" data-theme="b" name="submit" id="submitButton" value="Login">
+                    <input type="submit" data-theme="b" name="submit" id="submitButton" value="Login">
             </form> 
             	    
 	    </div> <!-- Content -->	        
@@ -152,7 +171,33 @@
 	
 	    <div data-role="content">
 	    
-<p>Exam results</p>
+<table data-role="table" id="my-table" data-mode="reflow">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Movie Title</th>
+      <th>Year</th>
+      <th><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+      <th>Reviews</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td><a href="foo.com" data-rel="external">Citizen Kane</a></td>
+      <td>1941</td>
+      <td>100%</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td><a href="foo.com" data-rel="external">Citizen Kane</a></td>
+      <td>1941</td>
+      <td>100%</td>
+      <td>74</td>
+    </tr>
+    </tbody>
+</table>
             	    
 	    </div> <!-- Content -->	        
 	</div>
