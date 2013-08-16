@@ -178,6 +178,9 @@ function handleLogin() {
                 //store
                 window.localStorage["username"] = u;
                 window.localStorage["password"] = p;
+
+                //Go to My NMMU menu page
+                $.mobile.changePage("#PageExamResults");
             }
             else {
                 //alert("No!");
