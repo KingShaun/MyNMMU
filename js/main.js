@@ -1,11 +1,11 @@
 //show loader
 var showLoader = function () {
-    $('#spinner').css('display', 'block');
+    $('.spinner').css('display', 'block');
 }
 
 //hide loader
 var hideLoader = function () {
-    $('#spinner').css('display', 'none');
+    $('.spinner').css('display', 'none');
 }
 
 $(document).ready(function () {
