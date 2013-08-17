@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css">
     <link rel="stylesheet" href="css/NMMU.css">
 
-
+    <script type="text/javascript" src="phonegap.js"></script>
     <!--<script src="js/jquery-1.10.2.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>-->
     <script src="js/jquery-1.7.min.js"></script>
@@ -220,9 +220,9 @@
 
         <div data-role="content">
 
-            <div id="NotStudent" style="display:none"></div>
+            <div id="NotStudent" style="display: none"></div>
 
-<!--            <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stroke table-stripe">-->
+            <!--            <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stroke table-stripe">-->
             <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stripe">
                 <thead>
                     <tr>
@@ -232,7 +232,6 @@
                     </tr>
                 </thead>
                 <tbody id="ExamResultsRows">
-
                 </tbody>
             </table>
 
@@ -243,11 +242,25 @@
 
     <!-- My journey -->
     <div data-role="page" id="PageMyJourney">
+
         <div data-role="header">
             <a href="#PageHome" data-rel="back">Back</a><h1>My Journey</h1>
         </div>
 
         <div data-role="content">
+
+        <script type="text/javascript" charset="utf-8">
+            $('#apache').click(function () {
+                var ref = window.open('http://apache.org', '_blank', 'location=yes');
+                ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
+                ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
+                ref.addEventListener('exit', function () { alert(event.type); });
+
+            });
+        </script>
+
+        <a href="#" id="apache">Apache</a>
+
             <p>Some text about my journey.</p>
             <a href="#" class="MyJourneyLink">My journey</a>
         </div>
