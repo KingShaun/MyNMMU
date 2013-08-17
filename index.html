@@ -86,7 +86,7 @@
     <!-- End logged in home-->
 
     <!-- Login failure -->
-    <div id="LoginFailureDialog" data-role="page" data-close-btn="none">
+    <div id="LoginFailureDialog" data-role="dialog" data-close-btn="none">
 
         <div data-role="header">
             <h1>Login failure</h1>
@@ -99,6 +99,36 @@
         </div>
     </div>
     <!-- End login failure -->
+
+    <!-- Not student message -->
+    <div id="NotStudentDialog" data-role="dialog" data-close-btn="none">
+
+        <div data-role="header">
+            <h1>Login failure</h1>
+        </div>
+
+        <div data-role="content">
+            <!--<h1>Your authentication attempt failed.</h1>-->
+            <p>This page is only available to current NMMU students.</p>
+            <a href="#PageLoggedInHome" data-role="button" data-rel="back" data-theme="b">OK</a>
+        </div>
+    </div>
+    <!-- End login failure -->
+
+    <!-- All fields required message -->
+    <div id="FieldsMessageDialog" data-role="dialog" data-close-btn="none">
+
+        <div data-role="header">
+            <h1>Message</h1>
+        </div>
+
+        <div data-role="content">
+            <!--<h1>Your authentication attempt failed.</h1>-->
+            <p>All fields are required.</p>
+            <a href="#LoginPage" data-role="button" data-rel="back" data-theme="b">OK</a>
+        </div>
+    </div>
+    <!-- End all fields required -->
 
     <!-- News -->
     <div data-role="page" id="PageNews">
@@ -190,7 +220,10 @@
 
         <div data-role="content">
 
-            <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stroke table-stripe">
+            <div id="NotStudent" style="display:none"></div>
+
+<!--            <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stroke table-stripe">-->
+            <table data-role="table" id="Table1" data-mode="reflow" class="table-stripe">
                 <thead>
                     <tr>
                         <th>Subject</th>

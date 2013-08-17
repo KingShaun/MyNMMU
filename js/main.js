@@ -12,6 +12,7 @@ $(document).ready(function () {
 
     //Listen for login form submit
     $("#loginForm").on("submit", handleLogin);
+    //$("#submitButton").on("click", handleLogin);
 
     //News RSS url
     var RSSNews = "http://news.nmmu.ac.za/home?rss=nmmu-news";
@@ -46,13 +47,30 @@ $(document).ready(function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
+        var isStudent = storage["isStudent"];
 
-        if (!username) {
-            alert("No!");
+
+        //alert("is student: " + isStudent);
+
+        if (isStudent != "true") {
+            $.mobile.changePage("#NotStudentDialog", { role: "dialog" });
+
+            //Display message on page
+            $('#NotStudent').html('<p>This page is only available to valid NMMU students.</p>');
+            $('#NotStudent').css('display', 'block');
+
             return;
         }
 
         GetExamResults(username, password);
+
+        //if (!username) {
+        //    //$.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
+        //    alert("No!");
+        //    return;
+        //}
+
+        //GetExamResults(username, password);
     });
 
     // ########## News main page ###############
@@ -186,7 +204,7 @@ function handleLogin() {
     $("#submitButton", form).attr("disabled", "disabled");
     var u = $("#username", form).val();
     var p = $("#password", form).val();
-    console.log("click");
+    //console.log("click");
     if (u != '' && p != '') {
         $.ajax({
             type: "POST",
@@ -202,13 +220,17 @@ function handleLogin() {
                 //store
                 window.localStorage["username"] = u;
                 window.localStorage["password"] = p;
+                window.localStorage["isStudent"] = msg.d.IsStudent;
 
                 //Go to My NMMU menu page
                 $.mobile.changePage("#PageLoggedInHome");
             }
             else {
-                //alert("No!");
-                // Dialog present in a multipage document
+                ////Reset all the fields
+                //$(form).each(function () {
+                //    this.reset();
+                //});
+                $("#submitButton").removeAttr("disabled");
                 $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
             }
         }).fail(function (msg) {
@@ -219,7 +241,8 @@ function handleLogin() {
 
     } else {
         //Thanks Igor!
-        navigator.notification.alert("You must enter a username and password", function () { });
+        //navigator.notification.alert("You must enter a username and password", function () { });
+        $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
         $("#submitButton").removeAttr("disabled");
     }
     return false;
