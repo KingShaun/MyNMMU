@@ -8,11 +8,51 @@ var hideLoader = function () {
     $('.spinner').css('display', 'none');
 }
 
+function checkPreAuth() {
+    var form = $("#loginForm");
+    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+        $("#username", form).val(window.localStorage["username"]);
+        $("#password", form).val(window.localStorage["password"]);
+        handleLogin();
+    }
+}
+
+
 $(document).ready(function () {
 
     //Listen for login form submit
-    $("#loginForm").on("submit", handleLogin);
-    //$("#submitButton").on("click", handleLogin);
+    //$("#loginForm").on("submit", handleLogin);
+
+    //Listen for exam results page
+    //$("#PageLogin").live("pageinit", function () {
+
+    //}
+    $("#PageLogin").on("pageshow", function () {
+        $("#loginForm").each(function () {
+            this.reset();
+        });
+        $("#submitButton").removeAttr("disabled");
+
+        checkPreAuth();
+    });
+
+    $("#PageLogin").live("pageinit", function () {
+
+        $("#loginForm").on("submit", handleLogin);
+        checkPreAuth();
+
+    });
+    //$.mobile.changePage("#PageLogin");
+
+    //listen for logout click
+    $(".LogoutButton").live("click", function () {
+        //$(".LogoutButton").on("click", function() {
+        localStorage.clear("username");
+        localStorage.clear("password");
+        localStorage.clear("isStudent");
+
+        $.mobile.changePage("#PageHome");
+    });
 
     //News RSS url
     var RSSNews = "http://news.nmmu.ac.za/home?rss=nmmu-news";
@@ -187,14 +227,14 @@ function GetExamResults(username, password) {
         $.each(msg.d, function (i, v) {
             tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Mark + "</td><td>" + v.Outcome + "</td></tr>";
         });
-        
+
         $("#ExamResultsRows").html(tablerowsHTML);
         $("#ExamResultsTable").table("refresh");
 
     }).fail(function (msg) {
         alert("fail:" + msg);
     }).always(function () {
-        
+
     });
 }
 
@@ -236,7 +276,7 @@ function handleLogin() {
         }).fail(function (msg) {
             alert("fail:" + msg);
         }).always(function () {
-            
+
         });
 
     } else {
