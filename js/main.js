@@ -20,6 +20,10 @@ function checkPreAuth() {
 
 $(document).ready(function () {
 
+    $(".MyJourneyLink").bind('click', function (event) {
+        var ref = window.open('"http://myjourney.nmmu.ac.za/', '_blank', 'location=yes')
+    });
+
     //Listen for login form submit
     //$("#loginForm").on("submit", handleLogin);
 
