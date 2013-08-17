@@ -21,7 +21,11 @@ function checkPreAuth() {
 $(document).ready(function () {
 
     $(".MyJourneyLink").bind('click', function (event) {
-        var ref = window.open('myjourney.nmmu.ac.za', '_blank', 'location=yes')
+        //var ref = window.open('myjourney.nmmu.ac.za', '_blank', 'location=yes')
+        var ref = window.open('http://myjourney.nmmu.ac.za', '_blank', 'location=yes');
+        ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
+        ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
+        ref.addEventListener('exit', function () { alert(event.type); });
     });
 
     //Listen for login form submit

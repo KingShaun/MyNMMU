@@ -248,19 +248,6 @@
         </div>
 
         <div data-role="content">
-
-        <script type="text/javascript" charset="utf-8">
-            $('#apache').click(function () {
-                var ref = window.open('http://apache.org', '_blank', 'location=yes');
-                ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
-                ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
-                ref.addEventListener('exit', function () { alert(event.type); });
-
-            });
-        </script>
-
-        <a href="#" id="apache">Apache</a>
-
             <p>Some text about my journey.</p>
             <a href="#" class="MyJourneyLink">My journey</a>
         </div>
