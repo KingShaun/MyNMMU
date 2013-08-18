@@ -10,11 +10,13 @@ var hideLoader = function () {
 
 function checkPreAuth() {
     var form = $("#loginForm");
+    showLoader();
     if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
         $("#username", form).val(window.localStorage["username"]);
         $("#password", form).val(window.localStorage["password"]);
         handleLogin();
     }
+    hideLoader();
 }
 
 
@@ -22,7 +24,7 @@ $(document).ready(function () {
 
     $(".MyJourneyLink").bind('click', function (event) {
         //var ref = window.open('myjourney.nmmu.ac.za', '_blank', 'location=yes')
-        var ref = window.open('http://myjourney.nmmu.ac.za', '_blank', 'location=yes');
+        var ref = window.open('http://myjourney.nmmu.ac.za', '_blank', 'location=no');
         //ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
         //ref.addEventListener('exit', function () { alert(event.type); });
