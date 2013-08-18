@@ -10,21 +10,19 @@ var hideLoader = function () {
 
 function checkPreAuth() {
     var form = $("#loginForm");
-    showLoader();
     if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
         $("#username", form).val(window.localStorage["username"]);
         $("#password", form).val(window.localStorage["password"]);
         handleLogin();
     }
-    hideLoader();
 }
 
 
 $(document).ready(function () {
 
-    localStorage.clear("username");
-    localStorage.clear("password");
-    localStorage.clear("isStudent");
+    //localStorage.clear("username");
+    //localStorage.clear("password");
+    //localStorage.clear("isStudent");
 
     $(".MyJourneyLink").bind('click', function (event) {
         //var ref = window.open('myjourney.nmmu.ac.za', '_blank', 'location=yes')
@@ -110,7 +108,7 @@ $(document).ready(function () {
             $.mobile.changePage("#NotStudentDialog", { role: "dialog" });
 
             //Display message on page
-            $('#NotStudent').html('<p>This page is only available to valid NMMU students.</p>');
+            $('#NotStudent').html('<p>This page is only available to current NMMU students.</p>');
             $('#NotStudent').css('display', 'block');
 
             return;
@@ -260,6 +258,9 @@ function handleLogin() {
     var p = $("#password", form).val();
     //console.log("click");
     if (u != '' && p != '') {
+
+        showLoader();
+
         $.ajax({
             type: "POST",
             url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
@@ -267,6 +268,9 @@ function handleLogin() {
             data: '{ username: "' + u + '", password: "' + p + '" }',
             dataType: "json"
         }).done(function (msg) {
+
+            hideLoader();
+
             if (msg.d.IsAuthenticated == true) {
                 //$("#loginPage").hide();
                 //alert("Welcome: " + msg.d.Email);
