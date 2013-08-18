@@ -11,6 +11,10 @@ var hideLoader = function () {
 function checkPreAuth() {
     var form = $("#loginForm");
     if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+
+        //Don't show the login form as it will be pre-populated
+        form.css('display', 'none');
+
         $("#username", form).val(window.localStorage["username"]);
         $("#password", form).val(window.localStorage["password"]);
         handleLogin();
@@ -26,7 +30,7 @@ $(document).ready(function () {
 
     $(".MyJourneyLink").bind('click', function (event) {
         //var ref = window.open('myjourney.nmmu.ac.za', '_blank', 'location=yes')
-        var ref = window.open('http://myjourney.nmmu.ac.za', '_blank', 'location=no');
+        var ref = window.open('http://myjourney.nmmu.ac.za', '_blank', 'location=yes');
         //ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
         //ref.addEventListener('exit', function () { alert(event.type); });
@@ -130,12 +134,14 @@ $(document).ready(function () {
     $("#PageNews").live("pageinit", function () {
         //$("#mainPage").on("pageinit", function() {
 
-        showLoader();
+        //showLoader();
+        
 
         //Set the title
         //$("h1", this).text(TITLE);
 
         $.get(RSSNews, {}, function (res, code) {
+            $.mobile.showPageLoadingMsg();
             var xml = $(res);
             var items = xml.find("item");
             $.each(items, function (i, v) {
@@ -146,7 +152,7 @@ $(document).ready(function () {
                 };
                 NewsEntries.push(entry);
 
-                hideLoader();
+                //hideLoader();
 
             });
 
@@ -258,9 +264,7 @@ function handleLogin() {
     var p = $("#password", form).val();
     //console.log("click");
     if (u != '' && p != '') {
-
-        showLoader();
-
+        $.mobile.showPageLoadingMsg();
         $.ajax({
             type: "POST",
             url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
