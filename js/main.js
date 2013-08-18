@@ -152,7 +152,7 @@ $(document).ready(function () {
                 };
                 NewsEntries.push(entry);
 
-                //hideLoader();
+                $.mobile.hidePageLoadingMsg();
 
             });
 
