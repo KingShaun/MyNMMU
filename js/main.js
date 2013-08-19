@@ -142,6 +142,26 @@ $(document).ready(function () {
         //GetExamResults(username, password);
     });
 
+    //Listen for account status page
+    $("#PageAccountStatus").live("pageinit", function () {
+        var storage = window.localStorage;
+        var username = storage["username"];
+        var password = storage["password"];
+        var isStudent = storage["isStudent"];;
+
+        if (isStudent != "true") {
+            $.mobile.changePage("#NotStudentDialog", { role: "dialog" });
+
+            //Display message on page
+            $('.NotStudent').html('<p>This page is only available to current NMMU students.</p>');
+            $('.NotStudent').css('display', 'block');
+
+            return;
+        }
+
+        GetAccountStatus(username, password);
+    });
+
     // ########## News main page ###############
     //Listen for main page
     $("#PageNews").live("pageinit", function () {
@@ -177,18 +197,9 @@ $(document).ready(function () {
 
     });
 
-    // ########## End news main page ###############
-
     // ########## Events main page ###############
     //Listen for events main page
     $("#PageEvents").live("pageinit", function () {
-        //$("#mainPage").on("pageinit", function() {
-
-        //showLoader();
-        //$.mobile.showPageLoadingMsg();
-
-        //Set the title
-        //$("h1", this).text(TitleEvents);
 
         $.get(RSSEvents, {}, function (res, code) {
 
@@ -218,7 +229,6 @@ $(document).ready(function () {
         });
 
     });
-    // ########## End events main page ###############
 
     //Listen for the news content page to load
     $("#PageNewsContent").live("pageshow", function (prepage) {
@@ -270,6 +280,23 @@ function GetExamResults(username, password) {
     });
 }
 
+function GetAccountStatus(username, password) {
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/AccountStatus.asmx/GetAccountStatus",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", password: "' + password + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        $("#DivAccountStatus").html(msg.d.StatusMessage);
+
+    }).fail(function (msg) {
+        alert("fail:" + msg);
+    }).always(function () {
+
+    });
+}
+
 function handleLogin() {
     var form = $("#loginForm");
     //disable the button so we can't resubmit while we wait
@@ -292,9 +319,7 @@ function handleLogin() {
             //$.mobile.hidePageLoadingMsg();
 
             if (msg.d.IsAuthenticated == true) {
-                //$("#loginPage").hide();
-                //alert("Welcome: " + msg.d.Email);
-                //$.mobile.changePage("#PageExamResults");
+
                 //store
                 window.localStorage["username"] = u;
                 window.localStorage["password"] = p;
@@ -304,10 +329,12 @@ function handleLogin() {
                 $.mobile.changePage("#PageLoggedInHome");
             }
             else {
-                ////Reset all the fields
-                //$(form).each(function () {
-                //    this.reset();
-                //});
+                //Login fail and local values exist = Password has changed. Clear local values
+                if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+                    localStorage.clear("username");
+                    localStorage.clear("password");
+                    localStorage.clear("isStudent");
+                }
                 $("#submitButton").removeAttr("disabled");
                 $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
             }

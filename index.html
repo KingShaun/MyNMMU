@@ -80,6 +80,10 @@
                     <a href="#PageExamResults" data-transition="slide">Exam results
                     </a>
                 </li>
+                <li data-theme="d">
+                    <a href="#PageAccountStatus" data-transition="slide">Account status
+                    </a>
+                </li>
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -225,7 +229,7 @@
 
         <div data-role="content">
 
-            <div id="NotStudent" style="display: none"></div>
+            <div class="NotStudent" style="display: none"></div>
 
             <!--            <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stroke table-stripe">-->
             <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stripe">
@@ -244,6 +248,21 @@
         <!-- Content -->
     </div>
     <!-- End Exam Results -->
+
+    <!-- Account status -->
+    <div data-role="page" id="PageAccountStatus">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Account status</h1>
+        </div>
+
+        <div data-role="content" id="DivAccountStatus">
+
+            <div class="NotStudent" style="display: none"></div>
+
+        </div>
+    </div>
+    <!-- End Account status -->
 
     <!-- My journey -->
     <div data-role="page" id="PageMyJourney">
