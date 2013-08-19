@@ -1,12 +1,12 @@
-//show loader
-var showLoader = function () {
-    $('.spinner').css('display', 'block');
-}
+////show loader
+//var showLoader = function () {
+//    $('.spinner').css('display', 'block');
+//}
 
-//hide loader
-var hideLoader = function () {
-    $('.spinner').css('display', 'none');
-}
+////hide loader
+//var hideLoader = function () {
+//    $('.spinner').css('display', 'none');
+//}
 
 function checkPreAuth() {
     var form = $("#loginForm");
