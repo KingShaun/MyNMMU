@@ -55,10 +55,13 @@ $(document).ready(function () {
         checkPreAuth();
     });
 
+    //one the about us page hide the phone number link if it is not a phone
     $("#PageAboutUs").on("pageshow", function () {
         //test  a min-width media query
         var IsPhone = $.mobile.media("screen and (min-width: 320px) and (max-device-width : 480px)");
-        alert(IsPhone);
+        if (IsPhone) {
+            $('.NMMUPhoneNumber').css('display', 'block');
+        }
 
     });
 
