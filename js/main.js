@@ -51,6 +51,7 @@ $(document).ready(function () {
         });
         $("#submitButton").removeAttr("disabled");
 
+        hideLoader();
         checkPreAuth();
     });
 
