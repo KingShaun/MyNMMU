@@ -1,12 +1,12 @@
-////show loader
-//var showLoader = function () {
-//    $('.spinner').css('display', 'block');
-//}
+//show loader
+var showLoader = function () {
+    $('.spinner').css('display', 'block');
+}
 
-////hide loader
-//var hideLoader = function () {
-//    $('.spinner').css('display', 'none');
-//}
+//hide loader
+var hideLoader = function () {
+    $('.spinner').css('display', 'none');
+}
 
 function checkPreAuth() {
     var form = $("#loginForm");
@@ -134,14 +134,12 @@ $(document).ready(function () {
     $("#PageNews").live("pageinit", function () {
         //$("#mainPage").on("pageinit", function() {
 
-        //showLoader();
-        
+        showLoader();
 
         //Set the title
         //$("h1", this).text(TITLE);
 
-        $.get(RSSNews, {}, function (res, code) {
-            $.mobile.showPageLoadingMsg();
+        $.get(RSSNews, {}, function (res, code) {            
             var xml = $(res);
             var items = xml.find("item");
             $.each(items, function (i, v) {
@@ -152,8 +150,7 @@ $(document).ready(function () {
                 };
                 NewsEntries.push(entry);
 
-                $.mobile.hidePageLoadingMsg();
-
+                hideLoader();
             });
 
             //now draw the list
@@ -174,12 +171,16 @@ $(document).ready(function () {
     $("#PageEvents").live("pageinit", function () {
         //$("#mainPage").on("pageinit", function() {
 
-        showLoader();
+        //showLoader();
+        //$.mobile.showPageLoadingMsg();
 
         //Set the title
         //$("h1", this).text(TitleEvents);
 
         $.get(RSSEvents, {}, function (res, code) {
+
+            showLoader();
+
             var xml = $(res);
             var items = xml.find("item");
             $.each(items, function (i, v) {
@@ -264,7 +265,8 @@ function handleLogin() {
     var p = $("#password", form).val();
     //console.log("click");
     if (u != '' && p != '') {
-        $.mobile.showPageLoadingMsg();
+        //$.mobile.showPageLoadingMsg();
+        showLoader();
         $.ajax({
             type: "POST",
             url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
@@ -274,6 +276,7 @@ function handleLogin() {
         }).done(function (msg) {
 
             hideLoader();
+            //$.mobile.hidePageLoadingMsg();
 
             if (msg.d.IsAuthenticated == true) {
                 //$("#loginPage").hide();
