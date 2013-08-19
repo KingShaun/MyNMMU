@@ -23,9 +23,13 @@
 <body>
     <!-- Home -->
     <div data-role="page" id="PageHome">
-        <div style="text-align: center; background-color: #003058">
+<!--        <div style="text-align: center; background-color: #003058">
+            <img src="images/bannerNMMULogo.png" alt="NMMU Logo" />
+        </div>-->
+        <div data-role="header" style="text-align:center; padding-top:5px">
             <img src="images/bannerNMMULogo.png" alt="NMMU Logo" />
         </div>
+
         <div data-role="content">
 
             <ul data-role="listview" data-divider-theme="d" data-inset="true">
@@ -61,7 +65,7 @@
 
     <!-- Logged in home -->
     <div data-role="page" id="PageLoggedInHome">
-        <div style="text-align: center; background-color: #003058">
+        <div data-role="header" style="text-align:center; padding-top:5px">
             <img src="images/bannerNMMULogo.png" alt="NMMU Logo" />
         </div>
         <div data-role="content">
@@ -135,7 +139,7 @@
 
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back">Back</a><h1>News</h1>
+            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>News</h1>
         </div>
 
         <div data-role="content">
@@ -148,7 +152,7 @@
     <div data-role="page" id="PageNewsContent">
 
         <div data-role="header">
-            <a href="#PageNews" data-rel="back">Back</a><h1>News details</h1>
+            <a href="#PageNews" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>News details</h1>
         </div>
 
         <div data-role="content" id="NewsEntryText">
@@ -161,7 +165,7 @@
 
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back">Back</a><h1>Events</h1>
+            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Events</h1>
         </div>
 
         <div data-role="content">
@@ -174,7 +178,7 @@
     <div data-role="page" id="PageEventsContent">
 
         <div data-role="header">
-            <a href="#PageEvents" data-rel="back">Back</a><h1>Event details</h1>
+            <a href="#PageEvents" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Event details</h1>
         </div>
 
         <div data-role="content" id="EventsEntryText">
@@ -187,7 +191,7 @@
     <div data-role="page" id="PageLogin">
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back">Back</a><h1>Login</h1>
+            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Login</h1>
         </div>
 
         <div data-role="content">
@@ -213,7 +217,7 @@
     <div data-role="page" id="PageExamResults">
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back">Back</a><h1>Exam results</h1>
+            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Exam results</h1>
         </div>
 
         <div data-role="content">
@@ -242,12 +246,12 @@
     <div data-role="page" id="PageMyJourney">
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back">Back</a><h1>My Journey</h1>
+            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>My Journey</h1>
         </div>
 
         <div data-role="content">
             <p>Some text about my journey.</p>
-            <a href="#" class="MyJourneyLink">My journey</a>
+            <a href="#" class="MyJourneyLink" data-role="button" data-theme="b">Go to My Journey</a>
         </div>
     </div>
     <!-- End My journey -->

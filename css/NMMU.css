@@ -5,17 +5,12 @@
     top: 0;
     height: 100%;
     width: 100%;
-    /*background: url(/images/icons/spinner.gif) no-repeat center center;*/
     background: url(images/spinner.gif) no-repeat center center;
 }
 
-/*.table-stroke thead th
-{
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
+.NMMUHeaderImage {
+    float:right;
+    display:inline;
+    padding-top:8px;
+    padding-right:10px;
 }
-
-.table-stroke tbody th,
-.table-stroke tbody td
-{
-    border-bottom: 1px solid rgba(0, 0, 0, .05);
-}*/
