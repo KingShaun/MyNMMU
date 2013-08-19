@@ -55,6 +55,13 @@ $(document).ready(function () {
         checkPreAuth();
     });
 
+    $("#PageAboutUs").on("pageshow", function () {
+        //test  a min-width media query
+        var IsPhone = $.mobile.media("screen and (min-width: 320px) and (max-device-width : 480px)");
+        alert(IsPhone);
+
+    });
+
     $("#PageLogin").live("pageinit", function () {
 
         $("#loginForm").on("submit", handleLogin);

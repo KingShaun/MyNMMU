@@ -8,9 +8,34 @@
     background: url(images/spinner.gif) no-repeat center center;
 }
 
-.NMMUHeaderImage {
-    float:right;
-    display:inline;
-    padding-top:8px;
-    padding-right:10px;
+.NMMUHeaderImage
+{
+    float: right;
+    display: inline;
+    padding-top: 8px;
+    padding-right: 10px;
 }
+
+.NMMUPhoneNumber
+{
+    display: none;
+}
+
+/*@media only screen and (max-device-width: 480px)
+{
+    .NMMUPhoneNumber
+    {
+        display: block;
+    }
+}*/
+
+/* Smartphones (portrait and landscape) ----------- */
+/*@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    .NMMUPhoneNumber
+    {
+        display: block;
+    }
+}*/
+
