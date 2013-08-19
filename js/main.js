@@ -19,6 +19,9 @@ function checkPreAuth() {
         $("#password", form).val(window.localStorage["password"]);
         handleLogin();
     }
+    else {
+        form.css('display', 'block');
+    }
 }
 
 
@@ -29,7 +32,6 @@ $(document).ready(function () {
     //localStorage.clear("isStudent");
 
     $(".MyJourneyLink").bind('click', function (event) {
-        //var ref = window.open('myjourney.nmmu.ac.za', '_blank', 'location=yes')
         var ref = window.open('http://myjourney.nmmu.ac.za', '_blank', 'location=yes');
         //ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
