@@ -55,11 +55,12 @@ $(document).ready(function () {
         checkPreAuth();
     });
 
-    //one the about us page hide the phone number link if it is not a phone
+    //On the about us page hide the phone number link if it is not a phone
     $("#PageAboutUs").on("pageinit", function () {
         //test  a min-width media query
         var IsPhone = $.mobile.media("screen and (min-width: 320px) and (max-device-width : 480px)");
         if (IsPhone) {
+            $('.NMMUPhoneNumberTablet').css('display', 'none');
             $('.NMMUPhoneNumber').css('display', 'block');
         }
 
@@ -112,7 +113,7 @@ $(document).ready(function () {
     });
 
     //Listen for exam results page
-    $("#PageExamResults").live("pageinit", function () {
+    $("#PageExamResults").live("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -122,11 +123,11 @@ $(document).ready(function () {
         //alert("is student: " + isStudent);
 
         if (isStudent != "true") {
-            $.mobile.changePage("#NotStudentDialog", { role: "dialog" });
+            //$.mobile.changePage("#NotStudentDialog", { role: "dialog" });
 
             //Display message on page
-            $('#NotStudent').html('<p>This page is only available to current NMMU students.</p>');
-            $('#NotStudent').css('display', 'block');
+            $('.NotStudent').html('<p>This page is only available to current NMMU students.</p>');
+            $('.NotStudent').css('display', 'block');
 
             return;
         }
@@ -143,14 +144,14 @@ $(document).ready(function () {
     });
 
     //Listen for account status page
-    $("#PageAccountStatus").live("pageinit", function () {
+    $("#PageAccountStatus").live("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
         var isStudent = storage["isStudent"];;
 
         if (isStudent != "true") {
-            $.mobile.changePage("#NotStudentDialog", { role: "dialog" });
+            //$.mobile.changePage("#NotStudentDialog", { role: "dialog" });
 
             //Display message on page
             $('.NotStudent').html('<p>This page is only available to current NMMU students.</p>');
