@@ -74,15 +74,19 @@
         <div data-role="content">
 
             <ul data-role="listview" data-divider-theme="d" data-inset="true">
-                <li data-role="list-divider" role="heading">MyNMMU menu items
+                <li data-role="list-divider" role="heading">My NMMU menu items
                 </li>
                 <li data-theme="d">
-                    <a href="#PageAccountStatus" data-transition="slide">Account status
-                    </a>
+                    <a href="#PageAccountStatus" data-transition="slide">Account status</a>
                 </li>
                 <li data-theme="d">
-                    <a href="#PageExamResults" data-transition="slide">Exam results
-                    </a>
+                    <a href="#PageExamResults" data-transition="slide">Exam results</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageExamTimetable" data-transition="slide">Exam timetable</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageGraduationDetails" data-transition="slide">Graduation details</a>
                 </li>
             </ul>
         </div>
@@ -224,7 +228,7 @@
     <div data-role="page" id="PageExamResults">
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Exam results</h1>
+            <a href="#PageLoggedInHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Exam results</h1>
         </div>
 
         <div data-role="content">
@@ -249,11 +253,38 @@
     </div>
     <!-- End Exam Results -->
 
+    <!-- Exam Timetable -->
+    <div data-role="page" id="PageExamTimetable">
+
+        <div data-role="header">
+            <a href="#PageLoggedInHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Exam Timetable</h1>
+        </div>
+
+        <div data-role="content">
+
+            <div class="NotStudent" style="display: none"></div>
+
+            <table data-role="table" id="ExamTimetableTable" data-mode="reflow" class="table-stripe">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="ExamTimetableRows">
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <!-- End Exam Timetable -->
+
     <!-- Account status -->
     <div data-role="page" id="PageAccountStatus">
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Account status</h1>
+            <a href="#PageLoggedInHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Account status</h1>
         </div>
 
         <div data-role="content" id="DivAccountStatus">
@@ -263,6 +294,21 @@
         </div>
     </div>
     <!-- End Account status -->
+
+    <!-- Graduation details -->
+    <div data-role="page" id="PageGraduationDetails">
+
+        <div data-role="header">
+            <a href="#PageLoggedInHome" data-rel="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Graduation details</h1>
+        </div>
+
+        <div data-role="content" id="DivGraduationDetails">
+
+            <div class="NotStudent" style="display: none"></div>
+
+        </div>
+    </div>
+    <!-- End Graduation details -->
 
     <!-- My journey -->
     <div data-role="page" id="PageMyJourney">

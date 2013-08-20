@@ -113,12 +113,11 @@ $(document).ready(function () {
     });
 
     //Listen for exam results page
-    $("#PageExamResults").live("pageshow", function () {
+    $("#PageExamResults").on("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
         var isStudent = storage["isStudent"];
-
 
         //alert("is student: " + isStudent);
 
@@ -143,8 +142,27 @@ $(document).ready(function () {
         //GetExamResults(username, password);
     });
 
+    //Listen for exam timetable page
+    $("#PageExamTimetable").on("pageshow", function () {
+        var storage = window.localStorage;
+        var username = storage["username"];
+        var password = storage["password"];
+        var isStudent = storage["isStudent"];
+
+        if (isStudent != "true") {
+
+            //Display message on page
+            $('.NotStudent').html('<p>This page is only available to current NMMU students.</p>');
+            $('.NotStudent').css('display', 'block');
+
+            return;
+        }
+
+        GetExamTimetable(username, password);
+    });
+
     //Listen for account status page
-    $("#PageAccountStatus").live("pageshow", function () {
+    $("#PageAccountStatus").on("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -163,8 +181,26 @@ $(document).ready(function () {
         GetAccountStatus(username, password);
     });
 
-    // ########## News main page ###############
-    //Listen for main page
+    //Listen for graduation details page
+    $("#PageGraduationDetails").on("pageshow", function () {
+        var storage = window.localStorage;
+        var username = storage["username"];
+        var password = storage["password"];
+        var isStudent = storage["isStudent"];;
+
+        if (isStudent != "true") {
+
+            //Display message on page
+            $('.NotStudent').html('<p>This page is only available to current NMMU students.</p>');
+            $('.NotStudent').css('display', 'block');
+
+            return;
+        }
+
+        GetGraduationDetails(username, password);
+    });
+
+    //Listen for news main page
     $("#PageNews").live("pageinit", function () {
         //$("#mainPage").on("pageinit", function() {
 
@@ -198,7 +234,6 @@ $(document).ready(function () {
 
     });
 
-    // ########## Events main page ###############
     //Listen for events main page
     $("#PageEvents").live("pageinit", function () {
 
@@ -281,6 +316,29 @@ function GetExamResults(username, password) {
     });
 }
 
+function GetExamTimetable(username, password) {
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/ExamTimetable.asmx/GetExamTimetable",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", password: "' + password + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        var tablerowsHTML;
+        $.each(msg.d, function (i, v) {
+            tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Subject_Description + "</td><td>" + v.Exam_Date + "</td></tr>";
+        });
+
+        $("#ExamTimetableRows").html(tablerowsHTML);
+        $("#ExamTimetableTable").table("refresh");
+
+    }).fail(function (msg) {
+        alert("fail:" + msg);
+    }).always(function () {
+
+    });
+}
+
 function GetAccountStatus(username, password) {
     $.ajax({
         type: "POST",
@@ -290,6 +348,23 @@ function GetAccountStatus(username, password) {
         dataType: "json"
     }).done(function (msg) {
         $("#DivAccountStatus").html(msg.d.StatusMessage);
+
+    }).fail(function (msg) {
+        alert("fail:" + msg);
+    }).always(function () {
+
+    });
+}
+
+function GetGraduationDetails(username, password) {
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/GraduationDetails.asmx/GetGraduationDetails",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", password: "' + password + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        $("#DivGraduationDetails").html(msg.d.GraduationMessage);
 
     }).fail(function (msg) {
         alert("fail:" + msg);
