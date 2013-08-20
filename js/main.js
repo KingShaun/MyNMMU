@@ -25,7 +25,7 @@ function checkPreAuth() {
 }
 
 
-$(document).ready(function () {
+//$(document).ready(function () {
 
     //localStorage.clear("username");
     //localStorage.clear("password");
@@ -45,7 +45,7 @@ $(document).ready(function () {
     //$("#PageLogin").live("pageinit", function () {
 
     //}
-    $("#PageLogin").on("pageshow", function () {
+    $("#PageLogin").live("pageshow", function () {
         $("#loginForm").each(function () {
             this.reset();
         });
@@ -113,7 +113,7 @@ $(document).ready(function () {
     });
 
     //Listen for exam results page
-    $("#PageExamResults").on("pageshow", function () {
+    $("#PageExamResults").live("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -143,7 +143,7 @@ $(document).ready(function () {
     });
 
     //Listen for exam timetable page
-    $("#PageExamTimetable").on("pageshow", function () {
+    $("#PageExamTimetable").live("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -162,7 +162,7 @@ $(document).ready(function () {
     });
 
     //Listen for account status page
-    $("#PageAccountStatus").on("pageshow", function () {
+    $("#PageAccountStatus").live("pageinit", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -182,7 +182,7 @@ $(document).ready(function () {
     });
 
     //Listen for graduation details page
-    $("#PageGraduationDetails").on("pageshow", function () {
+    $("#PageGraduationDetails").live("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -290,7 +290,7 @@ $(document).ready(function () {
         $("#EventsEntryText", this).html(contentHTML);
     });
 
-});
+//});
 
 function GetExamResults(username, password) {
     $.ajax({
