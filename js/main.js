@@ -25,13 +25,14 @@ function checkPreAuth() {
 }
 
 
-//$(document).ready(function () {
+//$(document).bind('pageinit', function () {
+$(document).ready(function () {
 
     //localStorage.clear("username");
     //localStorage.clear("password");
     //localStorage.clear("isStudent");
 
-    $(".MyJourneyLink").bind('click', function (event) {
+    $(".MyJourneyLink").on('click', function (event) {
         var ref = window.open('http://myjourney.nmmu.ac.za', '_blank', 'location=yes');
         //ref.addEventListener('loadstart', function () { alert('start: ' + event.url); });
         //ref.addEventListener('loadstop', function () { alert('stop: ' + event.url); });
@@ -45,7 +46,7 @@ function checkPreAuth() {
     //$("#PageLogin").live("pageinit", function () {
 
     //}
-    $("#PageLogin").live("pageshow", function () {
+    $("#PageLogin").on("pageshow", function () {
         $("#loginForm").each(function () {
             this.reset();
         });
@@ -82,6 +83,7 @@ function checkPreAuth() {
         localStorage.clear("isStudent");
 
         $.mobile.changePage("#PageHome");
+        $.mobile.activePage.trigger("create");
     });
 
     //News RSS url
@@ -113,7 +115,7 @@ function checkPreAuth() {
     });
 
     //Listen for exam results page
-    $("#PageExamResults").live("pageshow", function () {
+    $("#PageExamResults").on("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -143,7 +145,7 @@ function checkPreAuth() {
     });
 
     //Listen for exam timetable page
-    $("#PageExamTimetable").live("pageshow", function () {
+    $("#PageExamTimetable").on("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -162,7 +164,7 @@ function checkPreAuth() {
     });
 
     //Listen for account status page
-    $("#PageAccountStatus").live("pageinit", function () {
+    $("#PageAccountStatus").on("pageinit", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -182,7 +184,7 @@ function checkPreAuth() {
     });
 
     //Listen for graduation details page
-    $("#PageGraduationDetails").live("pageshow", function () {
+    $("#PageGraduationDetails").on("pageshow", function () {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
@@ -290,7 +292,7 @@ function checkPreAuth() {
         $("#EventsEntryText", this).html(contentHTML);
     });
 
-//});
+});
 
 function GetExamResults(username, password) {
     $.ajax({
