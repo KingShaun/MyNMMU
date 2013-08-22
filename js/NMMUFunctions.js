@@ -304,7 +304,7 @@ function onDeviceReady() {
         var myOptions = {
             zoom: 15,
             center: latlngPos,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.ROADMAP
 
             //Options: 
             //MapTypeId.ROADMAP displays the default road map view
@@ -355,7 +355,7 @@ function onDeviceReady() {
         var myOptions = {
             zoom: 15,
             center: latlngPos,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         // Define the map
         map = new google.maps.Map(document.getElementById("sc_map_canvas"), myOptions);
@@ -375,7 +375,7 @@ function onDeviceReady() {
         var myOptions = {
             zoom: 15,
             center: latlngPos,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         // Define the map
         map = new google.maps.Map(document.getElementById("2nd_map_canvas"), myOptions);
@@ -395,7 +395,7 @@ function onDeviceReady() {
         var myOptions = {
             zoom: 15,
             center: latlngPos,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         // Define the map
         map = new google.maps.Map(document.getElementById("bs_map_canvas"), myOptions);
@@ -415,7 +415,7 @@ function onDeviceReady() {
         var myOptions = {
             zoom: 15,
             center: latlngPos,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         // Define the map
         map = new google.maps.Map(document.getElementById("gc_map_canvas"), myOptions);
@@ -435,7 +435,7 @@ function onDeviceReady() {
         var myOptions = {
             zoom: 15,
             center: latlngPos,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         // Define the map
         map = new google.maps.Map(document.getElementById("mv_map_canvas"), myOptions);
