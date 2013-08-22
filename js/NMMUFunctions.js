@@ -533,7 +533,7 @@ function onDeviceReady() {
     $(document).on('pageinit', '#basic-map', function () {
         $(document).on('click', '#directions-button', function (e) {
             e.preventDefault();
-            calculateRoute();
+            calculateRoute(); //force
         });
     });
 
