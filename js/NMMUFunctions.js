@@ -526,15 +526,13 @@ function onDeviceReady() {
         }
     }
 
-    $(document).on("pageshow", "#basic-map", function () {
-        navigator.geolocation.getCurrentPosition(locSuccess, locError, { enableHighAccuracy: true });
+    $(document).on("pagebeforeshow", "#basic-map", function () {
+        navigator.geolocation.getCurrentPosition(locSuccess, locError);
     });
 
-    $(document).on('pageinit', '#basic-map', function () {
-        $(document).on('click', '#directions-button', function (e) {
-            e.preventDefault();
-            calculateRoute(); //force
-        });
+    $(document).on('click', '#directions-button', function (e) {
+        e.preventDefault();
+        calculateRoute();
     });
 
     //####################### End Navigation #########################
