@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="css/NMMU.css">
 
     <script type="text/javascript" src="phonegap.js"></script>
-    <!--<script src="js/jquery-1.10.2.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>-->
-    <script src="js/jquery-1.7.min.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script src="js/jquery-1.7.min.js"></script>-->
 
     <script src="js/jquery.mobile-1.3.2.min.js"></script>
-    <script src="js/main.js"></script>
+<!--    <script src="js/main.js"></script>-->
+    <script src="js/NMMUFunctions.js"></script>
 
 
 
@@ -155,7 +156,7 @@
 
         <div data-role="content">
             <div class="spinner"></div>
-            <ul id="NewsLinksList" data-role="listview" data-inset="true"></ul>
+            <ul id="NewsLinksList" data-role="listview" data-filter="true" data-inset="true"></ul>
         </div>
 
     </div>
@@ -231,11 +232,9 @@
             <a href="#PageLoggedInHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Exam results</h1>
         </div>
 
-        <div data-role="content">
+        <div data-role="content" id="DivExamResults">
 
-            <div class="NotStudent" style="display: none"></div>
-
-            <!--            <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stroke table-stripe">-->
+<!--            <div class="NotStudent" style="display: none"></div>-->
             <table data-role="table" id="ExamResultsTable" data-mode="reflow" class="table-stripe">
                 <thead>
                     <tr>
@@ -260,9 +259,7 @@
             <a href="#PageLoggedInHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Exam Timetable</h1>
         </div>
 
-        <div data-role="content">
-
-            <div class="NotStudent" style="display: none"></div>
+        <div data-role="content" id="DivExamTimetable">
 
             <table data-role="table" id="ExamTimetableTable" data-mode="reflow" class="table-stripe">
                 <thead>
@@ -289,7 +286,7 @@
 
         <div data-role="content" id="DivAccountStatus">
 
-            <div class="NotStudent" style="display: none"></div>
+<!--            <div class="NotStudent" style="display: none"></div>-->
 
         </div>
     </div>
@@ -303,8 +300,6 @@
         </div>
 
         <div data-role="content" id="DivGraduationDetails">
-
-            <div class="NotStudent" style="display: none"></div>
 
         </div>
     </div>
@@ -347,6 +342,18 @@
         </div>
     </div>
     <!-- End About us -->
+
+    <!-- NMMU News -->
+    <div data-role="page" id="Div1">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>News</h1>
+        </div>
+
+		<div data-theme="d"	data-role="content" id="NewsList">
+		</div>
+    </div>
+    <!-- End NMMU News -->
 
 
 </body>
