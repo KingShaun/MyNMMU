@@ -291,7 +291,6 @@ $(document).ready(function () {
         contentHTML += '<p/><a href="' + EventsEntries[SelectedEventsEntry].link + '">Read Entry on Site</a>';
         $("#EventsEntryText", this).html(contentHTML);
     });
-
 });
 
 function GetExamResults(username, password) {

@@ -289,6 +289,55 @@ $(document).on('pageinit', '#PageAboutUs', function () {
     }
 });
 
+$(document).on('pageshow', '#PageNCMap', function (e, data) {
+    $('#DivNCMapContent').height(getRealContentHeight());
+
+    var latlngPos = new google.maps.LatLng(-33.998578, 25.672194);
+    // Set up options for the Google map
+    var myOptions = {
+        zoom: 15,
+        center: latlngPos,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+
+        //Options: 
+        //MapTypeId.ROADMAP displays the default road map view
+        //MapTypeId.SATELLITE displays Google Earth satellite images
+        //MapTypeId.HYBRID displays a mixture of normal and satellite views
+        //MapTypeId.TERRAIN displays a physical map based on terrain information
+
+    };
+    // Define the map
+    map = new google.maps.Map(document.getElementById("nc_map_canvas"), myOptions);
+    // Add the marker
+    var marker = new google.maps.Marker({
+        position: latlngPos,
+        map: map,
+        title: "NMMU North Campus"
+    });
+    // To add the marker to the map, call setMap();
+    marker.setMap(map);
+});
+
+$(document).on('pageshow', '#PageSCMap', function (e, data) {
+    $('#DivSCMapContent').height(getRealContentHeight());
+
+    var latlngPos = new google.maps.LatLng(-34.005325, 25.669783);
+    // Set up options for the Google map
+    var myOptions = {
+        zoom: 15,
+        center: latlngPos,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    // Define the map
+    map = new google.maps.Map(document.getElementById("sc_map_canvas"), myOptions);
+    // Add the marker
+    var marker = new google.maps.Marker({
+        position: latlngPos,
+        map: map,
+        title: "NMMU South Campus"
+    });
+});
+
 //Main page init
 $(document).on('pageinit', function () {
 
@@ -364,6 +413,7 @@ function handleLogin() {
 }
 
 function checkPreAuth() {
+    showLoader();
     var form = $("#loginForm");
     if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
 
@@ -383,6 +433,7 @@ function checkPreAuth() {
 
         form.css('display', 'block');
     }
+    hideLoader();
 }
 
 function GetAccountStatus(username, password) {
@@ -464,4 +515,17 @@ function GetGraduationDetails(username, password) {
     }).always(function () {
 
     });
+}
+
+function getRealContentHeight() {
+    var header = $.mobile.activePage.find("div[data-role='header']:visible");
+    var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
+    var content = $.mobile.activePage.find("div[data-role='content']:visible:visible");
+    var viewport_height = $(window).height();
+
+    var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
+    if ((content.outerHeight() - header.outerHeight() - footer.outerHeight()) <= viewport_height) {
+        content_height -= (content.outerHeight() - content.height());
+    }
+    return content_height;
 }
