@@ -481,7 +481,8 @@ function initialize(lat, lon) {
 
 function locError(error) {
     // initialize map with a static predefined latitude, longitude
-    alert("could not detect location");
+    alert('code: ' + error.code + '\n' +
+                  'message: ' + error.message + '\n');
     initialize(59.3426606750, 18.0736160278);
 }
 
