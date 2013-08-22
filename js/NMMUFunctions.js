@@ -527,7 +527,7 @@ function onDeviceReady() {
     }
 
     $(document).on("pageshow", "#basic-map", function () {
-        navigator.geolocation.getCurrentPosition(locSuccess, locError);
+        navigator.geolocation.getCurrentPosition(locSuccess, locError, { enableHighAccuracy: true });
     });
 
     $(document).on('pageinit', '#basic-map', function () {
