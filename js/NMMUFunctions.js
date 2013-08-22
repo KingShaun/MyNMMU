@@ -312,27 +312,21 @@ $(document).on('pageshow', '#PageNCMap', function (e, data) {
     var contentString = '<div id="content">' +
         '<div id="siteNotice">' +
         '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">North Campus</h1>' +
+        '<h2 id="firstHeading" class="firstHeading">North Campus</h2>' +
         '<div id="bodyContent">' +
-        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-        'sandstone rock formation in the southern part of the ' +
-        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-        'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-        'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-        'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-        'Aboriginal people of the area. It has many springs, waterholes, ' +
-        'rock caves and ancient paintings. Uluru is listed as a World ' +
-        'Heritage Site.</p>' +
-        '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-        'http://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-        '(last visited June 22, 2009).</p>' +
+        '<p>NMMU is the largest higher education institution in the Eastern and Southern Cape, ' + 
+        'with some 25 000 students enrolled at six different campuses or delivery sites – five located in the Nelson Mandela Metropole, ' +
+        'and one in the beautiful city of George. The multi-campus structure enables NMMU to be closely involved with, and geographically ' +
+        'closer to, the communities it serves. The main campus of NMMU is situated in Summerstrand, Port Elizabeth. ' + 
+        'The faculties are spread across the six campuses, and in some cases programmes are duplicated on more than one campus.</p>' +
+        '<p><a href="http://www.nmmu.ac.za">' +
+        'Visit web site.</p>' +
         '</div>' +
         '</div>';
 
     var infowindow = new google.maps.InfoWindow({
         content: contentString,
-        maxWidth: 200
+        maxWidth: 150
     });
 
     // Add the marker
