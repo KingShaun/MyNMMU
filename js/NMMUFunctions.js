@@ -88,11 +88,11 @@ $(document).on('pagebeforeshow', '#PageNews', function () {
 
 //NMMU LOGIC: To ensure the event fire everytime we hit the PageNewsContent page, use pagebeforeshow
 $(document).on('pagebeforeshow', '#PageNewsContent', function () {
-        var contentHTML = "";
-        contentHTML += '<h3>' + NewsEntries[SelectedNewsEntry].title + '</h3>';
-        contentHTML += NewsEntries[SelectedNewsEntry].description;
-        contentHTML += '<p><a href="#" class="ReadEntry">Read Entry on Site</a></p>';
-        $("#NewsEntryText", this).html(contentHTML);
+    var contentHTML = "";
+    contentHTML += '<h3>' + NewsEntries[SelectedNewsEntry].title + '</h3>';
+    contentHTML += NewsEntries[SelectedNewsEntry].description;
+    contentHTML += '<p><a href="#" class="ReadEntry">Read Entry on Site</a></p>';
+    $("#NewsEntryText", this).html(contentHTML);
 });
 
 //NMMU LOGIC: PageNewsContent page pagebeforeshow created the links with the class ReadEntry, no use pageshow to assign the onclick event to fire InAppBrowser 
@@ -194,7 +194,7 @@ $(document).on('pagebeforeshow', '#PageAccountStatus', function () {
     var password = storage["password"];
     var isStudent = storage["isStudent"];;
 
-    
+
     if (isStudent != "true") {
         //Display message on page
         $('#DivAccountStatus').html('<p>This page is only available to current NMMU students.</p>');
@@ -317,7 +317,7 @@ $(document).on('pageshow', '#PageNCMap', function (e, data) {
         '</div>' +
         '<h2 id="firstHeading" class="firstHeading">North Campus</h2>' +
         '<div id="bodyContent">' +
-        '<p>NMMU is the largest higher education institution in the Eastern and Southern Cape. ' + 
+        '<p>NMMU is the largest higher education institution in the Eastern and Southern Cape. ' +
         '</p>' +
         //'<p><a href="http://www.nmmu.ac.za">' +
         //'Visit our web site.</p>' +
@@ -521,13 +521,15 @@ function calculateRoute() {
     }
 }
 
-$(document).on("pagebeforeshow", "#basic-map", function () {
+$(document).on("pageshow", "#basic-map", function () {
     navigator.geolocation.getCurrentPosition(locSuccess, locError);
 });
 
-$(document).on('click', '#directions-button', function (e) {
-    e.preventDefault();
-    calculateRoute();
+$(document).on('pageinit', '#basic-map', function () {
+    $(document).on('click', '#directions-button', function (e) {
+        e.preventDefault();
+        calculateRoute();
+    });
 });
 
 //####################### End Navigation #########################
