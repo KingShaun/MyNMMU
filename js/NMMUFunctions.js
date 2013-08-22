@@ -481,6 +481,7 @@ function initialize(lat, lon) {
 
 function locError(error) {
     // initialize map with a static predefined latitude, longitude
+    alert("could not detect location");
     initialize(59.3426606750, 18.0736160278);
 }
 
@@ -520,7 +521,7 @@ function calculateRoute() {
     }
 }
 
-$(document).on("pagebeforeshow", "#map_page", function () {
+$(document).on("pagebeforeshow", "#basic-map", function () {
     navigator.geolocation.getCurrentPosition(locSuccess, locError);
 });
 
