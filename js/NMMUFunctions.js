@@ -289,8 +289,11 @@ $(document).on('pageinit', '#PageAboutUs', function () {
     }
 });
 
+// ########################## Maps ################################ 
+//NMMU LOGIC: Set campus maps using Google Maps API. 
+
 $(document).on('pageshow', '#PageNCMap', function (e, data) {
-    $('#DivNCMapContent').height(getRealContentHeight());
+    $('.NMMUMapContent').height(getRealContentHeight());
 
     var latlngPos = new google.maps.LatLng(-33.998578, 25.672194);
     // Set up options for the Google map
@@ -314,19 +317,16 @@ $(document).on('pageshow', '#PageNCMap', function (e, data) {
         '</div>' +
         '<h2 id="firstHeading" class="firstHeading">North Campus</h2>' +
         '<div id="bodyContent">' +
-        '<p>NMMU is the largest higher education institution in the Eastern and Southern Cape, ' + 
-        'with some 25 000 students enrolled at six different campuses or delivery sites – five located in the Nelson Mandela Metropole, ' +
-        'and one in the beautiful city of George. The multi-campus structure enables NMMU to be closely involved with, and geographically ' +
-        'closer to, the communities it serves. The main campus of NMMU is situated in Summerstrand, Port Elizabeth. ' + 
-        'The faculties are spread across the six campuses, and in some cases programmes are duplicated on more than one campus.</p>' +
-        '<p><a href="http://www.nmmu.ac.za">' +
-        'Visit web site.</p>' +
+        '<p>NMMU is the largest higher education institution in the Eastern and Southern Cape. ' + 
+        '</p>' +
+        //'<p><a href="http://www.nmmu.ac.za">' +
+        //'Visit our web site.</p>' +
         '</div>' +
         '</div>';
 
     var infowindow = new google.maps.InfoWindow({
         content: contentString,
-        maxWidth: 150
+        maxWidth: 170
     });
 
     // Add the marker
@@ -344,7 +344,7 @@ $(document).on('pageshow', '#PageNCMap', function (e, data) {
 });
 
 $(document).on('pageshow', '#PageSCMap', function (e, data) {
-    $('#DivSCMapContent').height(getRealContentHeight());
+    $('.NMMUMapContent').height(getRealContentHeight());
 
     var latlngPos = new google.maps.LatLng(-34.005325, 25.669783);
     // Set up options for the Google map
@@ -362,6 +362,174 @@ $(document).on('pageshow', '#PageSCMap', function (e, data) {
         title: "NMMU South Campus"
     });
 });
+
+$(document).on('pageshow', '#Page2NDMap', function (e, data) {
+    $('.NMMUMapContent').height(getRealContentHeight());
+
+    var latlngPos = new google.maps.LatLng(-33.987003, 25.658269);
+    // Set up options for the Google map
+    var myOptions = {
+        zoom: 15,
+        center: latlngPos,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    // Define the map
+    map = new google.maps.Map(document.getElementById("2nd_map_canvas"), myOptions);
+    // Add the marker
+    var marker = new google.maps.Marker({
+        position: latlngPos,
+        map: map,
+        title: "NMMU 2nd Avenue Campus"
+    });
+});
+
+$(document).on('pageshow', '#PageBSMap', function (e, data) {
+    $('.NMMUMapContent').height(getRealContentHeight());
+
+    var latlngPos = new google.maps.LatLng(-33.964867, 25.617111);
+    // Set up options for the Google map
+    var myOptions = {
+        zoom: 15,
+        center: latlngPos,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    // Define the map
+    map = new google.maps.Map(document.getElementById("bs_map_canvas"), myOptions);
+    // Add the marker
+    var marker = new google.maps.Marker({
+        position: latlngPos,
+        map: map,
+        title: "NMMU Bird Street Campus"
+    });
+});
+
+$(document).on('pageshow', '#PageGCMap', function (e, data) {
+    $('.NMMUMapContent').height(getRealContentHeight());
+
+    var latlngPos = new google.maps.LatLng(-33.970492, 22.534097);
+    // Set up options for the Google map
+    var myOptions = {
+        zoom: 15,
+        center: latlngPos,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    // Define the map
+    map = new google.maps.Map(document.getElementById("gc_map_canvas"), myOptions);
+    // Add the marker
+    var marker = new google.maps.Marker({
+        position: latlngPos,
+        map: map,
+        title: "NMMU George Campus"
+    });
+});
+
+$(document).on('pageshow', '#PageMVMap', function (e, data) {
+    $('.NMMUMapContent').height(getRealContentHeight());
+
+    var latlngPos = new google.maps.LatLng(-33.870628, 25.550636);
+    // Set up options for the Google map
+    var myOptions = {
+        zoom: 15,
+        center: latlngPos,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    // Define the map
+    map = new google.maps.Map(document.getElementById("mv_map_canvas"), myOptions);
+    // Add the marker
+    var marker = new google.maps.Marker({
+        position: latlngPos,
+        map: map,
+        title: "NMMU Missionvale Campus"
+    });
+});
+
+// ########################## End Maps ############################ 
+
+// ################### Navigation #################################
+
+var map,
+    currentPosition,
+    directionsDisplay,
+    directionsService;
+
+function initialize(lat, lon) {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsService = new google.maps.DirectionsService();
+
+    currentPosition = new google.maps.LatLng(lat, lon);
+
+    map = new google.maps.Map(document.getElementById('map_canvas'), {
+        zoom: 15,
+        center: currentPosition,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    directionsDisplay.setMap(map);
+
+    var currentPositionMarker = new google.maps.Marker({
+        position: currentPosition,
+        map: map,
+        title: "Current position"
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+    google.maps.event.addListener(currentPositionMarker, 'click', function () {
+        infowindow.setContent("Current position: latitude: " + lat + " longitude: " + lon);
+        infowindow.open(map, currentPositionMarker);
+    });
+}
+
+function locError(error) {
+    // initialize map with a static predefined latitude, longitude
+    initialize(59.3426606750, 18.0736160278);
+}
+
+function locSuccess(position) {
+    initialize(position.coords.latitude, position.coords.longitude);
+}
+
+function calculateRoute() {
+    var targetDestination = $("#target-dest").val();
+    if (currentPosition && currentPosition != '' && targetDestination && targetDestination != '') {
+        var request = {
+            origin: currentPosition,
+            destination: targetDestination,
+            travelMode: google.maps.DirectionsTravelMode["DRIVING"]
+        };
+
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setPanel(document.getElementById("directions"));
+                directionsDisplay.setDirections(response);
+
+                /*
+                    var myRoute = response.routes[0].legs[0];
+                    for (var i = 0; i < myRoute.steps.length; i++) {
+                        alert(myRoute.steps[i].instructions);
+                    }
+                */
+                $("#results").show();
+            }
+            else {
+                $("#results").hide();
+            }
+        });
+    }
+    else {
+        $("#results").hide();
+    }
+}
+
+$(document).on("pagebeforeshow", "#map_page", function () {
+    navigator.geolocation.getCurrentPosition(locSuccess, locError);
+});
+
+$(document).on('click', '#directions-button', function (e) {
+    e.preventDefault();
+    calculateRoute();
+});
+
+//####################### End Navigation #########################
 
 //Main page init
 $(document).on('pageinit', function () {

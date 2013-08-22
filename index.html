@@ -359,15 +359,28 @@
         <div data-role="content">
 
             <ul data-role="listview" data-divider-theme="d" data-inset="true">
-                <li data-role="list-divider" role="heading">Menu items
+                <li data-role="list-divider" role="heading">Maps
                 </li>
                 <li data-theme="d">
-                    <a href="#PageNCMap" data-transition="slide">North Campus
-                    </a>
+                    <a href="#PageNCMap" data-transition="slide">North Campus</a>
                 </li>
                 <li data-theme="d">
-                    <a href="#PageSCMap" data-transition="slide">South Campus
-                    </a>
+                    <a href="#PageSCMap" data-transition="slide">South Campus</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#Page2NDMap" data-transition="slide">2nd Avenue Campus</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageBSMap" data-transition="slide">Bird Street Campus</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageGCMap" data-transition="slide">George Campus</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageMVMap" data-transition="slide">Missionvale Campus</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#basic-map" data-transition="slide">Get Directions</a>
                 </li>
             </ul>
         </div>
@@ -378,7 +391,7 @@
             <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>North Campus</h1>
         </div>
 
-		<div data-role="content" id="DivNCMapContent">
+		<div data-role="content" class="NMMUMapContent">
             <div id="nc_map_canvas" style="height:100%"></div>
 		</div>
     </div>
@@ -389,10 +402,72 @@
             <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>South Campus</h1>
         </div>
 
-		<div data-role="content" id="DivSCMapContent">
+		<div data-role="content" class="NMMUMapContent">
             <div id="sc_map_canvas" style="height:100%"></div>
 		</div>
     </div>
+
+    <div data-role="page" id="Page2NDMap">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>2nd Avenue Campus</h1>
+        </div>
+
+		<div data-role="content" class="NMMUMapContent">
+            <div id="2nd_map_canvas" style="height:100%"></div>
+		</div>
+    </div>
+
+    <div data-role="page" id="PageBSMap">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Bird Street Campus</h1>
+        </div>
+
+		<div data-role="content" class="NMMUMapContent">
+            <div id="bs_map_canvas" style="height:100%"></div>
+		</div>
+    </div>
+
+    <div data-role="page" id="PageGCMap">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>George Campus</h1>
+        </div>
+
+		<div data-role="content" class="NMMUMapContent">
+            <div id="gc_map_canvas" style="height:100%"></div>
+		</div>
+    </div>
+
+    <div data-role="page" id="PageMVMap">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Missionvale Campus</h1>
+        </div>
+
+		<div data-role="content" class="NMMUMapContent">
+            <div id="mv_map_canvas" style="height:100%"></div>
+		</div>
+    </div>
+
+   <!-- Navigate to NMMU-->
+        <div id="basic-map" data-role="page">
+            <div data-role="content">   
+                <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
+                    <div id="map_canvas" style="height:300px;"></div>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="target-dest">Target Destination:</label>
+                    <input type="text" name="target-dest" id="target-dest" value=""  />
+                </div>
+                <a href="#" id="directions-button" data-role="button" data-mini="true"  data-theme="b">Get Directions</a>
+                <div id="results" style="display:none;">
+                    <div id="directions"></div>
+                </div>
+            </div>
+        </div>      
+
     <!-- End NMMU Maps -->
 
 
