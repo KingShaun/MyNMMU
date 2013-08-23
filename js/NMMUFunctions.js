@@ -531,6 +531,9 @@ function onDeviceReady() {
     }
 
     $(document).on("pagebeforeshow", "#PageGetDirections", function () {
+        //Clear directions
+        $('#directions').html('');
+        //Get user's location
         navigator.geolocation.getCurrentPosition(locSuccess, locError);
     });
 
