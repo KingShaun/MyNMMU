@@ -457,6 +457,7 @@ function onDeviceReady() {
         directionsService;
 
     function initialize(lat, lon) {
+
         directionsDisplay = new google.maps.DirectionsRenderer();
         directionsService = new google.maps.DirectionsService();
 
@@ -545,6 +546,65 @@ function onDeviceReady() {
     });
 
     //####################### End Navigation (Get Directions) #########################
+
+
+    //Reverse Geolocate
+    function codeLatLng(lat, lon) {
+
+        var geocoder = new google.maps.Geocoder();
+
+        var input = lat + "," + lon;
+        var latlngStr = input.split(',', 2);
+        var lat = parseFloat(latlngStr[0]);
+        var lng = parseFloat(latlngStr[1]);
+        var latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    //$('#DivEmergency').html(results[1].formatted_address);
+                    $('#LiWhereAmI').html(results[1].formatted_address);
+                } else {
+                    alert('No results found');
+                }
+            } else {
+                alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+
+    function locwhereamiError(error) {
+        // initialize map with a static predefined latitude, longitude
+        //alert('code: ' + error.code + '\n' +
+        //              'message: ' + error.message + '\n');
+        //initialize('', '');
+        switch (error.code) {
+            case error.PERMISSION_DENIED: alert("user did not share geolocation data");
+                break;
+            case error.POSITION_UNAVAILABLE: alert("could not detect current position");
+                break;
+            case error.TIMEOUT: alert("retrieving position timedout");
+                break;
+            default: alert("unknown error");
+                break;
+        }
+    }
+
+    function locwhereamiSuccess(position) {
+        codeLatLng(position.coords.latitude, position.coords.longitude);
+    }
+
+    $(document).on('pageinit', '#PageEmergency', function () {
+        var IsPhone = $.mobile.media("screen and (min-width: 320px) and (max-device-width : 480px)");
+        if (IsPhone) {
+            $('.NMMUPhoneNumberTablet').css('display', 'none');
+            $('.NMMUPhoneNumber').css('display', 'block');
+        }
+    });
+
+    $(document).on("pagebeforeshow", "#PageEmergency", function () {
+        //Get user's location
+        navigator.geolocation.getCurrentPosition(locwhereamiSuccess, locwhereamiError);
+    });
 
     //Main page init
     $(document).on('pageinit', function () {

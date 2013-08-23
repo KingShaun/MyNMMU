@@ -51,6 +51,10 @@
                     </a>
                 </li>
                 <li data-theme="d">
+                    <a href="#PageEmergency" data-transition="slide">Emergency
+                    </a>
+                </li>
+                <li data-theme="d">
                     <a href="#PageMaps" data-transition="slide">Maps
                     </a>
                 </li>
@@ -388,6 +392,7 @@
             </ul>
         </div>
     </div>
+
     <div data-role="page" id="PageNCMap">
 
         <div data-role="header">
@@ -465,7 +470,7 @@
             <div class="ui-bar-c ui-corner-all ui-shadow" style="padding: 1em;">
                 <div id="map_canvas" style="height: 250px;"></div>
             </div>
-<!--            <div data-role="fieldcontain">
+            <!--            <div data-role="fieldcontain">
                 <label for="target-dest">Target Destination:</label>
                 <input type="text" name="target-dest" id="target-dest" value="" />
             </div>-->
@@ -488,6 +493,39 @@
     </div>
 
     <!-- End NMMU Maps -->
+
+    <div data-role="page" id="PageEmergency">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Emergency</h1>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+                <li data-role="list-divider" role="heading">Where am I?</li>
+                <li id="LiWhereAmI"></li>
+            </ul>
+
+            <div class="NMMUPhoneNumberTablet">
+                <ul data-role="listview" data-divider-theme="d" data-inset="true">
+                    <li data-role="list-divider" role="heading">Help lines</li>
+                    <li>NMMU Security: 041-504 1111</li>
+                    <li>Police: 10111</li>
+                    <li>Ambulance: 10123</li>
+                </ul>
+
+                <!--                <h3>Help lines:</h3>
+                <p>
+                    <strong>NMMU Security:</strong> 041-504 1111<br />
+                    <strong>Police:</strong> 10111<br />
+                    <strong>Ambulance:</strong> 10123
+                </p>-->
+            </div>
+            <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call NMMU Security</a>
+            <a href="tel:10111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call the police</a>
+            <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call an ambulance</a>
+        </div>
+    </div>
 
 
 </body>
