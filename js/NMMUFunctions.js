@@ -449,7 +449,7 @@ function onDeviceReady() {
 
     // ########################## End Maps ############################ 
 
-    // ################### Navigation #################################
+    // ################### Navigation (Get Directions) #################################
 
     var map,
         currentPosition,
@@ -495,6 +495,10 @@ function onDeviceReady() {
     }
 
     function calculateRoute() {
+
+        //Clear directions
+        $('#directions').html('');
+
         var targetDestination = $("#target-dest").val();
         if (currentPosition && currentPosition != '' && targetDestination && targetDestination != '') {
             var request = {
@@ -526,16 +530,18 @@ function onDeviceReady() {
         }
     }
 
-    $(document).on("pagebeforeshow", "#basic-map", function () {
+    $(document).on("pagebeforeshow", "#PageGetDirections", function () {
         navigator.geolocation.getCurrentPosition(locSuccess, locError);
     });
 
-    $(document).on('click', '#directions-button', function (e) {
-        e.preventDefault();
-        calculateRoute();
+    $(document).on('pageinit', '#PageGetDirections', function () {
+        $(document).on('click', '#directions-button', function (e) {
+            e.preventDefault();
+            calculateRoute();
+        });
     });
 
-    //####################### End Navigation #########################
+    //####################### End Navigation (Get Directions) #########################
 
     //Main page init
     $(document).on('pageinit', function () {
