@@ -32,9 +32,15 @@
 
 ////Page wide variables:
 
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+
 // PhoneGap is ready
 //
 function onDeviceReady() {
+
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
 
     //Stores news entries
     var NewsEntries = [];
@@ -562,7 +568,7 @@ function onDeviceReady() {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
                     //$('#DivEmergency').html(results[1].formatted_address);
-                    $('#LiWhereAmI').html(results[1].formatted_address);
+                    $('#LiWhereAmI').html(results[0].formatted_address);
                 } else {
                     alert('No results found');
                 }
@@ -578,13 +584,13 @@ function onDeviceReady() {
         //              'message: ' + error.message + '\n');
         //initialize('', '');
         switch (error.code) {
-            case error.PERMISSION_DENIED: alert("user did not share geolocation data");
+            case error.PERMISSION_DENIED: alert("User denied the request for Geolocation.");
                 break;
-            case error.POSITION_UNAVAILABLE: alert("could not detect current position");
+            case error.POSITION_UNAVAILABLE: alert("Location information is unavailable.");
                 break;
-            case error.TIMEOUT: alert("retrieving position timedout");
+            case error.TIMEOUT: alert("The request to get user location timed out.");
                 break;
-            default: alert("unknown error");
+            default: alert("An unknown error occurred.");
                 break;
         }
     }
@@ -606,6 +612,74 @@ function onDeviceReady() {
         navigator.geolocation.getCurrentPosition(locwhereamiSuccess, locwhereamiError);
     });
 
+    // Adverts List Page
+
+    //Stores adverts entries
+    var AdvertsEntries = [];
+    var SelectedAdvertsEntry = "";
+
+
+    //NMMU LOGIC: Run the GetAdvertsPerCategory function.
+    //We want this running everytime we hit the page, so pagebeforeshow
+    $(document).on('pageinit', '#PageAdverts', function () {
+        //Pass the category parameter
+        //GetAdvertsPerCategory("Accommodation");
+
+        var category = "Accommodation";
+        showLoader();
+
+        $.ajax({
+            type: "POST",
+            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/GetAdvertsPerCategory",
+            contentType: 'application/json',
+            data: '{ Category: "' + category + '" }',
+            dataType: "json"
+        }).done(function (msg) {
+            $.each(msg.d, function (i, v) {
+
+                entry = {
+                    subject: v.Subject
+                };
+                AdvertsEntries.push(entry);
+
+                hideLoader();
+
+            });
+                //now draw the list
+                var s = '';
+                $.each(AdvertsEntries, function (i, v) {
+                    s += '<li>';
+                    s += '<a href="#PageAdvertContent" class="AdvertContentLink" data-entryid="' + i + '">';
+                    s += v.subject;
+                    s += '</a>';
+                    s += '</li>';
+                });
+
+                $("#AccommodationListView").append(s);
+                $("#AccommodationListView").listview("refresh");
+
+        }).fail(function (msg) {
+            alert("fail:" + msg.d);
+        }).always(function () {
+
+        });
+
+
+    });
+
+    $(document).on('pagebeforeshow', '#PageAdverts', function () {
+        $(document).off('click', '.AdvertContentLink').on('click', '.AdvertContentLink', function (e) {
+            SelectedAdvertsEntry = $(this).data("entryid");
+        });
+    });
+
+    $(document).on('pagebeforeshow', '#PageAdvertContent', function () {
+        var contentHTML = "";
+        contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].subject + '</h3>';
+        //contentHTML += AdvertsEntries[SelectedAdvertsEntry].description;
+        $("#AdvertEntryText", this).html(contentHTML);
+    });
+
     //Main page init
     $(document).on('pageinit', function () {
 
@@ -614,6 +688,7 @@ function onDeviceReady() {
 }
 //NMMU Written functions:
 
+
 function init() {
     // Wait for PhoneGap to load
     //
@@ -621,7 +696,6 @@ function init() {
 
     delete init;
 }
-
 
 //show loader
 var showLoader = function () {
@@ -805,4 +879,84 @@ function getRealContentHeight() {
         content_height -= (content.outerHeight() - content.height());
     }
     return content_height;
+}
+
+
+//############### test zone ####################
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoDataSuccess(imageData) {
+    // Uncomment to view the base64 encoded image data
+    // console.log(imageData);
+
+    // Get image handle
+    //
+    var smallImage = document.getElementById('smallImage');
+
+    // Unhide image elements
+    //
+    smallImage.style.display = 'block';
+
+    // Show the captured photo
+    // The inline CSS rules are used to resize the image
+    //
+    smallImage.src = "data:image/jpeg;base64," + imageData;
+}
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+    // Uncomment to view the image file URI 
+    // console.log(imageURI);
+
+    // Get image handle
+    //
+    var largeImage = document.getElementById('largeImage');
+
+    // Unhide image elements
+    //
+    largeImage.style.display = 'block';
+
+    // Show the captured photo
+    // The inline CSS rules are used to resize the image
+    //
+    largeImage.src = imageURI;
+}
+
+// A button will call this function
+//
+function capturePhoto() {
+    // Take picture using device camera and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 50,
+        destinationType: destinationType.DATA_URL
+    });
+}
+
+// A button will call this function
+//
+function capturePhotoEdit() {
+    // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 20, allowEdit: true,
+        destinationType: destinationType.DATA_URL
+    });
+}
+
+// A button will call this function
+//
+function getPhoto(source) {
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+        quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source
+    });
+}
+
+// Called if something bad happens.
+// 
+function onFail(message) {
+    alert('Failed because: ' + message);
 }

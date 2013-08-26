@@ -55,10 +55,6 @@
                     </a>
                 </li>
                 <li data-theme="d">
-                    <a href="#PageEmergency" data-transition="slide">Emergency
-                    </a>
-                </li>
-                <li data-theme="d">
                     <a href="#PageMaps" data-transition="slide">Maps
                     </a>
                 </li>
@@ -100,6 +96,15 @@
                 <li data-theme="d">
                     <a href="#PageGraduationDetails" data-transition="slide">Graduation details</a>
                 </li>
+                <li data-theme="d">
+                    <a href="#PageAdverts" data-transition="slide">Adverts
+                    </a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageAdvertPost" data-transition="slide">Adverts post
+                    </a>
+                </li>
+                
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -494,6 +499,7 @@
 
     <!-- End NMMU Maps -->
 
+    <!-- Emergency -->
     <div data-role="page" id="PageEmergency">
 
         <div data-role="header">
@@ -526,6 +532,65 @@
             <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call an ambulance</a>
         </div>
     </div>
+    <!-- End Emergency -->
+
+    <!-- Adverts -->
+    <div data-role="page" id="PageAdverts">
+
+        <div data-role="header">
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Adverts</h1>
+        </div>
+
+        <div data-role="content">
+            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
+                <h4>Accommodation</h4>
+                <ul data-role="listview" data-inset="false" id="AccommodationListView">
+                </ul>
+            </div>
+            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
+                <h4>Books</h4>
+                <ul data-role="listview" data-inset="false">
+                    <li><a href="#">Book1</a></li>
+                    <li><a href="#">Book2</a></li>
+                    <li><a href="#">Book3</a></li>
+                    <li><a href="#">Book4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="PageAdvertContent">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
+        </div>
+
+        <div data-role="content" id="AdvertEntryText">
+        </div>
+
+    </div>
+
+
+    <div data-role="page" id="PageAdvertPost">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
+        </div>
+
+        <div data-role="content">
+            <button onclick="capturePhoto();">Capture Photo</button>
+            <br>
+            <button onclick="capturePhotoEdit();">Capture Editable Photo</button>
+            <br>
+            <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+            <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+            <img style="display: none; width: 60px; height: 60px;" id="smallImage" src="" />
+            <img style="display: none;" id="largeImage" src="" />
+        </div>
+
+    </div>
+    <!-- End Adverts -->
+
 
 
 </body>
