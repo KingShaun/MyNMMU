@@ -684,20 +684,20 @@ function onDeviceReady() {
     $(document).on('pagebeforeshow', '#PageAdvertPost', function () {
         GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
 
-        navigator.camera.getPicture(onSuccess, onFail, {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL
-        });
+        //navigator.camera.getPicture(onSuccess, onFail, {
+        //    quality: 50,
+        //    destinationType: Camera.DestinationType.DATA_URL
+        //});
 
-        function onSuccess(imageData) {
-            var image = document.getElementById('myImage');
-            image.src = "data:image/jpeg;base64," + imageData;
-            image.style.display = 'block';
-        }
+        //function onSuccess(imageData) {
+        //    var image = document.getElementById('myImage');
+        //    image.src = "data:image/jpeg;base64," + imageData;
+        //    image.style.display = 'block';
+        //}
 
-        function onFail(message) {
-            alert('Failed because: ' + message);
-        }
+        //function onFail(message) {
+        //    alert('Failed because: ' + message);
+        //}
     });
 
     //Main page init
