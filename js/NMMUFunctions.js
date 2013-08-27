@@ -680,6 +680,11 @@ function onDeviceReady() {
         $("#AdvertEntryText", this).html(contentHTML);
     });
 
+    //Advert post
+    $(document).on('pagebeforeshow', '#PageAdvertPost', function () {
+        GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
+    });
+
     //Main page init
     $(document).on('pageinit', function () {
 
@@ -868,6 +873,42 @@ function GetGraduationDetails(username, password) {
     });
 }
 
+function GetADDetailsForAdvertPost(username, password) {
+    var formAdvertPost = $("#FormPostAdvert");
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", password: "' + password + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        $("#YourName", formAdvertPost).val(msg.d.FullName);
+        $("#YourEmail", formAdvertPost).val(msg.d.Email);
+
+    }).fail(function (msg) {
+        alert("fail:" + msg);
+    }).always(function () {
+
+    });
+}
+
+function CreateAdvert() {
+
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
+        contentType: 'application/json',
+        //data: '{ username: "' + u + '", password: "' + p + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        alert(JSON.stringify(msg));
+    }).fail(function (msg) {
+        alert("fail:" + msg);
+    }).always(function () {
+
+    });
+}
+
 function getRealContentHeight() {
     var header = $.mobile.activePage.find("div[data-role='header']:visible");
     var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
@@ -881,6 +922,9 @@ function getRealContentHeight() {
     return content_height;
 }
 
+function GetPhotoOnDevice() {
+
+}
 
 //############### test zone ####################
 

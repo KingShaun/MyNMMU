@@ -578,14 +578,59 @@
         </div>
 
         <div data-role="content">
-            <button onclick="capturePhoto();">Capture Photo</button>
-            <br>
-            <button onclick="capturePhotoEdit();">Capture Editable Photo</button>
-            <br>
-            <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-            <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-            <img style="display: none; width: 60px; height: 60px;" id="smallImage" src="" />
-            <img style="display: none;" id="largeImage" src="" />
+            <p>Note: Your details have been logged. Abuse will lead to removal of IT privileges.</p>
+            <form id="FormPostAdvert" class="ui-body ui-body-d ui-corner-all" data-ajax="false">
+                <div data-role="fieldcontain">
+                    <label for="YourName">Name:</label>
+                    <input type="text" value="" name="YourName" id="YourName" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="YourEmail">Email:</label>
+                    <input type="text" value="" name="YourEmail" id="YourEmail" placeholder="" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="YourMobile">Mobile:</label>
+                    <input type="text" value="" name="YourMobile" id="YourMobile" placeholder="" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="YourSubject">Subject:</label>
+                    <input type="text" value="" name="YourSubject" id="YourSubject" placeholder="" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="AdCategory" class="select">Category:</label>
+                    <select name="AdCategory" id="AdCategory">
+                        <option value="Accommodation">Accommodation</option>
+                        <option value="Books">Books</option>
+                        <option value="Cars, bikes">Cars, bikes</option>
+                        <option value="Cell phones, cameras, mp3, memory cards">Cell phones, cameras, mp3, memory cards</option>
+                        <option value="Computers, laptops, games">Computers, laptops, games</option>
+                        <option value="Events, parties">Events, parties</option>
+                        <option value="Fashion, clothing, cosmetics">Fashion, clothing, cosmetics</option>
+                        <option value="Health, diets, food">Health, diets, food</option>
+                        <option value="Hobbies, sport">Hobbies, sport</option>
+                        <option value="Household goods, furniture, appliances">Household goods, furniture, appliances</option>
+                        <option value="iShare">iShare</option>
+                        <option value="Jobs, income">Jobs, income</option>
+                        <option value="Lift clubs, transport">Lift clubs, transport</option>
+                        <option value="Lost and found">Lost and found</option>
+                        <option value="Meal of the day">Meal of the day</option>
+                        <option value="Pets">Pets</option>
+                        <option value="Tuition">Tuition</option>
+                        <option value="Unclassified">Unclassified</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                        <label for="textareaDescription">Description:</label>
+                        <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription"></textarea>
+                </div>
+                <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
+            </form>
+
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+
         </div>
 
     </div>
