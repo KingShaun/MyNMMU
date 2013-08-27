@@ -974,7 +974,8 @@ function uploadPhoto() {
 }
 
 function win(r) {
-    alert(JSON.stringify(r));
+    alert("Winning!");
+    //alert(JSON.stringify(r));
 }
 
 function fail(error) {
