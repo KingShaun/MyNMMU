@@ -685,10 +685,11 @@ function onDeviceReady() {
 
     //Advert post
     $(document).on('pageinit', '#PageAdvertPost', function () {
-        $("#FormPostAdvert").on("submit", uploadPhoto(advertImageUrl));
+        $("#FormPostAdvert").on("submit", uploadPhoto);
     });
 
-    
+    //$("#submitAdvert").on('click', uploadPhoto);
+
     $(document).on('pagebeforeshow', '#PageAdvertPost', function () {
         GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
 
@@ -952,8 +953,10 @@ function GetPhotoOnDevice() {
 //############### test zone ####################
 
 
-function uploadPhoto(imageURI) {
+function uploadPhoto() {
+    var imageURI = advertImageUrl;
     var options = new FileUploadOptions();
+    options.chunkedMode = false;
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
@@ -1016,6 +1019,8 @@ function onPhotoURISuccess(imageURI) {
     // The inline CSS rules are used to resize the image
     //
     largeImage.src = imageURI;
+
+    advertImageUrl = imageURI;
 }
 
 // A button will call this function
@@ -1042,26 +1047,7 @@ function capturePhotoEdit() {
 //
 function getPhoto(source) {
     // Retrieve image file location from specified source
-    navigator.camera.getPicture(function (imageURI) {
-        // Uncomment to view the image file URI 
-        // console.log(imageURI);
-
-        // Get image handle
-        //
-        var largeImage = document.getElementById('smallImage');
-
-        // Unhide image elements
-        //
-        largeImage.style.display = 'block';
-
-        // Show the captured photo
-        // The inline CSS rules are used to resize the image
-        //
-        largeImage.src = imageURI;
-
-        advertImageUrl = imageURI;
-
-    }, onFail, {
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
         quality: 50,
         destinationType: destinationType.FILE_URI,
         sourceType: source
