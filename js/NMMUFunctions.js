@@ -39,9 +39,6 @@ var destinationType; // sets the format of returned value
 //
 function onDeviceReady() {
 
-    pictureSource = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
-
     //Stores news entries
     var NewsEntries = [];
     var SelectedNewsEntry = "";
@@ -682,6 +679,9 @@ function onDeviceReady() {
 
     //Advert post
     $(document).on('pagebeforeshow', '#PageAdvertPost', function () {
+        pictureSource = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
+
         GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
     });
 
