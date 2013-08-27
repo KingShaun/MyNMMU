@@ -969,6 +969,8 @@ function uploadPhoto() {
 
     var ft = new FileTransfer();
     ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+
+    return false;
 }
 
 function win(r) {
