@@ -675,7 +675,6 @@ function onDeviceReady() {
         });
     });
 
-
     $(document).on('pagebeforeshow', '#PageAdvertContent', function () {
         var contentHTML = "";
         contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].subject + '</h3>';
@@ -686,10 +685,7 @@ function onDeviceReady() {
 
     //Advert post
     $(document).on('pageinit', '#PageAdvertPost', function () {
-        $(document).on('click', '#submitAdvert', function (e) {
-            e.preventDefault();
-            uploadPhoto(advertImageUrl);
-        });
+        $("#FormPostAdvert").on("submit", uploadPhoto(advertImageUrl));
     });
 
     
