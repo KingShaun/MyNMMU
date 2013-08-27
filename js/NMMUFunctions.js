@@ -972,9 +972,7 @@ function uploadPhoto() {
 }
 
 function win(r) {
-    console.log("Code = " + r.responseCode);
-    console.log("Response = " + r.response);
-    console.log("Sent = " + r.bytesSent);
+    alert(JSON.stringify(r));
 }
 
 function fail(error) {
