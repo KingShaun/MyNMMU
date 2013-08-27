@@ -954,8 +954,11 @@ function GetPhotoOnDevice() {
 
 
 function uploadPhoto() {
+    alert("Start");
     var imageURI = advertImageUrl;
+    alert("Image: " + imageURI);
     var options = new FileUploadOptions();
+    alert("Options: " + JSON.stringify(options));
     options.chunkedMode = false;
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
@@ -967,15 +970,18 @@ function uploadPhoto() {
 
     options.params = params;
 
+    alert("Start FT");
+
     var ft = new FileTransfer();
     ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+
+    alert("Done FT.");
 
     return false;
 }
 
 function win(r) {
-    alert("Winning!");
-    //alert(JSON.stringify(r));
+    alert(JSON.stringify(r));
 }
 
 function fail(error) {
