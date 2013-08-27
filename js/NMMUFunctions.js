@@ -35,6 +35,8 @@
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
 
+var advertImageUrl;
+
 // PhoneGap is ready
 //
 function onDeviceReady() {
@@ -673,6 +675,7 @@ function onDeviceReady() {
         });
     });
 
+
     $(document).on('pagebeforeshow', '#PageAdvertContent', function () {
         var contentHTML = "";
         contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].subject + '</h3>';
@@ -680,7 +683,16 @@ function onDeviceReady() {
         $("#AdvertEntryText", this).html(contentHTML);
     });
 
+
     //Advert post
+    $(document).on('pageinit', '#PageAdvertPost', function () {
+        $(document).on('click', '#submitAdvert', function (e) {
+            e.preventDefault();
+            uploadPhoto(advertImageUrl);
+        });
+    });
+
+    
     $(document).on('pagebeforeshow', '#PageAdvertPost', function () {
         GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
 
@@ -943,6 +955,33 @@ function GetPhotoOnDevice() {
 
 //############### test zone ####################
 
+
+function uploadPhoto(imageURI) {
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
+
+    var params = new Object();
+    params.value1 = "test";
+    params.value2 = "param";
+
+    options.params = params;
+
+    var ft = new FileTransfer();
+    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+}
+
+function win(r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+function fail(error) {
+    alert("An error has occurred: Code = " = error.code);
+}
+
 // Called when a photo is successfully retrieved
 //
 function onPhotoDataSuccess(imageData) {
@@ -1007,7 +1046,26 @@ function capturePhotoEdit() {
 //
 function getPhoto(source) {
     // Retrieve image file location from specified source
-    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+    navigator.camera.getPicture(function (imageURI) {
+        // Uncomment to view the image file URI 
+        // console.log(imageURI);
+
+        // Get image handle
+        //
+        var largeImage = document.getElementById('smallImage');
+
+        // Unhide image elements
+        //
+        largeImage.style.display = 'block';
+
+        // Show the captured photo
+        // The inline CSS rules are used to resize the image
+        //
+        largeImage.src = imageURI;
+
+        advertImageUrl = imageURI;
+
+    }, onFail, {
         quality: 50,
         destinationType: destinationType.FILE_URI,
         sourceType: source
