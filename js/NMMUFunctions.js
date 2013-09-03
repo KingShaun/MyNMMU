@@ -56,7 +56,7 @@ function onDeviceReady() {
     //NMMU LOGIC: On pageinit, run the RSS get and build the listview
     $(document).on('pageinit', '#PageNews', function () {
 
-        showLoader();
+        $.mobile.loading('show');
 
         $.get("http://news.nmmu.ac.za/home?rss=nmmu-news", {}, function (res, code) {
             var xml = $(res);
@@ -69,7 +69,7 @@ function onDeviceReady() {
                 };
                 NewsEntries.push(entry);
 
-                hideLoader();
+                $.mobile.loading('hide');
             });
 
             //now draw the list
@@ -119,7 +119,7 @@ function onDeviceReady() {
     //NMMU LOGIC: See news
     $(document).on('pageinit', '#PageEvents', function () {
 
-        showLoader();
+        $.mobile.loading('show');
 
         $.get("http://news.nmmu.ac.za/Home?rss=NMMU-events", {}, function (res, code) {
             var xml = $(res);
@@ -132,7 +132,7 @@ function onDeviceReady() {
                 };
                 EventsEntries.push(entry);
 
-                hideLoader();
+                $.mobile.loading('hide');
             });
 
             //now draw the list
@@ -624,11 +624,8 @@ function onDeviceReady() {
     //NMMU LOGIC: Run the GetTop10Adverts function.
     //We want this running everytime we hit the page, so pagebeforeshow
     $(document).on('pageinit', '#PageAdverts', function () {
-        //Pass the category parameter
-        //GetAdvertsPerCategory("Accommodation");
 
-        //var category = "Accommodation";
-        showLoader();
+        $.mobile.loading('show');
 
         $.ajax({
             type: "POST",
@@ -648,7 +645,7 @@ function onDeviceReady() {
                 };
                 AdvertsEntries.push(entry);
 
-                hideLoader();
+                $.mobile.loading('hide');
 
             });
                 //now draw the list
@@ -661,8 +658,8 @@ function onDeviceReady() {
                     s += '</li>';
                 });
 
-                $("#AccommodationListView").append(s);
-                $("#AccommodationListView").listview("refresh");
+                $("#AdvertsLatest10ListView").append(s);
+                $("#AdvertsLatest10ListView").listview("refresh");
 
         }).fail(function (msg) {
             alert("fail:" + msg.d);
@@ -782,13 +779,11 @@ var SearchAdvertsEntries = [];
 function handleAdvertSearch() {
 
     var form = $("#advertSearchForm");
-    //disable the button so we can't resubmit while we wait
-    //$("#submitAdvertSearch", form).attr("disabled", "disabled");
     
     //SearchText
     var st = $("#advertsearchtext", form).val();
     if (st != '') {
-        showLoader();
+        $.mobile.loading('show');
         $.ajax({
             type: "POST",
             url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SearchAdverts",
@@ -813,12 +808,14 @@ function handleAdvertSearch() {
                 };
                 SearchAdvertsEntries.push(entry);
 
-                hideLoader();
+                $.mobile.loading('hide');
 
             });
             var s = '';
             s += '<li data-role="list-divider" role="heading">Search results</li>';
 
+
+            //The webservice will return one record into the array, saying no results found.
             if (SearchAdvertsEntries.length == 1 && SearchAdvertsEntries[0].adsubject == "No results found.") {
                 s += '<li>';
                 s += 'No results returned.';
@@ -863,8 +860,7 @@ function handleLogin() {
     var p = $("#password", form).val();
     //console.log("click");
     if (u != '' && p != '') {
-        //$.mobile.showPageLoadingMsg();
-        showLoader();
+        $.mobile.loading('show');
         $.ajax({
             type: "POST",
             url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
@@ -873,8 +869,7 @@ function handleLogin() {
             dataType: "json"
         }).done(function (msg) {
 
-            hideLoader();
-            //$.mobile.hidePageLoadingMsg();
+            $.mobile.loading('hide');
 
             if (msg.d.IsAuthenticated == true) {
 
