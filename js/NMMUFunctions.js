@@ -621,26 +621,30 @@ function onDeviceReady() {
     var SelectedAdvertsEntry = "";
 
 
-    //NMMU LOGIC: Run the GetAdvertsPerCategory function.
+    //NMMU LOGIC: Run the GetTop10Adverts function.
     //We want this running everytime we hit the page, so pagebeforeshow
     $(document).on('pageinit', '#PageAdverts', function () {
         //Pass the category parameter
         //GetAdvertsPerCategory("Accommodation");
 
-        var category = "Accommodation";
+        //var category = "Accommodation";
         showLoader();
 
         $.ajax({
             type: "POST",
-            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/GetAdvertsPerCategory",
+            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/GetTop10Adverts",
             contentType: 'application/json',
-            data: '{ Category: "' + category + '" }',
+            //data: '{ Category: "' + category + '" }',
             dataType: "json"
         }).done(function (msg) {
             $.each(msg.d, function (i, v) {
 
                 entry = {
-                    subject: v.Subject
+                    adsubject: v.Subject,
+                    adsubmittedby: v.Name,
+                    ademail: v.EmailAddress,
+                    admobile: v.Mobile,
+                    addescription: v.Description
                 };
                 AdvertsEntries.push(entry);
 
@@ -652,7 +656,7 @@ function onDeviceReady() {
                 $.each(AdvertsEntries, function (i, v) {
                     s += '<li>';
                     s += '<a href="#PageAdvertContent" class="AdvertContentLink" data-entryid="' + i + '">';
-                    s += v.subject;
+                    s += v.adsubject;
                     s += '</a>';
                     s += '</li>';
                 });
@@ -677,7 +681,14 @@ function onDeviceReady() {
 
     $(document).on('pagebeforeshow', '#PageAdvertContent', function () {
         var contentHTML = "";
-        contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].subject + '</h3>';
+        contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '</h3>';
+        contentHTML += '<p>';
+        contentHTML += '<strong>Submitted by:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adsubmittedby + '<br />';
+        contentHTML += '<strong>Email:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].ademail + '<br />';
+        contentHTML += '<strong>Mobile:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].admobile + '<br />';
+        contentHTML += '</p>';
+        contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p>';
+        
         //contentHTML += AdvertsEntries[SelectedAdvertsEntry].description;
         $("#AdvertEntryText", this).html(contentHTML);
     });
@@ -709,6 +720,34 @@ function onDeviceReady() {
         //}
     });
 
+    //Advert search
+    //NMMU LOGIC: Set the advert search form's submit to fire the handleAdvertSearch function. 
+    $(document).on('pageinit', '#PageAdvertSearch', function () {
+        $("#advertSearchForm").on("submit", handleAdvertSearch);
+
+    });
+
+    //Array to store results in
+    var SelectedSearchAdvertsEntry = "";
+
+    $(document).on('pagebeforeshow', '#PageAdvertSearch', function () {
+        $(document).off('click', '.SearchAdvertContentLink').on('click', '.SearchAdvertContentLink', function (e) {
+            SelectedSearchAdvertsEntry = $(this).data("entryid");
+        });
+    });
+
+    $(document).on('pagebeforeshow', '#PageSearchAdvertContent', function () {
+        var contentHTML = "";
+        contentHTML += '<h3>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '</h3>';
+        contentHTML += '<p>';
+        contentHTML += '<strong>Submitted by:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubmittedby + '<br />';
+        contentHTML += '<strong>Email:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '<br />';
+        contentHTML += '<strong>Mobile:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '<br />';
+        contentHTML += '</p>';
+        contentHTML += '<p>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addescription + '</p>';
+        $("#SearchAdvertEntryText", this).html(contentHTML);
+    });
+
     //Main page init
     $(document).on('pageinit', function () {
 
@@ -734,6 +773,86 @@ var showLoader = function () {
 //hide loader
 var hideLoader = function () {
     $('.spinner').css('display', 'none');
+}
+
+//Stores adverts entries
+var SearchAdvertsEntries = [];
+
+
+function handleAdvertSearch() {
+
+    var form = $("#advertSearchForm");
+    //disable the button so we can't resubmit while we wait
+    //$("#submitAdvertSearch", form).attr("disabled", "disabled");
+    
+    //SearchText
+    var st = $("#advertsearchtext", form).val();
+    if (st != '') {
+        showLoader();
+        $.ajax({
+            type: "POST",
+            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SearchAdverts",
+            contentType: 'application/json',
+            data: '{ SearchText: "' + st + '" }',
+            dataType: "json"
+        }).done(function (msg) {
+
+            //Clear the array
+            SearchAdvertsEntries.length = 0;
+
+            $.each(msg.d, function (i, v) {
+
+                alert
+
+                entry = {
+                    adsubject: v.Subject,
+                    adsubmittedby: v.Name,
+                    ademail: v.EmailAddress,
+                    admobile: v.Mobile,
+                    addescription: v.Description
+                };
+                SearchAdvertsEntries.push(entry);
+
+                hideLoader();
+
+            });
+            var s = '';
+            s += '<li data-role="list-divider" role="heading">Search results</li>';
+
+            if (SearchAdvertsEntries.length == 1 && SearchAdvertsEntries[0].adsubject == "No results found.") {
+                s += '<li>';
+                s += 'No results returned.';
+                s += '</li>';
+            }
+            else {
+                //now draw the list
+                $.each(SearchAdvertsEntries, function (i, v) {
+                    s += '<li>';
+                    s += '<a href="#PageSearchAdvertContent" class="SearchAdvertContentLink" data-entryid="' + i + '">';
+                    s += v.adsubject;
+                    s += '</a>';
+                    s += '</li>';
+                });
+            }
+            
+            $("#AdvertSearchResultsListView").html(s);            
+            $("#AdvertSearchResultsListView").listview("refresh");
+
+            //Make results visible
+            //$('#DivAdvertsSearchResults').css('display', 'block');
+        }).fail(function (msg) {
+            alert("fail:" + msg);
+        }).always(function () {
+
+        });
+
+    } else {
+        //Thanks Igor!
+        //navigator.notification.alert("You must enter a username and password", function () { });
+        $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
+        $("#submitAdvertSearch").removeAttr("disabled");
+    }
+    return false;
 }
 
 function handleLogin() {

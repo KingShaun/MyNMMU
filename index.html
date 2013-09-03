@@ -100,11 +100,6 @@
                     <a href="#PageAdverts" data-transition="slide">Adverts
                     </a>
                 </li>
-                <li data-theme="d">
-                    <a href="#PageAdvertPost" data-transition="slide">Adverts post
-                    </a>
-                </li>
-                
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -543,19 +538,18 @@
         </div>
 
         <div data-role="content">
-            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h4>Accommodation</h4>
+            <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
+                <h4>Latest 10 Adverts</h4>
                 <ul data-role="listview" data-inset="false" id="AccommodationListView">
                 </ul>
             </div>
-            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h4>Books</h4>
-                <ul data-role="listview" data-inset="false">
-                    <li><a href="#">Book1</a></li>
-                    <li><a href="#">Book2</a></li>
-                    <li><a href="#">Book3</a></li>
-                    <li><a href="#">Book4</a></li>
-                </ul>
+        </div>
+
+        <div data-theme="a" data-role="footer" data-position="fixed">
+            <div data-role="controlgroup" data-type="horizontal" style="text-align: center">
+                <a href="#PageAdvertPost" data-role="button" data-icon="plus">Post</a>
+                <a href="#" data-role="button" data-icon="edit">Edit</a>
+                <a href="#PageAdvertSearch" data-role="button" data-icon="search">Search</a>
             </div>
         </div>
     </div>
@@ -571,6 +565,43 @@
 
     </div>
 
+
+    <div data-role="page" id="PageAdvertSearch">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert search</h1>
+        </div>
+
+        <div data-role="content" id="PageAdvertSearchContent">
+           <form id="advertSearchForm" class="ui-body ui-body-d ui-corner-all">
+                <input name="advertsearchtext" id="advertsearchtext" type="search" data-clear-btn="true" placeholder="Search for ..." value="">
+                <input type="submit" value="Search" id="submitAdvertSearch" data-theme="b">
+            </form>
+
+            <div id="DivAdvertsSearchResults">
+                <ul id="AdvertSearchResultsListView" data-role="listview" data-inset="true">
+                </ul>
+            </div>
+
+            <!--            <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" id="DivAdvertsSearchResults">
+                <h4>Search results</h4>
+                <ul data-role="listview" data-inset="false" id="AdvertSearchResultsListView">
+                </ul>
+            </div>-->
+        </div>
+
+    </div>
+
+    <div data-role="page" id="PageSearchAdvertContent">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
+        </div>
+
+        <div data-role="content" id="SearchAdvertEntryText">
+        </div>
+
+    </div>
 
     <div data-role="page" id="PageAdvertPost">
 
@@ -621,18 +652,18 @@
                     </select>
                 </div>
                 <div data-role="fieldcontain">
-                        <label for="textareaDescription">Description:</label>
-                        <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription"></textarea>
+                    <label for="textareaDescription">Description:</label>
+                    <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription"></textarea>
                 </div>
                 <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
             </form>
 
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
+            <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+            <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+            <img style="display: none; width: 60px; height: 60px;" id="smallImage" src="" />
+            <img style="display: none;" id="largeImage" src="" />
 
-<!--            <img style="display:none;" id="myImage" src="" />-->
+            <!--            <img style="display:none;" id="myImage" src="" />-->
         </div>
 
     </div>
