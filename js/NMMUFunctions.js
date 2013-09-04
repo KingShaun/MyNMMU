@@ -601,6 +601,7 @@ function onDeviceReady() {
         codeLatLng(position.coords.latitude, position.coords.longitude);
     }
 
+    // Emergency Page
     $(document).on('pageinit', '#PageEmergency', function () {
         var IsPhone = $.mobile.media("screen and (min-width: 320px) and (max-device-width : 480px)");
         if (IsPhone) {
@@ -641,7 +642,8 @@ function onDeviceReady() {
                     adsubmittedby: v.Name,
                     ademail: v.EmailAddress,
                     admobile: v.Mobile,
-                    addescription: v.Description
+                    addescription: v.Description,
+                    addatecreated: v.DateCreated
                 };
                 AdvertsEntries.push(entry);
 
@@ -683,6 +685,7 @@ function onDeviceReady() {
         contentHTML += '<strong>Submitted by:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adsubmittedby + '<br />';
         contentHTML += '<strong>Email:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].ademail + '<br />';
         contentHTML += '<strong>Mobile:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].admobile + '<br />';
+        contentHTML += '<strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '<br />'; 
         contentHTML += '</p>';
         contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p>';
         
@@ -740,6 +743,7 @@ function onDeviceReady() {
         contentHTML += '<strong>Submitted by:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubmittedby + '<br />';
         contentHTML += '<strong>Email:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '<br />';
         contentHTML += '<strong>Mobile:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '<br />';
+        contentHTML += '<strong>Date submitted:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addatecreated + '<br />';
         contentHTML += '</p>';
         contentHTML += '<p>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addescription + '</p>';
         $("#SearchAdvertEntryText", this).html(contentHTML);
@@ -804,7 +808,8 @@ function handleAdvertSearch() {
                     adsubmittedby: v.Name,
                     ademail: v.EmailAddress,
                     admobile: v.Mobile,
-                    addescription: v.Description
+                    addescription: v.Description,
+                    addatecreated: v.DateCreated
                 };
                 SearchAdvertsEntries.push(entry);
 

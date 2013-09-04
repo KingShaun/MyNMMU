@@ -535,11 +535,16 @@
         </div>
 
         <div data-role="content">
-            <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
+            <!--            <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
                 <h4>Latest 10 Adverts</h4>
                 <ul data-role="listview" data-inset="false" id="AdvertsLatest10ListView">
                 </ul>
-            </div>
+            </div>-->
+
+            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="AdvertsLatest10ListView">
+                <li data-role="list-divider" role="heading">Latest 10 Adverts
+                </li>
+            </ul>
         </div>
 
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -570,13 +575,13 @@
         </div>
 
         <div data-role="content" id="PageAdvertSearchContent">
-           <form id="advertSearchForm" class="ui-body ui-body-d ui-corner-all">
+            <form id="advertSearchForm" class="ui-body ui-body-d ui-corner-all">
                 <input name="advertsearchtext" id="advertsearchtext" type="search" data-clear-btn="true" placeholder="Search for ..." value="">
                 <input type="submit" value="Search" id="submitAdvertSearch" data-theme="b">
             </form>
 
             <div id="DivAdvertsSearchResults">
-                <ul id="AdvertSearchResultsListView" data-role="listview" data-inset="true">
+                <ul id="AdvertSearchResultsListView" data-divider-theme="d" data-role="listview" data-inset="true">
                 </ul>
             </div>
 
