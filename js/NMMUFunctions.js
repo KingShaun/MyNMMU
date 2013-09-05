@@ -977,7 +977,7 @@ function handleLogin() {
 }
 
 function checkPreAuth() {
-    showLoader();
+    $.mobile.loading('show');
     var form = $("#loginForm");
     if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
 
@@ -997,7 +997,7 @@ function checkPreAuth() {
 
         form.css('display', 'block');
     }
-    hideLoader();
+    $.mobile.loading('hide');
 }
 
 function GetAccountStatus(username, password) {
