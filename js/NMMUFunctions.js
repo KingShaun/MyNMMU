@@ -617,57 +617,61 @@ function onDeviceReady() {
 
     // Adverts List Page
 
-    //Stores adverts entries
-    var AdvertsEntries = [];
-    var SelectedAdvertsEntry = "";
 
+    var SelectedAdvertsEntry = "";
 
     //NMMU LOGIC: Run the GetTop10Adverts function.
     //We want this running everytime we hit the page, so pagebeforeshow
     $(document).on('pageinit', '#PageAdverts', function () {
+        
+        handleGetAdverts();
 
-        $.mobile.loading('show');
+        //$.mobile.loading('show');
 
-        $.ajax({
-            type: "POST",
-            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/GetTop10Adverts",
-            contentType: 'application/json',
-            //data: '{ Category: "' + category + '" }',
-            dataType: "json"
-        }).done(function (msg) {
-            $.each(msg.d, function (i, v) {
+        //$.ajax({
+        //    type: "POST",
+        //    url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/GetTop10Adverts",
+        //    contentType: 'application/json',
+        //    //data: '{ Category: "' + category + '" }',
+        //    dataType: "json"
+        //}).done(function (msg) {
 
-                entry = {
-                    adsubject: v.Subject,
-                    adsubmittedby: v.Name,
-                    ademail: v.EmailAddress,
-                    admobile: v.Mobile,
-                    addescription: v.Description,
-                    addatecreated: v.DateCreated
-                };
-                AdvertsEntries.push(entry);
+        //    //Clear the array
+        //    //AdvertsEntries.length = 0;
 
-                $.mobile.loading('hide');
+        //    $.each(msg.d, function (i, v) {
 
-            });
-                //now draw the list
-                var s = '';
-                $.each(AdvertsEntries, function (i, v) {
-                    s += '<li>';
-                    s += '<a href="#PageAdvertContent" class="AdvertContentLink" data-entryid="' + i + '">';
-                    s += v.adsubject;
-                    s += '</a>';
-                    s += '</li>';
-                });
+        //        entry = {
+        //            adsubject: v.Subject,
+        //            adsubmittedby: v.Name,
+        //            ademail: v.EmailAddress,
+        //            admobile: v.Mobile,
+        //            addescription: v.Description,
+        //            addatecreated: v.DateCreated
+        //        };
+        //        AdvertsEntries.push(entry);
 
-                $("#AdvertsLatest10ListView").append(s);
-                $("#AdvertsLatest10ListView").listview("refresh");
+        //        $.mobile.loading('hide');
 
-        }).fail(function (msg) {
-            alert("fail:" + msg.d);
-        }).always(function () {
+        //    });
+        //        //now draw the list
+        //        var s = '';
+        //        $.each(AdvertsEntries, function (i, v) {
+        //            s += '<li>';
+        //            s += '<a href="#PageAdvertContent" class="AdvertContentLink" data-entryid="' + i + '">';
+        //            s += v.adsubject;
+        //            s += '</a>';
+        //            s += '</li>';
+        //        });
 
-        });
+        //        $("#AdvertsLatest10ListView").append(s);
+        //        $("#AdvertsLatest10ListView").listview("refresh");
+
+        //}).fail(function (msg) {
+        //    alert("fail:" + msg.d);
+        //}).always(function () {
+
+        //});
 
 
     });
@@ -776,9 +780,70 @@ var hideLoader = function () {
     $('.spinner').css('display', 'none');
 }
 
+function refreshPage() {
+    $.mobile.changePage('#PageAdverts', {
+        allowSamePageTransition: true,
+        transition: 'none',
+        reloadPage: true
+    });
+}
+
+//Stores adverts entries
+var AdvertsEntries = [];
+
+function handleGetAdverts() {
+    $.mobile.loading('show');
+
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/GetTop10Adverts",
+        contentType: 'application/json',
+        //data: '{ Category: "' + category + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+
+        //Clear the array
+        AdvertsEntries.length = 0;
+
+        $.each(msg.d, function (i, v) {
+
+            entry = {
+                adsubject: v.Subject,
+                adsubmittedby: v.Name,
+                ademail: v.EmailAddress,
+                admobile: v.Mobile,
+                addescription: v.Description,
+                addatecreated: v.DateCreated
+            };
+            AdvertsEntries.push(entry);
+
+            $.mobile.loading('hide');
+
+        });
+        //now draw the list
+        var s = '';
+        s += '<li data-role="list-divider" role="heading">Latest</li>';
+
+        $.each(AdvertsEntries, function (i, v) {
+            s += '<li>';
+            s += '<a href="#PageAdvertContent" class="AdvertContentLink" data-transition="slide" data-entryid="' + i + '">';
+            s += v.adsubject;
+            s += '</a>';
+            s += '</li>';
+        });
+
+        $("#AdvertsLatest10ListView").html(s);
+        $("#AdvertsLatest10ListView").listview("refresh");
+
+    }).fail(function (msg) {
+        alert("fail:" + msg.d);
+    }).always(function () {
+
+    });
+}
+
 //Stores adverts entries
 var SearchAdvertsEntries = [];
-
 
 function handleAdvertSearch() {
 
@@ -830,7 +895,7 @@ function handleAdvertSearch() {
                 //now draw the list
                 $.each(SearchAdvertsEntries, function (i, v) {
                     s += '<li>';
-                    s += '<a href="#PageSearchAdvertContent" class="SearchAdvertContentLink" data-entryid="' + i + '">';
+                    s += '<a href="#PageSearchAdvertContent" class="SearchAdvertContentLink" data-transition="slide" data-entryid="' + i + '">';
                     s += v.adsubject;
                     s += '</a>';
                     s += '</li>';

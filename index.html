@@ -66,8 +66,8 @@
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
             <div data-role="controlgroup" data-type="horizontal" style="text-align: center">
-                <a href="#PageHome" data-role="button" data-icon="home">Home</a>
-                <a href="#PageLogin" data-role="button" data-icon="star">My NMMU</a>
+<!--                <a href="#PageHome" data-role="button" data-icon="home">Home</a>-->
+                <a href="#PageLogin" data-role="button" data-icon="gear">My NMMU</a>
                 <a href="#PageEmergency" data-role="button" data-icon="plus">Emergency</a>
             </div>
         </div>
@@ -105,7 +105,7 @@
         <div data-theme="a" data-role="footer" data-position="fixed">
             <div data-role="controlgroup" data-type="horizontal" style="text-align: center">
                 <a href="#PageHome" data-role="button" data-icon="home">Home</a>
-                <a href="#PageLogin" data-role="button" data-icon="star">My NMMU</a>
+<!--                <a href="#PageLogin" data-role="button" data-icon="gear">My NMMU</a>-->
                 <a href="#PageHome" data-role="button" data-icon="back" class="LogoutButton">Logout</a>
             </div>
         </div>
@@ -542,15 +542,13 @@
             </div>-->
 
             <ul data-role="listview" data-divider-theme="d" data-inset="true" id="AdvertsLatest10ListView">
-                <li data-role="list-divider" role="heading">Latest 10 Adverts
-                </li>
             </ul>
         </div>
 
         <div data-theme="a" data-role="footer" data-position="fixed">
             <div data-role="controlgroup" data-type="horizontal" style="text-align: center">
                 <a href="#PageAdvertPost" data-role="button" data-icon="plus">Post</a>
-                <a href="#" data-role="button" data-icon="edit">Edit</a>
+                <a href="#" data-role="button" data-icon="refresh" onclick="handleGetAdverts()">Refresh</a>
                 <a href="#PageAdvertSearch" data-role="button" data-icon="search">Search</a>
             </div>
         </div>
