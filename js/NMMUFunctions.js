@@ -622,7 +622,7 @@ function onDeviceReady() {
 
     //NMMU LOGIC: Run the GetTop10Adverts function.
     //We want this running everytime we hit the page, so pagebeforeshow
-    $(document).on('pageinit', '#PageAdverts', function () {
+    $(document).on('pagebeforeshow', '#PageAdverts', function () {
         
         handleGetAdverts();
 
@@ -676,7 +676,7 @@ function onDeviceReady() {
 
     });
 
-    $(document).on('pagebeforeshow', '#PageAdverts', function () {
+    $(document).on('pageshow', '#PageAdverts', function () {
         $(document).off('click', '.AdvertContentLink').on('click', '.AdvertContentLink', function (e) {
             SelectedAdvertsEntry = $(this).data("entryid");
         });
@@ -687,8 +687,8 @@ function onDeviceReady() {
         contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '</h3>';
         contentHTML += '<p>';
         contentHTML += '<strong>Submitted by:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adsubmittedby + '<br />';
-        contentHTML += '<strong>Email:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].ademail + '<br />';
-        contentHTML += '<strong>Mobile:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].admobile + '<br />';
+        contentHTML += '<strong>Email:</strong> <a href="mailto:' + AdvertsEntries[SelectedAdvertsEntry].ademail + '?subject=' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '">' + AdvertsEntries[SelectedAdvertsEntry].ademail + '</a><br />';
+        contentHTML += '<strong>Mobile:</strong> <a href="tel:' + AdvertsEntries[SelectedAdvertsEntry].admobile + '">' + AdvertsEntries[SelectedAdvertsEntry].admobile + '</a><br />';
         contentHTML += '<strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '<br />'; 
         contentHTML += '</p>';
         contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p>';
@@ -745,8 +745,8 @@ function onDeviceReady() {
         contentHTML += '<h3>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '</h3>';
         contentHTML += '<p>';
         contentHTML += '<strong>Submitted by:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubmittedby + '<br />';
-        contentHTML += '<strong>Email:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '<br />';
-        contentHTML += '<strong>Mobile:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '<br />';
+        contentHTML += '<strong>Email:</strong> <a href="mailto:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '?subject=' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '</a><br />';
+        contentHTML += '<strong>Mobile:</strong> <a href="tel:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '</a><br />'
         contentHTML += '<strong>Date submitted:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addatecreated + '<br />';
         contentHTML += '</p>';
         contentHTML += '<p>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addescription + '</p>';
@@ -792,6 +792,7 @@ function refreshPage() {
 var AdvertsEntries = [];
 
 function handleGetAdverts() {
+
     $.mobile.loading('show');
 
     $.ajax({
