@@ -1193,7 +1193,7 @@ function GetPhotoOnDevice() {
 
 function handleAdvertPost() {
 
-    alert("filename: " + advertImageUrl.substr(imageURI.lastIndexOf('/')+1));
+    alert("filename: " + advertImageUrl.substr(advertImageUrl.lastIndexOf('/') + 1));
     var form = $("#FormPostAdvert");
     //disable the button so we can't resubmit while we wait
     $("#submitAdvert", form).attr("disabled", "disabled");
