@@ -706,8 +706,8 @@ function onDeviceReady() {
 
         $('#browse_photo').click(function() {
  
-            //navigator.camera.getPicture(uploadPhoto, function (message) {
-            navigator.camera.getPicture(onPhotoURISuccess, function (message) {
+            navigator.camera.getPicture(uploadPhoto, function (message) {
+            //navigator.camera.getPicture(onPhotoURISuccess, function (message) {
                 alert('get picture failed');
             },{ quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
  
@@ -1269,27 +1269,22 @@ function handleAdvertPost() {
     return false;
 }
 
-function uploadPhoto(advertImageURI) {
- 
-    $.mobile.loading('show');
- 
-    var options = new FileUploadOptions();
-    options.fileKey = "recFile";
-    options.fileName = advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1);
-    options.mimeType="image/jpeg";
- 
-    var params = new Object();
-    params.value1 = "shaun";
-    params.value2 = "shaun@nmmu.ac.za";
+function uploadPhoto(imageURI) { 
+    var options = new FileUploadOptions(); 
+    options.fileKey="recFile"; 
+    var imagefilename = Number(new Date())+".jpg"; 
+    options.fileName=imagefilename; 
+    options.mimeType="image/jpeg"; 
 
-    options.chunkedMode = false;
- 
-    options.params = params;
- 
-    var ft = new FileTransfer();
-    ft.upload(advertImageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
- 
-}
+    var params = new Object(); 
+    params.value1 = "test"; 
+    params.value2 = "param"; 
+
+    options.params = params; 
+
+    var ft = new FileTransfer(); 
+    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
+} 
 
 function validateAdvertPost() {
 
