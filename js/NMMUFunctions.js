@@ -1193,60 +1193,78 @@ function GetPhotoOnDevice() {
 
 function handleAdvertPost() {
 
-    alert("filename: " + advertImageUrl.substr(advertImageUrl.lastIndexOf('/') + 1));
-    var form = $("#FormPostAdvert");
-    //disable the button so we can't resubmit while we wait
-    $("#submitAdvert", form).attr("disabled", "disabled");
-    var yourName = $("#YourName", form).val();
-    var yourEmail = $("#YourEmail", form).val();
-    //console.log("click");
-    if (yourName != '' && yourEmail != '') {
-        $.mobile.loading('show');
-        $.ajax({
-            type: "POST",
-            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
-            contentType: 'application/json',
-            data: '{ yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
-            dataType: "json"
-        }).done(function (msg) {
+    //alert("filename: " + advertImageUrl.substr(advertImageUrl.lastIndexOf('/') + 1));
 
-            alert("Success: " + msg.d);
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = advertImageUrl.substr(advertImageUrl.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
 
-            //if (msg.d.IsAuthenticated == true) {
+    var params = new Object();
+    params.yourName = "shaun";
+    params.yourEmail = "shaun@nmmu.ac.za";
 
-            //    //store
-            //    window.localStorage["username"] = u;
-            //    window.localStorage["password"] = p;
-            //    window.localStorage["isStudent"] = msg.d.IsStudent;
+    options.chunkedMode = false;
 
-            //    //Go to My NMMU menu page
-            //    $.mobile.changePage("#PageLoggedInHome");
-            //}
-            //else {
-            //    //Login fail and local values exist = Password has changed. Clear local values
-            //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
-            //        localStorage.clear("username");
-            //        localStorage.clear("password");
-            //        localStorage.clear("isStudent");
-            //    }
-                $("#submitButton").removeAttr("disabled");
-            //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
-            //}
+    options.params = params;
 
-            $.mobile.loading('hide');
+    var ft = new FileTransfer();
+    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
 
-        }).fail(function (msg) {
-            alert("fail:" + msg);
-        }).always(function () {
 
-        });
+    //var form = $("#FormPostAdvert");
+    ////disable the button so we can't resubmit while we wait
+    //$("#submitAdvert", form).attr("disabled", "disabled");
+    //var yourName = $("#YourName", form).val();
+    //var yourEmail = $("#YourEmail", form).val();
+    ////console.log("click");
+    //if (yourName != '' && yourEmail != '') {
+    //    $.mobile.loading('show');
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
+    //        contentType: 'application/json',
+    //        data: '{ yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
+    //        dataType: "json"
+    //    }).done(function (msg) {
 
-    } else {
-        //Thanks Igor!
-        //navigator.notification.alert("You must enter a username and password", function () { });
-        $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
-        $("#submitAdvert").removeAttr("disabled");
-    }
+    //        alert("Success: " + msg.d);
+
+    //        //if (msg.d.IsAuthenticated == true) {
+
+    //        //    //store
+    //        //    window.localStorage["username"] = u;
+    //        //    window.localStorage["password"] = p;
+    //        //    window.localStorage["isStudent"] = msg.d.IsStudent;
+
+    //        //    //Go to My NMMU menu page
+    //        //    $.mobile.changePage("#PageLoggedInHome");
+    //        //}
+    //        //else {
+    //        //    //Login fail and local values exist = Password has changed. Clear local values
+    //        //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+    //        //        localStorage.clear("username");
+    //        //        localStorage.clear("password");
+    //        //        localStorage.clear("isStudent");
+    //        //    }
+    //            $("#submitButton").removeAttr("disabled");
+    //        //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
+    //        //}
+
+    //        $.mobile.loading('hide');
+
+    //    }).fail(function (msg) {
+    //        alert("fail:" + msg);
+    //    }).always(function () {
+
+    //    });
+
+    //} else {
+    //    //Thanks Igor!
+    //    //navigator.notification.alert("You must enter a username and password", function () { });
+    //    $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
+    //    $("#submitAdvert").removeAttr("disabled");
+    //}
     return false;
 }
 
