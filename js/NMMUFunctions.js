@@ -1314,105 +1314,25 @@ function handleAdvertPost() {
     return false;
 }
 
-function uploadPhoto(advertImageURI) {
+function uploadPhoto(imageURI) {
+
+    document.getElementById("myimg").src = imageURI;
+
     var options = new FileUploadOptions(); 
     options.fileKey="recFile"; 
-    var imagefilename = Number(new Date())+".jpg"; 
-    options.fileName=imagefilename; 
-    options.mimeType="image/jpeg"; 
+    var imagefilename = imageURI;
+    options.fileName = imagefilename;
+    options.mimeType = "image/jpeg";
 
-    var params = new Object(); 
-    params.value1 = "test"; 
-    params.value2 = "param"; 
+    //var params = new Object(); 
+    //params.value1 = "test"; 
+    //params.value2 = "param"; 
+    //options.params = params; 
 
-    options.params = params; 
-
-    var ft = new FileTransfer(); 
+    var ft = new FileTransfer();
+    alert(imagefilename);
     ft.upload(advertImageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
 } 
-
-function validateAdvertPost() {
-
-
-    // validate the comment form when it is submitted
-    //$("#FormPostAdvert").validate();
-
-    //// validate signup form on keyup and submit
-    //$("#FormPostAdvert").validate({
-
-    //    alert: "invalidate",
-
-    //    rules: {
-    //        YourName: "required",
-    //        YourSubject: "required",
-    //        YourDescription: "required",
-    //        YourMobile: {
-    //            required: true,
-    //            minlength: 10,
-    //            maxlength: 13
-    //        },
-    //        YourEmail: {
-    //            required: true,
-    //            email: true
-    //        }
-    //    },
-    //    messages: {
-    //        YourName: "Please enter your name",
-    //        YourSubject: "Please enter a subject",
-    //        YourDescription: "Please enter a description",
-    //        YourMobile: {
-    //            required: "Please enter a phone number",
-    //            minlength: "Your phone number must consist of at least 10 characters",
-    //            maxlength: "Your phone number must consist of a maximum of 13 characters"
-    //        },
-    //        YourEmail: "Please enter a valid email address"
-    //    }
-    //});
-
-    //// get a collection of all empty fields
-    //var emptyFields = $(":input.adpostrequired").filter(function () {
-
-    //    // $.trim to prevent whitespace-only values being counted as 'filled'
-    //    return !$.trim(this.value).length;
-    //});
-
-    //// if there are one or more empty fields
-    //if (emptyFields.length) {
-
-    //    // do stuff; return false prevents submission
-    //    emptyFields.css("border", "1px solid red");
-    //    //alert("You must fill all fields!");
-    //    $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
-    //    return false;
-    //}
-
-    //alert("Done");
-
-    ////alert("Start");
-    ////var imageURI = advertImageUrl;
-    ////alert("Image: " + imageURI);
-    ////var options = new FileUploadOptions();
-    ////alert("Options: " + JSON.stringify(options));
-    ////options.chunkedMode = false;
-    ////options.fileKey = "file";
-    ////options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    ////options.mimeType = "image/jpeg";
-
-    ////var params = new Object();
-    ////params.value1 = "test";
-    ////params.value2 = "param";
-
-    ////options.params = params;
-
-    ////alert("Start FT");
-
-    //var ft = new FileTransfer();
-    //ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
-
-    //alert("Done FT.");
-
-    //return false;
-}
 
 function win(r) {
     alert("Sent = " + r.bytesSent);
@@ -1421,27 +1341,19 @@ function win(r) {
 }
 
 function fail(error) {
-    alert("An error has occurred: Code = " = error.code);
-}
+    switch (error.code) {
+        case FileTransferError.FILE_NOT_FOUND_ERR:
+            alert("Photo file not found");
+            break;
+        case FileTransferError.INVALID_URL_ERR:
+            alert("Bad Photo URL");
+            break;
+        case FileTransferError.CONNECTION_ERR:
+            alert("Connection error");
+            break;
+    }
 
-// Called when a photo is successfully retrieved
-//
-function onPhotoDataSuccess(imageData) {
-    // Uncomment to view the base64 encoded image data
-    // console.log(imageData);
-
-    // Get image handle
-    //
-    var smallImage = document.getElementById('smallImage');
-
-    // Unhide image elements
-    //
-    smallImage.style.display = 'block';
-
-    // Show the captured photo
-    // The inline CSS rules are used to resize the image
-    //
-    smallImage.src = "data:image/jpeg;base64," + imageData;
+    alert("An error has occurred: Code = " + error.code);
 }
 
 // Called when a photo is successfully retrieved
@@ -1452,7 +1364,7 @@ function onPhotoURISuccess(imageURI) {
 
     // Get image handle
     //
-    var largeImage = document.getElementById('smallImage');
+    var largeImage = document.getElementById('myimg');
 
     // Unhide image elements
     //
@@ -1464,41 +1376,4 @@ function onPhotoURISuccess(imageURI) {
     largeImage.src = imageURI;
 
     advertImageURI = imageURI;
-}
-
-// A button will call this function
-//
-function capturePhoto() {
-    // Take picture using device camera and retrieve image as base64-encoded string
-    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
-        quality: 50,
-        destinationType: destinationType.DATA_URL
-    });
-}
-
-// A button will call this function
-//
-function capturePhotoEdit() {
-    // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
-    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
-        quality: 20, allowEdit: true,
-        destinationType: destinationType.DATA_URL
-    });
-}
-
-// A button will call this function
-//
-function getPhoto(source) {
-    // Retrieve image file location from specified source
-    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
-        quality: 50,
-        destinationType: destinationType.FILE_URI,
-        sourceType: source
-    });
-}
-
-// Called if something bad happens.
-// 
-function onFail(message) {
-    alert('Failed because: ' + message);
 }
