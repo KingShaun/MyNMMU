@@ -1230,7 +1230,8 @@ function uploadPhoto() {
 }
 
 function win(r) {
-    alert(JSON.stringify(r));
+    alert("success");
+    //alert(JSON.stringify(r));
 }
 
 function fail(error) {
