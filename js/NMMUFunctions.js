@@ -1306,26 +1306,37 @@ function handleAdvertPost() {
     return false;
 }
 
-var advertImageURI;
-
-function uploadPhoto(advertImageURI) {
+function uploadPhoto() {
 
     alert("uplloadfunction");
-    alert(advertImageURI);
-    alert(advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1));
+    // Get URI of picture to upload
+    var img = document.getElementById('myimg');
+    var imageURI = img.src;
+
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
-    options.fileName = advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1);
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
+    options.chunkedMode = false;
+
 
     //var params = new Object(); 
     //params.value1 = "test"; 
     //params.value2 = "param"; 
     //options.params = params; 
 
+    //var ft = new FileTransfer();
+    //ft.upload(advertImageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
+
+    // Transfer picture to server
     var ft = new FileTransfer();
-    ft.upload(advertImageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
+    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", function (r) {
+        document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
+    }, function (error) {
+        document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
+    }, options);
+
 } 
 
 function win(r) {
@@ -1368,6 +1379,4 @@ function onPhotoURISuccess(imageURI) {
     // The inline CSS rules are used to resize the image
     //
     largeImage.src = imageURI;
-
-    advertImageURI = imageURI;
 }
