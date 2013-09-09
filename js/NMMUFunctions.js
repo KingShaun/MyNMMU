@@ -704,7 +704,13 @@ function onDeviceReady() {
     $(document).on('pageinit', '#PageAdvertPost', function () {
         //$("#FormPostAdvert").on("submit", uploadPhoto);
 
-
+        $('#browse_photo').click(function() {
+ 
+            navigator.camera.getPicture(uploadPhoto, function(message) {
+                alert('get picture failed');
+            },{ quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
+ 
+        });
 
         // validate signup form on keyup and submit
         $("#FormPostAdvert").validate({
@@ -1241,6 +1247,25 @@ function handleAdvertPost() {
     return false;
 }
 
+function uploadPhoto(imageURI) {
+ 
+    $.mobile.loading('show');
+ 
+    var options = new FileUploadOptions();
+    options.fileKey="file";
+    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+    options.mimeType="image/jpeg";
+ 
+    var params = new Object();
+    params.value1 = "test";
+    params.value2 = "param";
+ 
+    options.params = params;
+ 
+    var ft = new FileTransfer();
+    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+ 
+}
 
 function validateAdvertPost() {
 
