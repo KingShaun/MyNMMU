@@ -1193,7 +1193,7 @@ function GetPhotoOnDevice() {
 
 function handleAdvertPost() {
 
-    alert("URI: " + advertImageUrl);
+    alert("filename: " + advertImageUrl.substr(imageURI.lastIndexOf('/')+1));
     var form = $("#FormPostAdvert");
     //disable the button so we can't resubmit while we wait
     $("#submitAdvert", form).attr("disabled", "disabled");
@@ -1260,8 +1260,10 @@ function uploadPhoto(imageURI) {
     options.mimeType="image/jpeg";
  
     var params = new Object();
-    params.value1 = "test";
-    params.value2 = "param";
+    params.value1 = "shaun";
+    params.value2 = "shaun@nmmu.ac.za";
+
+    options.chunkedMode = false;
  
     options.params = params;
  
@@ -1354,7 +1356,7 @@ function validateAdvertPost() {
 }
 
 function win(r) {
-    alert("success");
+    alert(r.response);
     //alert(JSON.stringify(r));
 }
 
