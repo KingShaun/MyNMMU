@@ -706,7 +706,8 @@ function onDeviceReady() {
 
         $('#browse_photo').click(function() {
  
-            navigator.camera.getPicture(uploadPhoto, function(message) {
+            //navigator.camera.getPicture(uploadPhoto, function (message) {
+            navigator.camera.getPicture(onPhotoURISuccess, function (message) {
                 alert('get picture failed');
             },{ quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
  
@@ -1191,6 +1192,8 @@ function GetPhotoOnDevice() {
 
 
 function handleAdvertPost() {
+
+    alert("URI: " + advertImageUrl);
     var form = $("#FormPostAdvert");
     //disable the button so we can't resubmit while we wait
     $("#submitAdvert", form).attr("disabled", "disabled");
