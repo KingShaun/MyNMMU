@@ -32,17 +32,9 @@
 
 ////Page wide variables:
 
-var pictureSource;   // picture source
-var destinationType; // sets the format of returned value
-
-var advertImageURI;
-
 // PhoneGap is ready
 //
 function onDeviceReady() {
-
-    pictureSource = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
 
     //Stores news entries
     var NewsEntries = [];
@@ -1314,10 +1306,13 @@ function handleAdvertPost() {
     return false;
 }
 
+var advertImageURI;
+
 function uploadPhoto(advertImageURI) {
 
     alert("uplloadfunction");
-    alert(advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1))
+    alert(advertImageURI);
+    alert(advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1));
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
@@ -1375,6 +1370,4 @@ function onPhotoURISuccess(imageURI) {
     largeImage.src = imageURI;
 
     advertImageURI = imageURI;
-    alert(advertImageURI)
-    alert(advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1))
 }
