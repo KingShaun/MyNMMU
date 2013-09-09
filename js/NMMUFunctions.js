@@ -1316,12 +1316,10 @@ function handleAdvertPost() {
 
 function uploadPhoto(imageURI) {
 
-    document.getElementById("myimg").src = imageURI;
-
-    var options = new FileUploadOptions(); 
-    options.fileKey="recFile"; 
-    var imagefilename = imageURI;
-    options.fileName = imagefilename;
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    var imagefilename = imageURI.substr(imageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
 
     //var params = new Object(); 
