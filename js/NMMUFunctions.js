@@ -1338,26 +1338,38 @@ function uploadPhoto() {
 
 } 
 
+//function win(r) {
+//    alert("Sent = " + r.bytesSent);
+//    //alert(r.response);
+//    //alert(JSON.stringify(r));
+//}
+
+//function fail(error) {
+//    switch (error.code) {
+//        case FileTransferError.FILE_NOT_FOUND_ERR:
+//            alert("Photo file not found");
+//            break;
+//        case FileTransferError.INVALID_URL_ERR:
+//            alert("Bad Photo URL");
+//            break;
+//        case FileTransferError.CONNECTION_ERR:
+//            alert("Connection error");
+//            break;
+//    }
+
+//    alert("An error has occurred: Code = " + error.code);
+//}
+
 function win(r) {
-    alert("Sent = " + r.bytesSent);
-    //alert(r.response);
-    //alert(JSON.stringify(r));
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
 }
 
 function fail(error) {
-    switch (error.code) {
-        case FileTransferError.FILE_NOT_FOUND_ERR:
-            alert("Photo file not found");
-            break;
-        case FileTransferError.INVALID_URL_ERR:
-            alert("Bad Photo URL");
-            break;
-        case FileTransferError.CONNECTION_ERR:
-            alert("Connection error");
-            break;
-    }
-
     alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
 }
 
 // Called when a photo is successfully retrieved
