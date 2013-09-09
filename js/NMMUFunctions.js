@@ -1315,10 +1315,23 @@ function uploadPhoto() {
     alert("URI: " + imageURI);
     var options = new FileUploadOptions();
     options.fileKey = "file";
-    options.fileName = "shaun.jpg";
-    //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
     options.chunkedMode = false;
+
+    var myfileName
+    window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
+        fileEntry.file(function (fileObj) {
+
+            var myfileName = fileObj.fullPath;
+
+            //now use the fileName in your method
+            //ft.upload(fileName ,serverURL + '/ajax.php?fname=appuploadspotimage'...);
+
+        });
+    });
+
+    alert("FileName: " + myfileName);
 
 
     //var params = new Object(); 
