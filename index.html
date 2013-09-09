@@ -14,6 +14,7 @@
 
     <script type="text/javascript" src="phonegap.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
     <!--<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
     <script src="js/jquery-1.7.min.js"></script>-->
 
@@ -615,19 +616,19 @@
             <form id="FormPostAdvert" class="ui-body ui-body-d ui-corner-all">
                 <div data-role="fieldcontain">
                     <label for="YourName">Name:</label>
-                    <input type="text" value="" name="YourName" id="YourName" />
+                    <input type="text" value="" name="YourName" id="YourName" required />
                 </div>
                 <div data-role="fieldcontain">
                     <label for="YourEmail">Email:</label>
-                    <input type="text" value="" name="YourEmail" id="YourEmail" placeholder="" />
+                    <input type="email" value="" name="YourEmail" id="YourEmail" required />
                 </div>
                 <div data-role="fieldcontain">
                     <label for="YourMobile">Mobile:</label>
-                    <input type="text" value="" name="YourMobile" id="YourMobile" placeholder="" />
+                    <input type="tel" value="" name="YourMobile" id="YourMobile" placeholder="Phone number"  required />
                 </div>
                 <div data-role="fieldcontain">
                     <label for="YourSubject">Subject:</label>
-                    <input type="text" value="" name="YourSubject" id="YourSubject" placeholder="" />
+                    <input type="text" value="" name="YourSubject" id="YourSubject" placeholder="Subject" required />
                 </div>
                 <div data-role="fieldcontain">
                     <label for="AdCategory" class="select">Category:</label>
@@ -654,7 +655,7 @@
                 </div>
                 <div data-role="fieldcontain">
                     <label for="textareaDescription">Description:</label>
-                    <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription"></textarea>
+                    <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription" placeholder="Details" required></textarea>
                 </div>
                 <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
             </form>

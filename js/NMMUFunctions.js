@@ -128,7 +128,8 @@ function onDeviceReady() {
                 entry = {
                     title: $(v).find("title").text(),
                     link: $(v).find("link").text(),
-                    description: $.trim($(v).find("description").text())
+                    description: $.trim($(v).find("description").text()),
+                    eventdate: $(v).find("pubDate").text()
                 };
                 EventsEntries.push(entry);
 
@@ -160,6 +161,7 @@ function onDeviceReady() {
         var contentHTML = "";
         contentHTML += '<h3>' + EventsEntries[SelectedEventsEntry].title + '</h3>';
         contentHTML += EventsEntries[SelectedEventsEntry].description;
+        contentHTML += '<p><strong>Event date:</strong> ' + EventsEntries[SelectedEventsEntry].eventdate + '</p>';
         contentHTML += '<p><a href="#" class="ReadEntry">Read Entry on Site</a></p>';
         $("#EventsEntryText", this).html(contentHTML);
     });
@@ -706,6 +708,11 @@ function onDeviceReady() {
     //$("#submitAdvert").on('click', uploadPhoto);
 
     $(document).on('pagebeforeshow', '#PageAdvertPost', function () {
+
+        $("#FormPostAdvert").each(function () {
+            this.reset();
+        });
+
         GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
 
         //navigator.camera.getPicture(onSuccess, onFail, {
@@ -1139,23 +1146,80 @@ function GetPhotoOnDevice() {
 
 
 function uploadPhoto() {
+
     alert("Start");
-    var imageURI = advertImageUrl;
-    alert("Image: " + imageURI);
-    var options = new FileUploadOptions();
-    alert("Options: " + JSON.stringify(options));
-    options.chunkedMode = false;
-    options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    options.mimeType = "image/jpeg";
 
-    var params = new Object();
-    params.value1 = "test";
-    params.value2 = "param";
+    // validate the comment form when it is submitted
+    $("#FormPostAdvert").validate();
 
-    options.params = params;
+    //// validate signup form on keyup and submit
+    //$("#FormPostAdvert").validate({
 
-    alert("Start FT");
+    //    alert: "invalidate",
+
+    //    rules: {
+    //        YourName: "required",
+    //        YourSubject: "required",
+    //        YourDescription: "required",
+    //        YourMobile: {
+    //            required: true,
+    //            minlength: 10,
+    //            maxlength: 13
+    //        },
+    //        YourEmail: {
+    //            required: true,
+    //            email: true
+    //        }
+    //    },
+    //    messages: {
+    //        YourName: "Please enter your name",
+    //        YourSubject: "Please enter a subject",
+    //        YourDescription: "Please enter a description",
+    //        YourMobile: {
+    //            required: "Please enter a phone number",
+    //            minlength: "Your phone number must consist of at least 10 characters",
+    //            maxlength: "Your phone number must consist of a maximum of 13 characters"
+    //        },
+    //        YourEmail: "Please enter a valid email address"
+    //    }
+    //});
+
+    //// get a collection of all empty fields
+    //var emptyFields = $(":input.adpostrequired").filter(function () {
+
+    //    // $.trim to prevent whitespace-only values being counted as 'filled'
+    //    return !$.trim(this.value).length;
+    //});
+
+    //// if there are one or more empty fields
+    //if (emptyFields.length) {
+
+    //    // do stuff; return false prevents submission
+    //    emptyFields.css("border", "1px solid red");
+    //    //alert("You must fill all fields!");
+    //    $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
+    //    return false;
+    //}
+
+    alert("Done");
+
+    //alert("Start");
+    //var imageURI = advertImageUrl;
+    //alert("Image: " + imageURI);
+    //var options = new FileUploadOptions();
+    //alert("Options: " + JSON.stringify(options));
+    //options.chunkedMode = false;
+    //options.fileKey = "file";
+    //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    //options.mimeType = "image/jpeg";
+
+    //var params = new Object();
+    //params.value1 = "test";
+    //params.value2 = "param";
+
+    //options.params = params;
+
+    //alert("Start FT");
 
     var ft = new FileTransfer();
     ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
