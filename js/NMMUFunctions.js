@@ -706,8 +706,8 @@ function onDeviceReady() {
 
         $('#browse_photo').click(function() {
  
-            navigator.camera.getPicture(uploadPhoto, function (message) {
-            //navigator.camera.getPicture(onPhotoURISuccess, function (message) {
+            //navigator.camera.getPicture(uploadPhoto, function (message) {
+            navigator.camera.getPicture(onPhotoURISuccess, function (message) {
                 alert('get picture failed');
             },{ quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
  
@@ -742,8 +742,8 @@ function onDeviceReady() {
                 YourEmail: "Please enter a valid email address"
             },
             submitHandler: function (form) { // for demo
-                //handleAdvertPost();
-                uploadPhoto();
+                handleAdvertPost();
+                //uploadPhoto();
                 return false;
             }
         });
@@ -1194,25 +1194,70 @@ function GetPhotoOnDevice() {
 
 function handleAdvertPost() {
 
-    //alert("filename: " + advertImageUrl.substr(advertImageUrl.lastIndexOf('/') + 1));
+    var form = $("#FormPostAdvert");
+    //disable the button so we can't resubmit while we wait
+    $("#submitAdvert", form).attr("disabled", "disabled");
+    var yourName = $("#YourName", form).val();
+    var yourEmail = $("#YourEmail", form).val();
 
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = advertImageUrl.substr(advertImageUrl.lastIndexOf('/') + 1);
-    options.mimeType = "image/jpeg";
+        $.mobile.loading('show');
+        $.ajax({
+            type: "POST",
+            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
+            contentType: 'application/json',
+            data: '{contents: "' + advertImageURI + '", yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
+            dataType: "json"
+        }).done(function (msg) {
 
-    var params = new Object();
-    params.yourName = "shaun";
-    params.yourEmail = "shaun@nmmu.ac.za";
+            alert("Success: " + msg.d);
 
-    options.chunkedMode = false;
+            //if (msg.d.IsAuthenticated == true) {
 
-    options.params = params;
+            //    //store
+            //    window.localStorage["username"] = u;
+            //    window.localStorage["password"] = p;
+            //    window.localStorage["isStudent"] = msg.d.IsStudent;
 
-    var ft = new FileTransfer();
-    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+            //    //Go to My NMMU menu page
+            //    $.mobile.changePage("#PageLoggedInHome");
+            //}
+            //else {
+            //    //Login fail and local values exist = Password has changed. Clear local values
+            //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+            //        localStorage.clear("username");
+            //        localStorage.clear("password");
+            //        localStorage.clear("isStudent");
+            //    }
+                $("#submitButton").removeAttr("disabled");
+            //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
+            //}
+
+            $.mobile.loading('hide');
+
+        }).fail(function (msg) {
+            alert("fail:" + msg.d);
+        }).always(function () {
+
+        });
+
+    //options.params = params;
+
+    //var ft = new FileTransfer();
+    //ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+
+    //var url = 'test.aspx';
+    //var params = { image: $('#imgcam').val(), Title: $('#emailAddress').val(), Name: $('#contactName').val() };
+
+    ////alert('submit');
+    //$('#maincontent').html('<img src="images/ajax-loader.gif" /><p>Sending data...Please wait.</p>');
 
 
+    ////send the data
+    //$.post(url, params, function (data) {
+
+    //    $('#maincontent').html('Info submitted...Thank you!');
+
+    //});
     //var form = $("#FormPostAdvert");
     ////disable the button so we can't resubmit while we wait
     //$("#submitAdvert", form).attr("disabled", "disabled");
