@@ -1316,7 +1316,8 @@ function uploadPhoto() {
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    options.mimeType = "image/jpeg";
+    //options.mimeType = "image/jpeg";
+    options.mimeType = "text/plain";
     options.chunkedMode = false;
 
 
