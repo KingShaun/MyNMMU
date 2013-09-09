@@ -1314,14 +1314,14 @@ function handleAdvertPost() {
     return false;
 }
 
-function uploadPhoto(imageURI) {
+function uploadPhoto(advertImageURI) {
 
     alert("uplloadfunction");
-    alert(imageURI.substr(imageURI.lastIndexOf('/') + 1))
+    alert(advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1))
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    options.fileName = advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
 
     //var params = new Object(); 
@@ -1375,4 +1375,6 @@ function onPhotoURISuccess(imageURI) {
     largeImage.src = imageURI;
 
     advertImageURI = imageURI;
+    alert(advertImageURI)
+    alert(advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1))
 }
