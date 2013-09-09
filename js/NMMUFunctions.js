@@ -35,7 +35,7 @@
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
 
-var advertImageUrl;
+var advertImageURI;
 
 // PhoneGap is ready
 //
@@ -742,7 +742,8 @@ function onDeviceReady() {
                 YourEmail: "Please enter a valid email address"
             },
             submitHandler: function (form) { // for demo
-                handleAdvertPost();
+                //handleAdvertPost();
+                uploadPhoto();
                 return false;
             }
         });
@@ -1268,13 +1269,13 @@ function handleAdvertPost() {
     return false;
 }
 
-function uploadPhoto(imageURI) {
+function uploadPhoto(advertImageURI) {
  
     $.mobile.loading('show');
  
     var options = new FileUploadOptions();
-    options.fileKey="file";
-    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+    options.fileKey = "recFile";
+    options.fileName = advertImageURI.substr(advertImageURI.lastIndexOf('/') + 1);
     options.mimeType="image/jpeg";
  
     var params = new Object();
@@ -1286,7 +1287,7 @@ function uploadPhoto(imageURI) {
     options.params = params;
  
     var ft = new FileTransfer();
-    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+    ft.upload(advertImageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
  
 }
 
@@ -1374,7 +1375,8 @@ function validateAdvertPost() {
 }
 
 function win(r) {
-    alert(r.response);
+    alert("Sent = " + r.bytesSent);
+    //alert(r.response);
     //alert(JSON.stringify(r));
 }
 
@@ -1421,7 +1423,7 @@ function onPhotoURISuccess(imageURI) {
     //
     largeImage.src = imageURI;
 
-    advertImageUrl = imageURI;
+    advertImageURI = imageURI;
 }
 
 // A button will call this function
