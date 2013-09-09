@@ -1312,7 +1312,7 @@ function uploadPhoto() {
     var img = document.getElementById('myimg');
     var imageURI = img.src;
 
-
+    alert("URI: " + imageURI);
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
