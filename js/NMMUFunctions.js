@@ -1317,11 +1317,11 @@ function handleAdvertPost() {
 function uploadPhoto(imageURI) {
 
     alert("uplloadfunction");
+    alert(imageURI.substr(imageURI.lastIndexOf('/') + 1))
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    var imagefilename = imageURI.substr(imageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
 
     //var params = new Object(); 
@@ -1330,7 +1330,6 @@ function uploadPhoto(imageURI) {
     //options.params = params; 
 
     var ft = new FileTransfer();
-    alert(imagefilename);
     ft.upload(advertImageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
 } 
 
