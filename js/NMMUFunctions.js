@@ -702,7 +702,43 @@ function onDeviceReady() {
 
     //Advert post
     $(document).on('pageinit', '#PageAdvertPost', function () {
-        $("#FormPostAdvert").on("submit", uploadPhoto);
+        //$("#FormPostAdvert").on("submit", uploadPhoto);
+
+
+
+        // validate signup form on keyup and submit
+        $("#FormPostAdvert").validate({
+
+            rules: {
+                YourName: "required",
+                YourSubject: "required",
+                YourDescription: "required",
+                YourMobile: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 13
+                },
+                YourEmail: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                YourName: "Please enter your name",
+                YourSubject: "Please enter a subject",
+                YourDescription: "Please enter a description",
+                YourMobile: {
+                    required: "Please enter a phone number",
+                    minlength: "Your phone number must consist of at least 10 characters",
+                    maxlength: "Your phone number must consist of a maximum of 13 characters"
+                },
+                YourEmail: "Please enter a valid email address"
+            },
+            submitHandler: function (form) { // for demo
+                handleAdvertPost();
+                return false;
+            }
+        });
     });
 
     //$("#submitAdvert").on('click', uploadPhoto);
@@ -947,7 +983,7 @@ function handleLogin() {
             dataType: "json"
         }).done(function (msg) {
 
-            $.mobile.loading('hide');
+
 
             if (msg.d.IsAuthenticated == true) {
 
@@ -969,6 +1005,9 @@ function handleLogin() {
                 $("#submitButton").removeAttr("disabled");
                 $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
             }
+
+            $.mobile.loading('hide');
+
         }).fail(function (msg) {
             alert("fail:" + msg);
         }).always(function () {
@@ -1145,12 +1184,69 @@ function GetPhotoOnDevice() {
 //############### test zone ####################
 
 
-function uploadPhoto() {
+function handleAdvertPost() {
+    var form = $("#FormPostAdvert");
+    //disable the button so we can't resubmit while we wait
+    $("#submitAdvert", form).attr("disabled", "disabled");
+    var yourName = $("#YourName", form).val();
+    var yourEmail = $("#YourEmail", form).val();
+    //console.log("click");
+    if (yourName != '' && yourEmail != '') {
+        $.mobile.loading('show');
+        $.ajax({
+            type: "POST",
+            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
+            contentType: 'application/json',
+            data: '{ yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
+            dataType: "json"
+        }).done(function (msg) {
 
-    alert("Start");
+            alert("Success: " + msg.d);
+
+            //if (msg.d.IsAuthenticated == true) {
+
+            //    //store
+            //    window.localStorage["username"] = u;
+            //    window.localStorage["password"] = p;
+            //    window.localStorage["isStudent"] = msg.d.IsStudent;
+
+            //    //Go to My NMMU menu page
+            //    $.mobile.changePage("#PageLoggedInHome");
+            //}
+            //else {
+            //    //Login fail and local values exist = Password has changed. Clear local values
+            //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+            //        localStorage.clear("username");
+            //        localStorage.clear("password");
+            //        localStorage.clear("isStudent");
+            //    }
+                $("#submitButton").removeAttr("disabled");
+            //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
+            //}
+
+            $.mobile.loading('hide');
+
+        }).fail(function (msg) {
+            alert("fail:" + msg);
+        }).always(function () {
+
+        });
+
+    } else {
+        //Thanks Igor!
+        //navigator.notification.alert("You must enter a username and password", function () { });
+        $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
+        $("#submitAdvert").removeAttr("disabled");
+    }
+    return false;
+}
+
+
+function validateAdvertPost() {
+
 
     // validate the comment form when it is submitted
-    $("#FormPostAdvert").validate();
+    //$("#FormPostAdvert").validate();
 
     //// validate signup form on keyup and submit
     //$("#FormPostAdvert").validate({
@@ -1201,32 +1297,32 @@ function uploadPhoto() {
     //    return false;
     //}
 
-    alert("Done");
+    //alert("Done");
 
-    //alert("Start");
-    //var imageURI = advertImageUrl;
-    //alert("Image: " + imageURI);
-    //var options = new FileUploadOptions();
-    //alert("Options: " + JSON.stringify(options));
-    //options.chunkedMode = false;
-    //options.fileKey = "file";
-    //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    //options.mimeType = "image/jpeg";
+    ////alert("Start");
+    ////var imageURI = advertImageUrl;
+    ////alert("Image: " + imageURI);
+    ////var options = new FileUploadOptions();
+    ////alert("Options: " + JSON.stringify(options));
+    ////options.chunkedMode = false;
+    ////options.fileKey = "file";
+    ////options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    ////options.mimeType = "image/jpeg";
 
-    //var params = new Object();
-    //params.value1 = "test";
-    //params.value2 = "param";
+    ////var params = new Object();
+    ////params.value1 = "test";
+    ////params.value2 = "param";
 
-    //options.params = params;
+    ////options.params = params;
 
-    //alert("Start FT");
+    ////alert("Start FT");
 
-    var ft = new FileTransfer();
-    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
+    //var ft = new FileTransfer();
+    //ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
 
-    alert("Done FT.");
+    //alert("Done FT.");
 
-    return false;
+    //return false;
 }
 
 function win(r) {
