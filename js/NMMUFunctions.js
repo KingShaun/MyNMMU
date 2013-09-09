@@ -742,8 +742,8 @@ function onDeviceReady() {
                 YourEmail: "Please enter a valid email address"
             },
             submitHandler: function (form) { // for demo
-                handleAdvertPost();
-                //uploadPhoto();
+                //handleAdvertPost();
+                uploadPhoto();
                 return false;
             }
         });
@@ -1314,7 +1314,7 @@ function handleAdvertPost() {
     return false;
 }
 
-function uploadPhoto(imageURI) { 
+function uploadPhoto(advertImageURI) {
     var options = new FileUploadOptions(); 
     options.fileKey="recFile"; 
     var imagefilename = Number(new Date())+".jpg"; 
@@ -1328,7 +1328,7 @@ function uploadPhoto(imageURI) {
     options.params = params; 
 
     var ft = new FileTransfer(); 
-    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
+    ft.upload(advertImageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
 } 
 
 function validateAdvertPost() {
