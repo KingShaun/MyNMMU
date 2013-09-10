@@ -1340,7 +1340,7 @@ function uploadPhoto() {
     //options.params = params; 
 
     var ft = new FileTransfer();
-    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
+    ft.upload(myfileName, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
 
     // Transfer picture to server
     //var ft = new FileTransfer();
