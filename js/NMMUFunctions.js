@@ -1312,12 +1312,11 @@ function uploadPhoto() {
     var img = document.getElementById('myimg');
     var imageURI = img.src;
 
-    alert("URI: " + imageURI);
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    options.mimeType = "image/jpeg";
-    options.chunkedMode = false;
+    //var options = new FileUploadOptions();
+    //options.fileKey = "file";
+    //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    //options.mimeType = "image/jpeg";
+    //options.chunkedMode = false;
 
     var myfileName;
     window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
@@ -1327,6 +1326,15 @@ function uploadPhoto() {
 
             //now use the fileName in your method
             //ft.upload(fileName ,serverURL + '/ajax.php?fname=appuploadspotimage'...);
+
+            var options = new FileUploadOptions();
+            options.fileKey = "file";
+            options.fileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
+            options.mimeType = "image/jpeg";
+            options.chunkedMode = false;
+
+            var ft = new FileTransfer();
+            ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
 
         });
     });
@@ -1339,8 +1347,8 @@ function uploadPhoto() {
     //params.value2 = "param"; 
     //options.params = params; 
 
-    var ft = new FileTransfer();
-    ft.upload(myfileName, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
+    //var ft = new FileTransfer();
+    //ft.upload(myfileName, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", win, fail, options);
 
     // Transfer picture to server
     //var ft = new FileTransfer();
