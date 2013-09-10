@@ -1339,7 +1339,7 @@ function uploadPhoto() {
     //    });
     //});
 
-    alert("FileName: " + myfileName);
+    //alert("FileName: " + myfileName);
 
 
     //var params = new Object(); 
@@ -1347,16 +1347,16 @@ function uploadPhoto() {
     //params.value2 = "param"; 
     //options.params = params; 
 
-    var ft = new FileTransfer();
-    ft.upload(myfileName, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", win, fail, options);
-
-    // Transfer picture to server
     //var ft = new FileTransfer();
-    //ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/SaveImage", function (r) {
-    //    document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
-    //}, function (error) {
-    //    document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
-    //}, options);
+    //ft.upload(myfileName, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", win, fail, options);
+
+     //Transfer picture to server
+    var ft = new FileTransfer();
+    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", function (r) {
+        document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
+    }, function (error) {
+        document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
+    }, options);
 
 } 
 
