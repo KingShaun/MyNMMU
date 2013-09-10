@@ -63,6 +63,14 @@
                     <a href="#PageMyJourney" data-transition="slide">My journey
                     </a>
                 </li>
+                <li data-theme="d">
+                    <a href="#" onclick='window.open("http://www.nmmu.ac.za/About-NMMU/NMMU-almanac-calendar/Important-dates", "_blank", "location=yes");'>Important dates
+                    </a>
+                </li>
+                <li data-theme="d">
+                    <a href="#" onclick='window.open("http://www.nmmu.ac.za/Apply/Frequently-asked-questions", "_blank", "location=yes");'>FAQ
+                    </a>
+                </li>
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -322,7 +330,7 @@
         </div>
 
         <div data-role="content">
-            <p>Some text about my journey.</p>
+            <p>Designed specifically with the future professional in mind, the My Journey web app is intended to take prospective students on a guided tour taking into account personal interests and goals to deliver all the information needed to make informed higher education decisions.</p>
             <a href="#" class="MyJourneyLink" data-role="button" data-theme="b">Go to My Journey</a>
         </div>
     </div>
@@ -336,13 +344,29 @@
         </div>
 
         <div data-role="content">
+            <p>Welcome to Nelson Mandela Metropolitan University in the beautiful coastal city of
+                Port Elizabeth in the Eastern Cape, and George in the South Cape.</p>
             <div class="NMMUPhoneNumberTablet">
                 <h2>General</h2>
                 <p>
                     <strong>Telephone:</strong> 041-504 1111<br />
+                    <strong>George:</strong> 044-801 5111<br />
                     <strong>Fax:</strong> 041-504 2574 / 2731
                 </p>
             </div>
+            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+                <li data-role="list-divider" role="heading">Email us
+                </li>
+                <li data-theme="d" data-mini="true">
+                    <a href="mailto:admissions@nmmu.ac.za?subject=Prospective student" data-transition="slide">Do you want to study here?</a>
+                </li>
+                <li data-theme="d" data-mini="true">
+                    <a href="mailto:international@nmmu.ac.za?subject=International student" data-transition="slide">Are you from outside South Africa? </a>
+                </li>
+                <li data-theme="d" data-mini="true">
+                    <a href="mailto:info@nmmu.ac.za?subject=General inquiry" data-transition="slide">Neither of the above </a>
+                </li>
+            </ul>
             <h2>Postal address</h2>
             <p>
                 PO Box 77000<br />
@@ -350,7 +374,8 @@
                 Port Elizabeth<br />
                 6031
             </p>
-            <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call us now</a>
+            <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call us now (PE)</a>
+            <a href="tel:0448015111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call us now (George)</a>
         </div>
     </div>
     <!-- End About us -->
@@ -505,25 +530,27 @@
                 <li data-role="list-divider" role="heading">Where am I?</li>
                 <li id="LiWhereAmI"></li>
             </ul>
-
-            <div class="NMMUPhoneNumberTablet">
+            <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call NMMU Security</a>
+            <a href="tel:0415045000" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call the police</a>
+            <!--<div class="NMMUPhoneNumberTablet">-->
+            <div>
                 <ul data-role="listview" data-divider-theme="d" data-inset="true">
                     <li data-role="list-divider" role="heading">Help lines</li>
                     <li>NMMU Security: 041-504 1111</li>
-                    <li>Police: 10111</li>
-                    <li>Ambulance: 10123</li>
+                    <li>Humewood police: 041-504 5000</li>
+                    <li>Fire Brigade: 041-585 1555</li>
+                    <li data-role="list-divider" role="heading">Rescue services</li>
+                    <li>Aviation: 041-581 3585</li>
+                    <li>Sea: 041-507 1911</li>
+                    <li data-role="list-divider" role="heading">Crisis lines</li>
+                    <li>NMMU Helpline: 082-428 5009</li>
+                    <li>Department Of Welfare: 041-453 3204</li>
+                    <li>Life Line: 041-585 8565</li>
+                    <li>Crisis Line: 041-585 5581</li>
+                    <li>Rape Crisis: 041-585 8565</li>
+                    <li>Child Line: 0800-055 555</li>
                 </ul>
-
-                <!--                <h3>Help lines:</h3>
-                <p>
-                    <strong>NMMU Security:</strong> 041-504 1111<br />
-                    <strong>Police:</strong> 10111<br />
-                    <strong>Ambulance:</strong> 10123
-                </p>-->
             </div>
-            <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call NMMU Security</a>
-            <a href="tel:10111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call the police</a>
-            <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call an ambulance</a>
         </div>
     </div>
     <!-- End Emergency -->
