@@ -109,6 +109,9 @@
                     <a href="#PageAdverts" data-transition="slide">Adverts
                     </a>
                 </li>
+                <li data-theme="d">
+                    <a href="#PageTest" data-transition="slide">Test</a>
+                </li>
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -701,7 +704,24 @@
     </div>
     <!-- End Adverts -->
 
+    <div data-role="page" id="PageTest">
 
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
+        </div>
+
+        <div data-role="content">
+            <b>Image:</b> <img style="width:120px;visibility:hidden;display:none;" id="camera_image" src="" />
+        </div>
+
+    <!-- Actions -->
+    <div>
+        <input type="button" onclick="selectPicture();" value="Select Picture from Library" /><br/>
+        <input type="button" onclick="uploadPicture();" value="Upload Picture" />
+    </div>
+
+
+    </div>
 
 </body>
 </html>
