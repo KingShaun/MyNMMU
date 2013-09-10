@@ -1319,11 +1319,11 @@ function uploadPhoto() {
     options.mimeType = "image/jpeg";
     options.chunkedMode = false;
 
-    var myfileName
+    var myfileName;
     window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
         fileEntry.file(function (fileObj) {
 
-            var myfileName = fileObj.fullPath;
+            myfileName = fileObj.fullPath;
 
             //now use the fileName in your method
             //ft.upload(fileName ,serverURL + '/ajax.php?fname=appuploadspotimage'...);
