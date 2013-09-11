@@ -733,39 +733,25 @@ function onDeviceReady() {
                 },
                 YourEmail: "Please enter a valid email address"
             },
-            submitHandler: function (form) { // for demo
-                //handleAdvertPost();
-                //uploadPhoto();
+            submitHandler: function (form) {
                 uploadPicture();
                 return false;
             }
         });
     });
 
-    //$("#submitAdvert").on('click', uploadPhoto);
-
     $(document).on('pagebeforeshow', '#PageAdvertPost', function () {
 
+        //Clear all the inputs.
         $("#FormPostAdvert").each(function () {
             this.reset();
         });
 
+        var img = document.getElementById('camera_image');
+        img.style.visibility = "hidden";
+        img.style.display = "none";
+
         GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
-
-        //navigator.camera.getPicture(onSuccess, onFail, {
-        //    quality: 50,
-        //    destinationType: Camera.DestinationType.DATA_URL
-        //});
-
-        //function onSuccess(imageData) {
-        //    var image = document.getElementById('myImage');
-        //    image.src = "data:image/jpeg;base64," + imageData;
-        //    image.style.display = 'block';
-        //}
-
-        //function onFail(message) {
-        //    alert('Failed because: ' + message);
-        //}
     });
 
     //Advert search
@@ -1185,182 +1171,6 @@ function GetPhotoOnDevice() {
 //############### test zone ####################
 
 
-function handleAdvertPost() {
-
-    var form = $("#FormPostAdvert");
-    //disable the button so we can't resubmit while we wait
-    $("#submitAdvert", form).attr("disabled", "disabled");
-    var yourName = $("#YourName", form).val();
-    var yourEmail = $("#YourEmail", form).val();
-
-    $.mobile.loading('show');
-    $.ajax({
-        type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
-        contentType: 'application/json',
-        data: '{contents: "' + advertImageURI + '", yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
-        dataType: "json"
-    }).done(function (msg) {
-
-        alert("Success: " + msg.d);
-
-        //if (msg.d.IsAuthenticated == true) {
-
-        //    //store
-        //    window.localStorage["username"] = u;
-        //    window.localStorage["password"] = p;
-        //    window.localStorage["isStudent"] = msg.d.IsStudent;
-
-        //    //Go to My NMMU menu page
-        //    $.mobile.changePage("#PageLoggedInHome");
-        //}
-        //else {
-        //    //Login fail and local values exist = Password has changed. Clear local values
-        //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
-        //        localStorage.clear("username");
-        //        localStorage.clear("password");
-        //        localStorage.clear("isStudent");
-        //    }
-        $("#submitButton").removeAttr("disabled");
-        //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
-        //}
-
-        $.mobile.loading('hide');
-
-    }).fail(function (msg) {
-        alert("fail:" + msg.d);
-    }).always(function () {
-
-    });
-
-    //options.params = params;
-
-    //var ft = new FileTransfer();
-    //ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload", win, fail, options);
-
-    //var url = 'test.aspx';
-    //var params = { image: $('#imgcam').val(), Title: $('#emailAddress').val(), Name: $('#contactName').val() };
-
-    ////alert('submit');
-    //$('#maincontent').html('<img src="images/ajax-loader.gif" /><p>Sending data...Please wait.</p>');
-
-
-    ////send the data
-    //$.post(url, params, function (data) {
-
-    //    $('#maincontent').html('Info submitted...Thank you!');
-
-    //});
-    //var form = $("#FormPostAdvert");
-    ////disable the button so we can't resubmit while we wait
-    //$("#submitAdvert", form).attr("disabled", "disabled");
-    //var yourName = $("#YourName", form).val();
-    //var yourEmail = $("#YourEmail", form).val();
-    ////console.log("click");
-    //if (yourName != '' && yourEmail != '') {
-    //    $.mobile.loading('show');
-    //    $.ajax({
-    //        type: "POST",
-    //        url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
-    //        contentType: 'application/json',
-    //        data: '{ yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
-    //        dataType: "json"
-    //    }).done(function (msg) {
-
-    //        alert("Success: " + msg.d);
-
-    //        //if (msg.d.IsAuthenticated == true) {
-
-    //        //    //store
-    //        //    window.localStorage["username"] = u;
-    //        //    window.localStorage["password"] = p;
-    //        //    window.localStorage["isStudent"] = msg.d.IsStudent;
-
-    //        //    //Go to My NMMU menu page
-    //        //    $.mobile.changePage("#PageLoggedInHome");
-    //        //}
-    //        //else {
-    //        //    //Login fail and local values exist = Password has changed. Clear local values
-    //        //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
-    //        //        localStorage.clear("username");
-    //        //        localStorage.clear("password");
-    //        //        localStorage.clear("isStudent");
-    //        //    }
-    //            $("#submitButton").removeAttr("disabled");
-    //        //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
-    //        //}
-
-    //        $.mobile.loading('hide');
-
-    //    }).fail(function (msg) {
-    //        alert("fail:" + msg);
-    //    }).always(function () {
-
-    //    });
-
-    //} else {
-    //    //Thanks Igor!
-    //    //navigator.notification.alert("You must enter a username and password", function () { });
-    //    $.mobile.changePage("#FieldsMessageDialog", { role: "dialog" });
-    //    $("#submitAdvert").removeAttr("disabled");
-    //}
-    return false;
-}
-
-function uploadPhoto() {
-
-    // Get URI of picture to upload
-    var img = document.getElementById('myimg');
-    var imageURI = img.src;
-
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    options.mimeType = "image/jpeg";
-    options.chunkedMode = false;
-
-    //var myfileName;
-    //window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
-    //    fileEntry.file(function (fileObj) {
-
-    //        myfileName = fileObj.fullPath;
-
-    //        //now use the fileName in your method
-    //        //ft.upload(fileName ,serverURL + '/ajax.php?fname=appuploadspotimage'...);
-
-    //        var options = new FileUploadOptions();
-    //        options.fileKey = "file";
-    //        options.fileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
-    //        options.mimeType = "image/jpeg";
-    //        options.chunkedMode = false;
-
-    //        var ft = new FileTransfer();
-    //        ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", win, fail, options);
-
-    //    });
-    //});
-
-    //alert("FileName: " + myfileName);
-
-
-    //var params = new Object(); 
-    //params.value1 = "test"; 
-    //params.value2 = "param"; 
-    //options.params = params; 
-
-    //var ft = new FileTransfer();
-    //ft.upload(myfileName, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", win, fail, options);
-
-    //Transfer picture to server
-    var ft = new FileTransfer();
-    ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", function (r) {
-        document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
-    }, function (error) {
-        document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
-    }, options);
-
-}
-
 //function win(r) {
 //    alert("Sent = " + r.bytesSent);
 //    //alert(r.response);
@@ -1383,37 +1193,6 @@ function uploadPhoto() {
 //    alert("An error has occurred: Code = " + error.code);
 //}
 
-function win(r) {
-    console.log("Code = " + r.responseCode);
-    console.log("Response = " + r.response);
-    console.log("Sent = " + r.bytesSent);
-}
-
-function fail(error) {
-    alert("An error has occurred: Code = " + error.code);
-    console.log("upload error source " + error.source);
-    console.log("upload error target " + error.target);
-}
-
-// Called when a photo is successfully retrieved
-//
-function onPhotoURISuccess(imageURI) {
-    // Uncomment to view the image file URI 
-    // console.log(imageURI);
-
-    // Get image handle
-    //
-    var largeImage = document.getElementById('myimg');
-
-    // Unhide image elements
-    //
-    largeImage.style.display = 'block';
-
-    // Show the captured photo
-    // The inline CSS rules are used to resize the image
-    //
-    largeImage.src = imageURI;
-}
 
 /**
  * Take picture with camera
@@ -1479,7 +1258,6 @@ function uploadPicture() {
     if (!imageURI || (img.style.display == "none")) {
         //document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
         //return;
-        alert("No image");
 
         $.ajax({
             type: "POST",
@@ -1488,23 +1266,22 @@ function uploadPicture() {
             // contentType: "application/json; charset=utf-8", 
             // DataType needs to stay, otherwise the response object
             // will be treated as a single string
-            data: '{yourName: "' + yourName + '", yourEmail: "' + yourEmail + '", yourMobile: "' + yourMobile + '", yourSubject: "' + yourSubject + '", yourCategory: "' + yourCategory + '", yourDescription: "' + yourDescription + '" }',
-            dataType: "json"
-        }).done(function (msg) {
-
-            alert("Success: " + msg.d);
-
-            $("#submitAdvert").removeAttr("disabled");
-            //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
-            //}
-
-            $.mobile.loading('hide');
-
-        }).fail(function (msg) {
-            alert("fail:" + msg.d);
-        }).always(function () {
-
+            //data: '{yourName: "' + yourName + '", yourEmail: "' + yourEmail + '", yourMobile: "' + yourMobile + '", yourSubject: "' + yourSubject + '", yourCategory: "' + yourCategory + '", yourDescription: "' + yourDescription + '" }',
+            data: { yourName: yourName, yourEmail: yourEmail, yourMobile: yourMobile, yourSubject: yourSubject, yourCategory: yourCategory, yourDescription: yourDescription },
+            dataType: "json",
+            success: function (result) {
+                if (result.message == "Success") {
+                    $("#submitAdvert").removeAttr("disabled");
+                    $.mobile.loading('hide');
+                    $.mobile.changePage("#AdvertPostSuccess", { role: "dialog" });
+                }
+                else {
+                    $.mobile.changePage("#PageError", { role: "dialog" });
+                }
+            }
         });
+
+        return false;
     }
         //picture to upload
     else {
@@ -1541,11 +1318,15 @@ function uploadPicture() {
 
         // Transfer picture to server
         var ft = new FileTransfer();
-        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx", options), function (r) {
+        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx"), function (r) {
             document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
+            $("#submitAdvert").removeAttr("disabled");
+            $.mobile.loading('hide');
+            $.mobile.changePage("#AdvertPostSuccess", { role: "dialog" });
         }, function (error) {
             document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
+            $.mobile.loading('hide');
+            $.mobile.changePage("#PageError", { role: "dialog" });
         }, options);
-        $.mobile.loading('hide');
     }
 }

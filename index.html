@@ -138,6 +138,34 @@
     </div>
     <!-- End login failure -->
 
+    <!-- Page error -->
+    <div id="PageError" data-role="dialog" data-close-btn="none">
+
+        <div data-role="header">
+            <h1>Error!</h1>
+        </div>
+
+        <div data-role="content">
+            <p>Oops, an error has occured. Please try again later.</p>
+            <a href="#PageHome" data-role="button" data-theme="b">OK</a>
+        </div>
+    </div>
+    <!-- End page error -->
+
+    <!-- Advert post success -->
+    <div id="AdvertPostSuccess" data-role="dialog" data-close-btn="none">
+
+        <div data-role="header">
+            <h1>Success!</h1>
+        </div>
+
+        <div data-role="content">
+            <p style='color:green'>Your advert was added successfully.</p>
+            <a href="#PageAdverts" data-role="button" data-theme="b">OK</a>
+        </div>
+    </div>
+    <!-- End advert post success -->
+
     <!-- Not student message -->
     <div id="NotStudentDialog" data-role="dialog" data-close-btn="none" data-rel="back">
 
@@ -361,13 +389,13 @@
             <ul data-role="listview" data-divider-theme="d" data-inset="true">
                 <li data-role="list-divider" role="heading">Email us
                 </li>
-                <li data-theme="d" data-mini="true">
+                <li data-theme="d">
                     <a href="mailto:admissions@nmmu.ac.za?subject=Prospective student" data-transition="slide">Do you want to study here?</a>
                 </li>
-                <li data-theme="d" data-mini="true">
+                <li data-theme="d">
                     <a href="mailto:international@nmmu.ac.za?subject=International student" data-transition="slide">Are you from outside South Africa? </a>
                 </li>
-                <li data-theme="d" data-mini="true">
+                <li data-theme="d">
                     <a href="mailto:info@nmmu.ac.za?subject=General inquiry" data-transition="slide">Neither of the above </a>
                 </li>
             </ul>
@@ -537,20 +565,20 @@
             <!--<div class="NMMUPhoneNumberTablet">-->
             <div>
                 <ul data-role="listview" data-divider-theme="d" data-inset="true">
-                    <li data-role="list-divider" role="heading">Help lines</li>
-                    <li>NMMU Security: 041-504 1111</li>
-                    <li>Humewood police: 041-504 5000</li>
-                    <li>Fire Brigade: 041-585 1555</li>
-                    <li data-role="list-divider" role="heading">Rescue services</li>
-                    <li>Aviation: 041-581 3585</li>
-                    <li>Sea: 041-507 1911</li>
-                    <li data-role="list-divider" role="heading">Crisis lines</li>
-                    <li>NMMU Helpline: 082-428 5009</li>
-                    <li>Department Of Welfare: 041-453 3204</li>
-                    <li>Life Line: 041-585 8565</li>
-                    <li>Crisis Line: 041-585 5581</li>
-                    <li>Rape Crisis: 041-585 8565</li>
-                    <li>Child Line: 0800-055 555</li>
+                    <li data-role="list-divider" role="heading">Help lines. Call:</li>
+                    <li><a href="tel:0415041111">NMMU Security</a></li>
+                    <li><a href="tel:0415045000">Humewood police</a></li>
+                    <li><a href="tel:0415851555">Fire Brigade</a></li>
+                    <li data-role="list-divider" role="heading">Rescue services. Call:</li>
+                    <li><a href="tel:0415813585">Aviation</a></li>
+                    <li><a href="tel:0415071911">Sea</a></li>
+                    <li data-role="list-divider" role="heading">Crisis lines. Call:</li>
+                    <li><a href="tel:0824285009">NMMU Helpline</a></li>
+                    <li><a href="tel:0414533204">Department Of Welfare</a></li>
+                    <li><a href="tel:0415858565">Life Line</a></li>
+                    <li><a href="tel:0415855581">Crisis Line</a></li>
+                    <li><a href="tel:0415858565">Rape Crisis</a></li>
+                    <li><a href="tel:0800055555">Child Line</a></li>
                 </ul>
             </div>
         </div>
@@ -645,20 +673,20 @@
             <!--<form id="FormPostAdvert" class="ui-body ui-body-d ui-corner-all" method="post" enctype="multipart/form-data" action="http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx" data-ajax="false">-->
             <form id="FormPostAdvert" class="ui-body ui-body-d ui-corner-all">
                 <div data-role="fieldcontain">
-                    <label for="YourName">Name:</label>
-                    <input type="text" value="" name="YourName" id="YourName" required />
+                    <label for="YourName">Name:*</label>
+                    <input type="text" value="" name="YourName" id="YourName" maxlength="250" required />
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="YourEmail">Email:</label>
-                    <input type="email" value="" name="YourEmail" id="YourEmail" required />
+                    <label for="YourEmail">Email:*</label>
+                    <input type="email" value="" name="YourEmail" id="YourEmail" maxlength="150" required />
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="YourMobile">Mobile:</label>
-                    <input type="tel" value="" name="YourMobile" id="YourMobile" placeholder="Phone number"  required />
+                    <label for="YourMobile">Mobile:*</label>
+                    <input type="tel" value="" name="YourMobile" id="YourMobile" placeholder="Phone number" maxlength="13"  required />
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="YourSubject">Subject:</label>
-                    <input type="text" value="" name="YourSubject" id="YourSubject" placeholder="Subject" required />
+                    <label for="YourSubject">Subject:*</label>
+                    <input type="text" value="" name="YourSubject" id="YourSubject" placeholder="Subject" maxlength="250" required />
                 </div>
                 <div data-role="fieldcontain">
                     <label for="AdCategory" class="select">Category:</label>
@@ -684,13 +712,16 @@
                     </select>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="textareaDescription">Description:</label>
-                    <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription" placeholder="Details" required></textarea>
+                    <label for="textareaDescription">Description:*</label>
+                    <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription" placeholder="Details" maxlength="1000" required></textarea>
                 </div>
-                <input type="button" onclick="takePicture();" value="Take Picture" /><br/>
+                <br /><span>Optional:</span>
                 <input type="button" onclick="selectPicture();" value="Select Picture" /><br/>
+
                 <img style="width:120px;visibility:hidden;display:none; border:3px solid #8d8787;" id="camera_image" src="" />
-                <b>Status:</b> <span id="camera_status"></span><br>
+
+                <b>Picture status:</b> <span id="camera_status"></span><br>
+
                 <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
             </form>
         </div>
