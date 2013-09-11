@@ -617,7 +617,7 @@ function onDeviceReady() {
     //NMMU LOGIC: Run the GetTop10Adverts function.
     //We want this running everytime we hit the page, so pagebeforeshow
     $(document).on('pagebeforeshow', '#PageAdverts', function () {
-        
+
         handleGetAdverts();
 
         //$.mobile.loading('show');
@@ -683,10 +683,10 @@ function onDeviceReady() {
         contentHTML += '<strong>Submitted by:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adsubmittedby + '<br />';
         contentHTML += '<strong>Email:</strong> <a href="mailto:' + AdvertsEntries[SelectedAdvertsEntry].ademail + '?subject=' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '">' + AdvertsEntries[SelectedAdvertsEntry].ademail + '</a><br />';
         contentHTML += '<strong>Mobile:</strong> <a href="tel:' + AdvertsEntries[SelectedAdvertsEntry].admobile + '">' + AdvertsEntries[SelectedAdvertsEntry].admobile + '</a><br />';
-        contentHTML += '<strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '<br />'; 
+        contentHTML += '<strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '<br />';
         contentHTML += '</p>';
         contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p>';
-        
+
         //contentHTML += AdvertsEntries[SelectedAdvertsEntry].description;
         $("#AdvertEntryText", this).html(contentHTML);
     });
@@ -696,13 +696,13 @@ function onDeviceReady() {
     $(document).on('pageinit', '#PageAdvertPost', function () {
         //$("#FormPostAdvert").on("submit", uploadPhoto);
 
-        $('#browse_photo').click(function() {
- 
+        $('#browse_photo').click(function () {
+
             //navigator.camera.getPicture(uploadPhoto, function (message) {
             navigator.camera.getPicture(onPhotoURISuccess, function (message) {
                 alert('get picture failed');
-            },{ quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
- 
+            }, { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
+
         });
 
         // validate signup form on keyup and submit
@@ -893,7 +893,7 @@ var SearchAdvertsEntries = [];
 function handleAdvertSearch() {
 
     var form = $("#advertSearchForm");
-    
+
     //SearchText
     var st = $("#advertsearchtext", form).val();
     if (st != '') {
@@ -946,8 +946,8 @@ function handleAdvertSearch() {
                     s += '</li>';
                 });
             }
-            
-            $("#AdvertSearchResultsListView").html(s);            
+
+            $("#AdvertSearchResultsListView").html(s);
             $("#AdvertSearchResultsListView").listview("refresh");
 
             //Make results visible
@@ -1193,45 +1193,45 @@ function handleAdvertPost() {
     var yourName = $("#YourName", form).val();
     var yourEmail = $("#YourEmail", form).val();
 
-        $.mobile.loading('show');
-        $.ajax({
-            type: "POST",
-            url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
-            contentType: 'application/json',
-            data: '{contents: "' + advertImageURI + '", yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
-            dataType: "json"
-        }).done(function (msg) {
+    $.mobile.loading('show');
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
+        contentType: 'application/json',
+        data: '{contents: "' + advertImageURI + '", yourName: "' + yourName + '", yourEmail: "' + yourEmail + '" }',
+        dataType: "json"
+    }).done(function (msg) {
 
-            alert("Success: " + msg.d);
+        alert("Success: " + msg.d);
 
-            //if (msg.d.IsAuthenticated == true) {
+        //if (msg.d.IsAuthenticated == true) {
 
-            //    //store
-            //    window.localStorage["username"] = u;
-            //    window.localStorage["password"] = p;
-            //    window.localStorage["isStudent"] = msg.d.IsStudent;
+        //    //store
+        //    window.localStorage["username"] = u;
+        //    window.localStorage["password"] = p;
+        //    window.localStorage["isStudent"] = msg.d.IsStudent;
 
-            //    //Go to My NMMU menu page
-            //    $.mobile.changePage("#PageLoggedInHome");
-            //}
-            //else {
-            //    //Login fail and local values exist = Password has changed. Clear local values
-            //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
-            //        localStorage.clear("username");
-            //        localStorage.clear("password");
-            //        localStorage.clear("isStudent");
-            //    }
-                $("#submitButton").removeAttr("disabled");
-            //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
-            //}
+        //    //Go to My NMMU menu page
+        //    $.mobile.changePage("#PageLoggedInHome");
+        //}
+        //else {
+        //    //Login fail and local values exist = Password has changed. Clear local values
+        //    if (window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+        //        localStorage.clear("username");
+        //        localStorage.clear("password");
+        //        localStorage.clear("isStudent");
+        //    }
+        $("#submitButton").removeAttr("disabled");
+        //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
+        //}
 
-            $.mobile.loading('hide');
+        $.mobile.loading('hide');
 
-        }).fail(function (msg) {
-            alert("fail:" + msg.d);
-        }).always(function () {
+    }).fail(function (msg) {
+        alert("fail:" + msg.d);
+    }).always(function () {
 
-        });
+    });
 
     //options.params = params;
 
@@ -1351,7 +1351,7 @@ function uploadPhoto() {
     //var ft = new FileTransfer();
     //ft.upload(myfileName, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", win, fail, options);
 
-     //Transfer picture to server
+    //Transfer picture to server
     var ft = new FileTransfer();
     ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", function (r) {
         document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
@@ -1359,7 +1359,7 @@ function uploadPhoto() {
         document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
     }, options);
 
-} 
+}
 
 //function win(r) {
 //    alert("Sent = " + r.bytesSent);
@@ -1456,55 +1456,46 @@ function uploadPicture() {
     // Get URI of picture to upload
     var img = document.getElementById('camera_image');
     var imageURI = img.src;
-    if (!imageURI || (img.style.display == "none")) {
-        document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
-        return;
-    }
-
-    alert("URI: " + imageURI);
-
-    var myfileName;
-    window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
-        fileEntry.file(function (fileObj) {
-
-            myfileName = fileObj.fullPath;
-            myfileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
-
-        });
-    });
-
-    alert("filename: " + myfileName);
-    // Verify server has been entered
-    //server = document.getElementById('serverUrl').value;
-    //server = "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage";
-    //if (server) {
-
-        // Specify transfer options
-        var options = new FileUploadOptions();
-        options.fileKey = "file";
-        //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-        options.fileName = myfileName;
-        options.mimeType = "image/jpeg";
-        options.chunkedMode = false;
-
-        var params = new Object();
-        params.yourName = yourName;
-        params.yourEmail = yourEmail;
-        params.yourMobile = yourMobile;
-        params.yourSubject = yourSubject;
-        params.yourCategory = yourCategory;
-        params.yourDescription = yourDescription;
-
-        options.params = params;
-
-
-        // Transfer picture to server
-        var ft = new FileTransfer();
-        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx", options), function (r) {
-            document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
-        }, function (error) {
-            document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
-        }, options);
-        $.mobile.loading('hide');
+    //if (!imageURI || (img.style.display == "none")) {
+    //    document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
+    //    return;
     //}
+
+    //var myfileName;
+    //window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
+    //    fileEntry.file(function (fileObj) {
+
+    //        myfileName = fileObj.fullPath;
+    //        myfileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
+
+    //    });
+    //});
+
+    // Specify transfer options
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    //options.fileName = myfileName;
+    options.mimeType = "image/jpeg";
+    options.chunkedMode = false;
+
+    //Rest of the form fields
+    var params = new Object();
+    params.yourName = yourName;
+    params.yourEmail = yourEmail;
+    params.yourMobile = yourMobile;
+    params.yourSubject = yourSubject;
+    params.yourCategory = yourCategory;
+    params.yourDescription = yourDescription;
+
+    options.params = params;
+
+    // Transfer picture to server
+    var ft = new FileTransfer();
+    ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx", options), function (r) {
+        document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
+    }, function (error) {
+        document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
+    }, options);
+    $.mobile.loading('hide');
 }

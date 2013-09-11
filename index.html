@@ -109,11 +109,7 @@
                     <a href="#PageGraduationDetails" data-transition="slide">Graduation details</a>
                 </li>
                 <li data-theme="d">
-                    <a href="#PageAdverts" data-transition="slide">Adverts
-                    </a>
-                </li>
-                <li data-theme="d">
-                    <a href="#PageTest" data-transition="slide">Test</a>
+                    <a href="#PageAdverts" data-transition="slide">Adverts</a>
                 </li>
             </ul>
         </div>
@@ -646,7 +642,8 @@
 
         <div data-role="content">
             <p>Note: Your details have been logged. Abuse will lead to removal of IT privileges.</p>
-            <form id="FormPostAdvert" class="ui-body ui-body-d ui-corner-all" method="post" enctype="multipart/form-data" action="http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx" data-ajax="false">
+            <!--<form id="FormPostAdvert" class="ui-body ui-body-d ui-corner-all" method="post" enctype="multipart/form-data" action="http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx" data-ajax="false">-->
+            <form id="FormPostAdvert" class="ui-body ui-body-d ui-corner-all">
                 <div data-role="fieldcontain">
                     <label for="YourName">Name:</label>
                     <input type="text" value="" name="YourName" id="YourName" required />
@@ -690,9 +687,9 @@
                     <label for="textareaDescription">Description:</label>
                     <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription" placeholder="Details" required></textarea>
                 </div>
-                <input type="file" />
+
                 <input type="button" onclick="selectPicture();" value="Select Picture from Library" /><br/>
-                <img style="width:120px;visibility:hidden;display:none; border:1px solid #CCCCCC;" id="camera_image" src="" />
+                <img style="width:120px;visibility:hidden;display:none; border:3px solid #8d8787;" id="camera_image" src="" />
                 <b>Status:</b> <span id="camera_status"></span><br>
                 <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
             </form>
@@ -700,27 +697,6 @@
 
     </div>
     <!-- End Adverts -->
-
-    <div data-role="page" id="PageTest">
-
-        <div data-role="header">
-            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
-        </div>
-
-        <div data-role="content">
-		    <h3>Camera:</h3>
-		    
-            <b>Image:</b> 
-        </div>
-
-    <!-- Actions -->
-    <div>
-        <input type="button" onclick="selectPicture();" value="Select Picture from Library" /><br/>
-        <input type="button" onclick="uploadPicture();" value="Upload Picture" />
-    </div>
-
-
-    </div>
 
 </body>
 </html>
