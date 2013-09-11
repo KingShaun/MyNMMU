@@ -705,40 +705,41 @@ function onDeviceReady() {
  
         });
 
-        //// validate signup form on keyup and submit
-        //$("#FormPostAdvert").validate({
+        // validate signup form on keyup and submit
+        $("#FormPostAdvert").validate({
 
-        //    rules: {
-        //        YourName: "required",
-        //        YourSubject: "required",
-        //        YourDescription: "required",
-        //        YourMobile: {
-        //            required: true,
-        //            minlength: 10,
-        //            maxlength: 13
-        //        },
-        //        YourEmail: {
-        //            required: true,
-        //            email: true
-        //        }
-        //    },
-        //    messages: {
-        //        YourName: "Please enter your name",
-        //        YourSubject: "Please enter a subject",
-        //        YourDescription: "Please enter a description",
-        //        YourMobile: {
-        //            required: "Please enter a phone number",
-        //            minlength: "Your phone number must consist of at least 10 characters",
-        //            maxlength: "Your phone number must consist of a maximum of 13 characters"
-        //        },
-        //        YourEmail: "Please enter a valid email address"
-        //    },
-        //    submitHandler: function (form) { // for demo
-        //        //handleAdvertPost();
-        //        uploadPhoto();
-        //        return false;
-        //    }
-        //});
+            rules: {
+                YourName: "required",
+                YourSubject: "required",
+                YourDescription: "required",
+                YourMobile: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 13
+                },
+                YourEmail: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                YourName: "Please enter your name",
+                YourSubject: "Please enter a subject",
+                YourDescription: "Please enter a description",
+                YourMobile: {
+                    required: "Please enter a phone number",
+                    minlength: "Your phone number must consist of at least 10 characters",
+                    maxlength: "Your phone number must consist of a maximum of 13 characters"
+                },
+                YourEmail: "Please enter a valid email address"
+            },
+            submitHandler: function (form) { // for demo
+                //handleAdvertPost();
+                //uploadPhoto();
+                uploadPicture();
+                return false;
+            }
+        });
     });
 
     //$("#submitAdvert").on('click', uploadPhoto);
@@ -1440,6 +1441,18 @@ function uploadPicture() {
 
     $.mobile.loading('show');
 
+    var form = $("#FormPostAdvert");
+    //disable the button so we can't resubmit while we wait
+    $("#submitAdvert", form).attr("disabled", "disabled");
+
+    var yourName = $("#YourName", form).val();
+    var yourEmail = $("#YourEmail", form).val();
+    var yourMobile = $("#YourMobile", form).val();
+    var yourSubject = $("#YourSubject", form).val();
+    var yourSubject = $("#YourSubject", form).val();
+    var yourCategory = $("#AdCategory", form).val();
+    var yourDescription = $("#textareaDescription", form).val();
+
     // Get URI of picture to upload
     var img = document.getElementById('camera_image');
     var imageURI = img.src;
@@ -1475,8 +1488,12 @@ function uploadPicture() {
         options.chunkedMode = false;
 
         var params = new Object();
-        params.value1 = "test";
-        params.value2 = "param";
+        params.yourName = yourName;
+        params.yourEmail = yourEmail;
+        params.yourMobile = yourMobile;
+        params.yourSubject = yourSubject;
+        params.yourCategory = yourCategory;
+        params.yourDescription = yourDescription;
 
         options.params = params;
 

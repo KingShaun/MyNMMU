@@ -691,18 +691,11 @@
                     <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription" placeholder="Details" required></textarea>
                 </div>
                 <input type="file" />
-                <input type="button" id="browse_photo" value="Select photo" />
-                <img src="" id="myimg" style="display: none; border:1px solid #CCCCCC;width:128px;" />
+                <input type="button" onclick="selectPicture();" value="Select Picture from Library" /><br/>
+                <img style="width:120px;visibility:hidden;display:none; border:1px solid #CCCCCC;" id="camera_image" src="" />
+                <b>Status:</b> <span id="camera_status"></span><br>
                 <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
-<!--                <b>Status:</b> <span id="camera_status"></span><br>-->
             </form>
-
-<!--            <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-            <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-            <img style="display: none; width: 60px; height: 60px;" id="smallImage" src="" />
-            <img style="display: none;" id="largeImage" src="" />-->
-
-            <!--            <img style="display:none;" id="myImage" src="" />-->
         </div>
 
     </div>
@@ -716,8 +709,8 @@
 
         <div data-role="content">
 		    <h3>Camera:</h3>
-		    <b>Status:</b> <span id="camera_status"></span><br>
-            <b>Image:</b> <img style="width:120px;visibility:hidden;display:none;" id="camera_image" src="" />
+		    
+            <b>Image:</b> 
         </div>
 
     <!-- Actions -->
