@@ -751,6 +751,8 @@ function onDeviceReady() {
         img.style.visibility = "hidden";
         img.style.display = "none";
 
+        document.getElementById('camera_status').innerHTML = "";
+
         GetADDetailsForAdvertPost(window.localStorage["username"], window.localStorage["password"]);
     });
 
