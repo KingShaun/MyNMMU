@@ -705,40 +705,40 @@ function onDeviceReady() {
  
         });
 
-        // validate signup form on keyup and submit
-        $("#FormPostAdvert").validate({
+        //// validate signup form on keyup and submit
+        //$("#FormPostAdvert").validate({
 
-            rules: {
-                YourName: "required",
-                YourSubject: "required",
-                YourDescription: "required",
-                YourMobile: {
-                    required: true,
-                    minlength: 10,
-                    maxlength: 13
-                },
-                YourEmail: {
-                    required: true,
-                    email: true
-                }
-            },
-            messages: {
-                YourName: "Please enter your name",
-                YourSubject: "Please enter a subject",
-                YourDescription: "Please enter a description",
-                YourMobile: {
-                    required: "Please enter a phone number",
-                    minlength: "Your phone number must consist of at least 10 characters",
-                    maxlength: "Your phone number must consist of a maximum of 13 characters"
-                },
-                YourEmail: "Please enter a valid email address"
-            },
-            submitHandler: function (form) { // for demo
-                //handleAdvertPost();
-                uploadPhoto();
-                return false;
-            }
-        });
+        //    rules: {
+        //        YourName: "required",
+        //        YourSubject: "required",
+        //        YourDescription: "required",
+        //        YourMobile: {
+        //            required: true,
+        //            minlength: 10,
+        //            maxlength: 13
+        //        },
+        //        YourEmail: {
+        //            required: true,
+        //            email: true
+        //        }
+        //    },
+        //    messages: {
+        //        YourName: "Please enter your name",
+        //        YourSubject: "Please enter a subject",
+        //        YourDescription: "Please enter a description",
+        //        YourMobile: {
+        //            required: "Please enter a phone number",
+        //            minlength: "Your phone number must consist of at least 10 characters",
+        //            maxlength: "Your phone number must consist of a maximum of 13 characters"
+        //        },
+        //        YourEmail: "Please enter a valid email address"
+        //    },
+        //    submitHandler: function (form) { // for demo
+        //        //handleAdvertPost();
+        //        uploadPhoto();
+        //        return false;
+        //    }
+        //});
     });
 
     //$("#submitAdvert").on('click', uploadPhoto);
@@ -1477,7 +1477,7 @@ function uploadPicture() {
 
         // Transfer picture to server
         var ft = new FileTransfer();
-        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage"), function (r) {
+        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx"), function (r) {
             document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
         }, function (error) {
             document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
