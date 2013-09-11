@@ -1477,7 +1477,7 @@ function uploadPicture() {
 
         // Transfer picture to server
         var ft = new FileTransfer();
-        ft.upload(imageURI, "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage", function (r) {
+        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage"), function (r) {
             document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
         }, function (error) {
             document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
