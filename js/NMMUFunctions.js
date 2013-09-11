@@ -1479,17 +1479,22 @@ function uploadPicture() {
     if (!imageURI || (img.style.display == "none")) {
         //document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
         //return;
+        alert("No image");
+
         $.ajax({
             type: "POST",
             url: "http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx",
-            contentType: 'application/json',
+            // DO NOT SET CONTENT TYPE to json
+            // contentType: "application/json; charset=utf-8", 
+            // DataType needs to stay, otherwise the response object
+            // will be treated as a single string
             data: '{yourName: "' + yourName + '", yourEmail: "' + yourEmail + '", yourMobile: "' + yourMobile + '", yourSubject: "' + yourSubject + '", yourCategory: "' + yourCategory + '", yourDescription: "' + yourDescription + '" }',
             dataType: "json"
         }).done(function (msg) {
 
             alert("Success: " + msg.d);
 
-            $("#submitButton").removeAttr("disabled");
+            $("#submitAdvert").removeAttr("disabled");
             //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
             //}
 
