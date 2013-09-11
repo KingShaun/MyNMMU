@@ -1449,6 +1449,18 @@ function uploadPicture() {
     }
 
     alert("URI: " + imageURI);
+
+    var myfileName;
+    window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
+        fileEntry.file(function (fileObj) {
+
+            myfileName = fileObj.fullPath;
+            myfileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
+
+        });
+    });
+
+    alert("filename: " + myfileName);
     // Verify server has been entered
     //server = document.getElementById('serverUrl').value;
     //server = "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx?op=SaveImage";
@@ -1457,7 +1469,8 @@ function uploadPicture() {
         // Specify transfer options
         var options = new FileUploadOptions();
         options.fileKey = "file";
-        options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        options.fileName = myfileName;
         options.mimeType = "image/jpeg";
         options.chunkedMode = false;
 
