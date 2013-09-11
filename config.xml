@@ -3,7 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.hello-world"
+        id        = "za.ac.nmmu.mynmmu"
         version   = "1.0.0">
 
     <name>KingShaun</name>
@@ -23,6 +23,8 @@
     <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/camera"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+
   
     <!--
         If you do not want any permissions to be added to your app, add the
@@ -91,7 +93,8 @@
 
         Otherwise, you can specify specific domains:
     
-    <access origin="http://127.0.0.1*"/> <!-- allow local pages -->
+    <access origin="http://127.0.0.1*"/> -->
+    <!-- allow local pages -->
     <access origin="*" />
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
