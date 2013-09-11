@@ -1416,6 +1416,26 @@ function onPhotoURISuccess(imageURI) {
 }
 
 /**
+ * Take picture with camera
+ */
+function takePicture() {
+    navigator.camera.getPicture(
+        function (uri) {
+            var img = document.getElementById('camera_image');
+            img.style.visibility = "visible";
+            img.style.display = "block";
+            img.src = uri;
+            document.getElementById('camera_status').innerHTML = "Success";
+        },
+        function (e) {
+            console.log("Error getting picture: " + e);
+            document.getElementById('camera_status').innerHTML = "Error getting picture.";
+        },
+        { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI });
+};
+
+
+/**
  * Select picture from library
  */
 function selectPicture() {
@@ -1449,53 +1469,78 @@ function uploadPicture() {
     var yourEmail = $("#YourEmail", form).val();
     var yourMobile = $("#YourMobile", form).val();
     var yourSubject = $("#YourSubject", form).val();
-    var yourSubject = $("#YourSubject", form).val();
     var yourCategory = $("#AdCategory", form).val();
     var yourDescription = $("#textareaDescription", form).val();
 
     // Get URI of picture to upload
     var img = document.getElementById('camera_image');
     var imageURI = img.src;
-    //if (!imageURI || (img.style.display == "none")) {
-    //    document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
-    //    return;
-    //}
 
-    //var myfileName;
-    //window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
-    //    fileEntry.file(function (fileObj) {
+    if (!imageURI || (img.style.display == "none")) {
+        //document.getElementById('camera_status').innerHTML = "Take picture or select picture from library first.";
+        //return;
+        $.ajax({
+            type: "POST",
+            url: "http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx",
+            contentType: 'application/json',
+            data: '{yourName: "' + yourName + '", yourEmail: "' + yourEmail + '", yourMobile: "' + yourMobile + '", yourSubject: "' + yourSubject + '", yourCategory: "' + yourCategory + '", yourDescription: "' + yourDescription + '" }',
+            dataType: "json"
+        }).done(function (msg) {
 
-    //        myfileName = fileObj.fullPath;
-    //        myfileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
+            alert("Success: " + msg.d);
 
-    //    });
-    //});
+            $("#submitButton").removeAttr("disabled");
+            //    $.mobile.changePage("#LoginFailureDialog", { role: "dialog" });
+            //}
 
-    // Specify transfer options
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    //options.fileName = myfileName;
-    options.mimeType = "image/jpeg";
-    options.chunkedMode = false;
+            $.mobile.loading('hide');
 
-    //Rest of the form fields
-    var params = new Object();
-    params.yourName = yourName;
-    params.yourEmail = yourEmail;
-    params.yourMobile = yourMobile;
-    params.yourSubject = yourSubject;
-    params.yourCategory = yourCategory;
-    params.yourDescription = yourDescription;
+        }).fail(function (msg) {
+            alert("fail:" + msg.d);
+        }).always(function () {
 
-    options.params = params;
+        });
+    }
+        //picture to upload
+    else {
 
-    // Transfer picture to server
-    var ft = new FileTransfer();
-    ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx", options), function (r) {
-        document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
-    }, function (error) {
-        document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
-    }, options);
-    $.mobile.loading('hide');
+
+        //var myfileName;
+        //window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
+        //    fileEntry.file(function (fileObj) {
+
+        //        myfileName = fileObj.fullPath;
+        //        myfileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
+
+        //    });
+        //});
+
+        // Specify transfer options
+        var options = new FileUploadOptions();
+        options.fileKey = "file";
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        //options.fileName = myfileName;
+        options.mimeType = "image/jpeg";
+        options.chunkedMode = false;
+
+        //Rest of the form fields
+        var params = new Object();
+        params.yourName = yourName;
+        params.yourEmail = yourEmail;
+        params.yourMobile = yourMobile;
+        params.yourSubject = yourSubject;
+        params.yourCategory = yourCategory;
+        params.yourDescription = yourDescription;
+
+        options.params = params;
+
+        // Transfer picture to server
+        var ft = new FileTransfer();
+        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx", options), function (r) {
+            document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
+        }, function (error) {
+            document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
+        }, options);
+        $.mobile.loading('hide');
+    }
 }
