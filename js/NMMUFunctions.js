@@ -1287,21 +1287,21 @@ function uploadPicture() {
     else {
 
 
-        //var myfileName;
-        //window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
-        //    fileEntry.file(function (fileObj) {
+        var myfileName;
+        window.resolveLocalFileSystemURI(imageURI, function (fileEntry) {
+            fileEntry.file(function (fileObj) {
 
-        //        myfileName = fileObj.fullPath;
-        //        myfileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
+                myfileName = fileObj.fullPath;
+                myfileName = myfileName.substr(myfileName.lastIndexOf('/') + 1);
 
-        //    });
-        //});
+            });
+        });
 
         // Specify transfer options
         var options = new FileUploadOptions();
         options.fileKey = "file";
-        options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-        //options.fileName = myfileName;
+        //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        options.fileName = myfileName;
         options.mimeType = "image/jpeg";
         options.chunkedMode = false;
 
