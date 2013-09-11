@@ -1438,7 +1438,7 @@ function selectPicture() {
  */
 function uploadPicture() {
 
-    alert("Uploading pic ...");
+    $.mobile.loading('show');
 
     // Get URI of picture to upload
     var img = document.getElementById('camera_image');
@@ -1474,14 +1474,20 @@ function uploadPicture() {
         options.mimeType = "image/jpeg";
         options.chunkedMode = false;
 
+        var params = new Object();
+        params.value1 = "test";
+        params.value2 = "param";
+
+        options.params = params;
+
 
         // Transfer picture to server
         var ft = new FileTransfer();
-        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx"), function (r) {
+        ft.upload(imageURI, encodeURI("http://webservices.nmmu.ac.za/mobileapp/FileUpload.ashx", options), function (r) {
             document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
         }, function (error) {
             document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
         }, options);
-        alert("Done!");
+        $.mobile.loading('hide');
     //}
 }
