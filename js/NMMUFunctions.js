@@ -684,8 +684,13 @@ function onDeviceReady() {
         contentHTML += '<strong>Email:</strong> <a href="mailto:' + AdvertsEntries[SelectedAdvertsEntry].ademail + '?subject=' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '">' + AdvertsEntries[SelectedAdvertsEntry].ademail + '</a><br />';
         contentHTML += '<strong>Mobile:</strong> <a href="tel:' + AdvertsEntries[SelectedAdvertsEntry].admobile + '">' + AdvertsEntries[SelectedAdvertsEntry].admobile + '</a><br />';
         contentHTML += '<strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '<br />';
+        contentHTML += '<strong>Picture ID:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '<br />';
         contentHTML += '</p>';
         contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p>';
+
+        if (AdvertsEntries[SelectedAdvertsEntry].adpictureid != -1) {
+            contentHTML += '<img style="width:256px; box-shadow: 5px 5px 2px #8d8787; -moz-border-radius: 5px; border-radius: 5px;" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '" />';
+        }
 
         //contentHTML += AdvertsEntries[SelectedAdvertsEntry].description;
         $("#AdvertEntryText", this).html(contentHTML);
@@ -846,7 +851,8 @@ function handleGetAdverts() {
                 ademail: v.EmailAddress,
                 admobile: v.Mobile,
                 addescription: v.Description,
-                addatecreated: v.DateCreated
+                addatecreated: v.DateCreated,
+                adpictureid: v.PictureID
             };
             AdvertsEntries.push(entry);
 
