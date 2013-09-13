@@ -1043,8 +1043,6 @@ function deleteGetMyAdvert(ID, PictureID) {
 
         //User confirmed, go!
 
-        alert("deleting");
-
         $.mobile.loading('show');
 
         $.ajax({

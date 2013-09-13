@@ -78,7 +78,7 @@
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
             <div data-role="controlgroup" data-type="horizontal" style="text-align: center">
-<!--                <a href="#PageHome" data-role="button" data-icon="home">Home</a>-->
+                <!--                <a href="#PageHome" data-role="button" data-icon="home">Home</a>-->
                 <a href="#PageLogin" data-role="button" data-icon="gear">My NMMU</a>
                 <a href="#PageEmergency" data-role="button" data-icon="plus">Emergency</a>
             </div>
@@ -116,7 +116,7 @@
         <div data-theme="a" data-role="footer" data-position="fixed">
             <div data-role="controlgroup" data-type="horizontal" style="text-align: center">
                 <a href="#PageHome" data-role="button" data-icon="home">Home</a>
-<!--                <a href="#PageLogin" data-role="button" data-icon="gear">My NMMU</a>-->
+                <!--                <a href="#PageLogin" data-role="button" data-icon="gear">My NMMU</a>-->
                 <a href="#PageHome" data-role="button" data-icon="back" class="LogoutButton">Logout</a>
             </div>
         </div>
@@ -160,7 +160,7 @@
         </div>
 
         <div data-role="content">
-            <p style='color:green'>Your advert was added successfully.</p>
+            <p style='color: green'>Your advert was added successfully.</p>
             <a href="#PageAdvertPost" data-role="button" data-theme="b">OK</a>
         </div>
     </div>
@@ -390,8 +390,10 @@
         </div>
 
         <div data-role="content">
-            <p>Welcome to Nelson Mandela Metropolitan University in the beautiful coastal city of
-                Port Elizabeth in the Eastern Cape, and George in the South Cape.</p>
+            <p>
+                Welcome to Nelson Mandela Metropolitan University in the beautiful coastal city of
+                Port Elizabeth in the Eastern Cape, and George in the South Cape.
+            </p>
             <div class="NMMUPhoneNumberTablet">
                 <h2>General</h2>
                 <p>
@@ -698,7 +700,7 @@
                 </div>
                 <div data-role="fieldcontain">
                     <label for="YourMobile">Mobile:*</label>
-                    <input type="tel" value="" name="YourMobile" id="YourMobile" placeholder="Phone number" maxlength="13"  required />
+                    <input type="tel" value="" name="YourMobile" id="YourMobile" placeholder="Phone number" maxlength="13" required />
                 </div>
                 <div data-role="fieldcontain">
                     <label for="YourSubject">Subject:*</label>
@@ -731,12 +733,16 @@
                     <label for="textareaDescription">Description:*</label>
                     <textarea cols="40" rows="8" name="textareaDescription" id="textareaDescription" placeholder="Details" maxlength="1000" required></textarea>
                 </div>
-                <br /><span>Optional:</span>
-                <input type="button" onclick="selectPicture();" value="Select Picture" /><br/>
+                <br />
+                <span>Optional:</span>
+                <input type="button" onclick="selectPicture();" value="Select Picture" /><br />
 
-                <img style="width:120px;visibility:hidden;display:none;" class="AdvertImage" id="camera_image" src="" />
+                <div style="text-align: center">
+                    <img style="visibility: hidden; display: none;" class="AdvertImage" id="camera_image" src="" />
+                </div>
 
-                <b>Picture status:</b> <span id="camera_status"></span><br>
+                <b>Picture status:</b> <span id="camera_status"></span>
+                <br>
 
                 <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
             </form>
@@ -744,7 +750,7 @@
 
     </div>
 
-   <div data-role="page" id="PageAdvertEdit">
+    <div data-role="page" id="PageAdvertEdit">
 
         <div data-role="header">
             <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert edit</h1>
