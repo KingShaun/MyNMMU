@@ -196,6 +196,22 @@
     </div>
     <!-- End all fields required -->
 
+    <!-- Delete confirm message -->
+    <div id="DeleteConfirmation" data-role="dialog" data-close-btn="none">
+
+        <div data-role="header">
+            <h1>Are you sure?</h1>
+        </div>
+
+        <div data-role="content">
+            <!--<h1>Your authentication attempt failed.</h1>-->
+            <p>This action cannot be undone.</p>
+            <a href="#" data-role="button" data-rel="back" data-theme="c" data-inline="true">Cancel</a>
+            <a href="#" class="sure-do" data-role="button" data-transition="flow" data-rel="back" data-theme="b" data-inline="true">Delete</a>
+        </div>
+    </div>
+    <!-- End delete confirm -->
+
     <!-- News -->
     <div data-role="page" id="PageNews">
 
@@ -607,7 +623,7 @@
             <div data-role="controlgroup" data-type="horizontal" style="text-align: center">
                 <a href="#PageAdvertPost" data-role="button" data-icon="plus">Post</a>
                 <!--<a href="#" data-role="button" data-icon="refresh" onclick="handleGetAdverts()">Refresh</a>-->
-                <a href="#" data-role="button" data-icon="edit">Edit</a>
+                <a href="#PageAdvertEdit" data-role="button" data-icon="edit">Edit</a>
                 <a href="#PageAdvertSearch" data-role="button" data-icon="search">Search</a>
             </div>
         </div>
@@ -724,6 +740,30 @@
 
                 <input type="submit" data-theme="b" name="submitAdvert" id="submitAdvert" value="Post advert">
             </form>
+        </div>
+
+    </div>
+
+   <div data-role="page" id="PageAdvertEdit">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert edit</h1>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="MyAdvertsListView">
+            </ul>
+        </div>
+
+    </div>
+
+    <div data-role="page" id="PageEditAdvertContent">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
+        </div>
+
+        <div data-role="content" id="EditAdvertEntryText">
         </div>
 
     </div>

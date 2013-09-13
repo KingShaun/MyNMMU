@@ -9,6 +9,14 @@
     z-index: 99;
 }
 
+.AdvertImage {
+    width:256px; 
+    box-shadow: 5px 5px 2px #8d8787; 
+    -webkit-border-radius: 0.3em; 
+    -moz-border-radius: 0.3em; 
+    border-radius: 0.3em;
+}
+
 .NMMUHeaderImage
 {
     float: right;
