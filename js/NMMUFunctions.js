@@ -1056,7 +1056,10 @@ function deleteGetMyAdvert(ID, PictureID) {
                     //alert("Success");
                     //$("#submitAdvert").removeAttr("disabled");
                     $.mobile.loading('hide');
-                    $.mobile.changePage("#PageAdvertEdit", { role: "dialog" });
+                    $.mobile.changePage("#PageAdvertEdit", {
+                        role: "dialog", reverse: false,
+                        changeHash: false
+                    });
                 }
                 else {
                     //alert("Error");
@@ -1392,7 +1395,10 @@ function uploadPicture() {
                 if (result.message == "Success") {
                     $("#submitAdvert").removeAttr("disabled");
                     $.mobile.loading('hide');
-                    $.mobile.changePage("#AdvertPostSuccess", { role: "dialog" });
+                    $.mobile.changePage("#AdvertPostSuccess", {
+                        role: "dialog", reverse: false,
+                        changeHash: false
+                    });
                 }
                 else {
                     $.mobile.changePage("#PageError", { role: "dialog" });
@@ -1441,11 +1447,17 @@ function uploadPicture() {
             document.getElementById('camera_status').innerHTML = "Upload successful: " + r.bytesSent + " bytes uploaded.";
             $("#submitAdvert").removeAttr("disabled");
             $.mobile.loading('hide');
-            $.mobile.changePage("#AdvertPostSuccess", { role: "dialog" });
+            $.mobile.changePage("#AdvertPostSuccess", {
+                role: "dialog", reverse: false,
+                changeHash: false
+            });
         }, function (error) {
             document.getElementById('camera_status').innerHTML = "Upload failed: Code = " + error.code;
             $.mobile.loading('hide');
-            $.mobile.changePage("#PageError", { role: "dialog" });
+            $.mobile.changePage("#PageError", {
+                role: "dialog", reverse: false,
+                changeHash: false
+            });
         }, options);
     }
 }
