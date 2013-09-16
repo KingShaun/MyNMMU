@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css">
     <link rel="stylesheet" href="css/NMMU.css">
 
+    <style type="text/css">
+        body { /* Setting body margins to 0 to have proper positioning of #container div */
+            margin: 0;
+        }
+        /* #container div with absolute position and 100% width and height so it takes up whole window */
+
+div#container { position: absolute; width: 100%; top: 0; bottom: 0; }  div[data-role="header"] { position: absolute; top: 0; left: 0; right: 0; }  div[data-role="content"] { position: absolute; top: 41px; bottom: 0; left: 0; right: 0; }  .scrollable { overflow-y: scroll; -webkit-overflow-scrolling: touch; }
+    </style>
+
     <script type="text/javascript" src="phonegap.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
@@ -20,6 +29,17 @@
 
     <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
     <script src="js/jquery-1.7.min.js"></script>-->
+
+
+    <script type="text/javascript">
+        $(document).one("mobileinit", function () {
+        // Setting #container div as a jqm pageContainer 
+        $.mobile.pageContainer = $('#container');
+
+        // Setting default page transition to slide 
+        $.mobile.defaultPageTransition = 'slide';
+        });
+    </script>
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&sensor=false&language=en"></script>-->
@@ -32,6 +52,7 @@
 
 </head>
 <body onload="init()">
+
     <!-- Home -->
     <div data-role="page" id="PageHome">
         <div style="text-align: center; background-color: #003058; padding-top: 5px">
@@ -754,7 +775,7 @@
 
     <div data-role="page" id="PageAdvertEdit">
 
-        <div data-role="header">            
+        <div data-role="header">
             <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert edit</h1>
         </div>
 
