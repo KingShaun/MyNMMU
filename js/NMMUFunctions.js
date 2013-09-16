@@ -1032,7 +1032,7 @@ function areYouSure(callback) {
         callback();
         $(this).off("click.DeleteConfirmation");
     });
-    $.mobile.changePage("#DeleteConfirmation");
+    $.mobile.changePage("#DeleteConfirmation", {reverse: false, changeHash: false});
 }
 
 
@@ -1043,7 +1043,7 @@ function deleteGetMyAdvert(ID, PictureID) {
 
         //User confirmed, go!
 
-        $.mobile.loading('show');
+        $.mobile.loading('show'); 
 
         $.ajax({
             type: "POST",
@@ -1057,8 +1057,7 @@ function deleteGetMyAdvert(ID, PictureID) {
                     //$("#submitAdvert").removeAttr("disabled");
                     $.mobile.loading('hide');
                     $.mobile.changePage("#PageAdvertEdit", {
-                        role: "dialog", reverse: false,
-                        changeHash: false
+                        role: "dialog"
                     });
                 }
                 else {
