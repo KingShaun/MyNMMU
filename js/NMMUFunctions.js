@@ -1339,6 +1339,8 @@ function takePicture() {
  * Select picture from library
  */
 function selectPicture() {
+    $.mobile.loading('show');
+
     navigator.camera.getPicture(
         function (uri) {
             var img = document.getElementById('camera_image');
@@ -1348,10 +1350,16 @@ function selectPicture() {
             document.getElementById('camera_status').innerHTML = "Success";
         },
         function (e) {
-            console.log("Error getting picture: " + e);
-            document.getElementById('camera_status').innerHTML = "Error getting picture.";
+            //console.log("Error getting picture: " + e);
+            //document.getElementById('camera_status').innerHTML = "Error getting picture.";
+            var camStatus = document.getElementById('camera_status');
+            camStatus.style.visibility = "visible";
+            camStatus.style.display = "block";
+            camStatus.innerHTML = "Error getting picture."
         },
         { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
+
+    $.mobile.loading('hide');
 };
 
 /**
