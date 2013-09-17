@@ -274,6 +274,64 @@ function onDeviceReady() {
         GetGraduationDetails(username, password);
     });
 
+    // My Module Page
+    //NMMU LOGIC: Run the GetMyModules function.
+    //We want this running everytime we hit the login page, so pagebeforeshow
+
+    var SelectedModulesEntry = "";
+
+    $(document).on('pagebeforeshow', '#PageMyModules', function () {
+
+        var storage = window.localStorage;
+        var username = storage["username"];
+        var password = storage["password"];
+        var isStudent = storage["isStudent"];;
+
+
+        //if (isStudent != "true") {
+        //    //Display message on page
+        //    $('#DivGraduationDetails').html('<p>This page is only available to current NMMU students.</p>');
+
+        //    return;
+        //}
+
+        GetMyModules(username, password);
+    });
+
+    $(document).on('pageshow', '#PageMyModules', function () {
+        $(document).off('click', '.ModuleContentLink').on('click', '.ModuleContentLink', function (e) {
+            SelectedModulesEntry = $(this).data("entryid");
+        });
+    });
+
+    $(document).on('pagebeforeshow', '#PageMyModulesContent', function () {
+        var contentHTML = "";
+        contentHTML += '<h3>' + MyModulesEntries[SelectedModulesEntry].modulename + '</h3>';
+        contentHTML += '<p>';
+        contentHTML += '<strong>Code:</strong> ' + MyModulesEntries[SelectedModulesEntry].modulecode + '<br /><br />';
+        contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a><br /><br />';
+
+        //Show moodle link if it exists
+        if (MyModulesEntries[SelectedModulesEntry].modulemoodle != "0") {
+            contentHTML += '<a href="#" class="MoodleLink">Moodle/Learn Site Site</a><br />';
+        }
+        contentHTML += '</p>';
+
+        $("#ModuleEntryText", this).html(contentHTML);
+    });
+
+    $(document).on('pageshow', '#PageMyModulesContent', function () {
+        $(document).off('click', '.SharePointLink').on('click', '.SharePointLink', function (e) {
+            window.open(MyModulesEntries[SelectedModulesEntry].modulesharepoint, '_blank', 'location=yes');
+        });
+
+        if (MyModulesEntries[SelectedModulesEntry].modulemoodle != "0") {
+            $(document).off('click', '.MoodleLink').on('click', '.MoodleLink', function (e) {
+                window.open(MyModulesEntries[SelectedModulesEntry].modulemoodle, '_blank', 'location=yes');
+            });
+        }
+    });
+
     // My Journey Page
     //NMMU LOGIC: Need to set the InAppBrowser on the link click. We only need to do that once, so we set the event on pageinit.
     $(document).on('pageinit', '#PageMyJourney', function () {
@@ -1047,7 +1105,6 @@ function areYouSure(callback) {
     $.mobile.changePage("#DeleteConfirmation", {reverse: false, changeHash: false});
 }
 
-
 function deleteGetMyAdvert(ID, PictureID) {
 
     //$.mobile.changePage("#DeleteConfirmation", { role: "dialog" });
@@ -1262,6 +1319,64 @@ function GetADDetailsForAdvertPost(username, password) {
 
     }).fail(function (msg) {
         alert("fail:" + msg);
+    }).always(function () {
+
+    });
+}
+
+//Stores adverts entries
+var MyModulesEntries = [];
+
+function GetMyModules(username, password) {
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetMyModules",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", password: "' + password + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        //Clear the array
+        MyModulesEntries.length = 0;
+
+        $.each(msg.d, function (i, v) {
+
+            entry = {
+                modulecode: v.SubjectCode,
+                modulename: v.SubjectName,
+                modulesharepoint: v.LinkSharePoint,
+                modulemoodle: v.LinkMoodle
+            };
+            MyModulesEntries.push(entry);
+
+            $.mobile.loading('hide');
+
+        });
+        //now draw the list
+        var s = '';
+        s += '<li data-role="list-divider" role="heading">Modules</li>';
+
+        //The webservice will return one record into the array, saying no results found.
+        if (MyModulesEntries.length == 1 && MyModulesEntries[0].modulename == "No results found.") {
+            s += '<li>';
+            s += 'No modules returned.';
+            s += '</li>';
+        }
+        else {
+            //now draw the list
+            $.each(MyModulesEntries, function (i, v) {
+                s += '<li>';
+                s += '<a href="#PageMyModulesContent" class="ModuleContentLink" data-transition="slide" data-entryid="' + i + '">';
+                s += v.modulename;
+                s += '</a>';
+                s += '</li>';
+            });
+        }
+
+        $("#MyModulesListView").html(s);
+        $("#MyModulesListView").listview("refresh");
+
+    }).fail(function (msg) {
+        alert("fail:" + msg.d);
     }).always(function () {
 
     });
