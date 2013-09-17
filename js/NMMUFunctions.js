@@ -460,6 +460,8 @@ function onDeviceReady() {
 
     function initialize(lat, lon) {
 
+        $.mobile.loading('show');
+
         directionsDisplay = new google.maps.DirectionsRenderer();
         directionsService = new google.maps.DirectionsService();
 
@@ -484,6 +486,8 @@ function onDeviceReady() {
             infowindow.setContent("Current position: latitude: " + lat + " longitude: " + lon);
             infowindow.open(map, currentPositionMarker);
         });
+
+        $.mobile.loading('hide');
     }
 
     function locError(error) {
@@ -498,6 +502,8 @@ function onDeviceReady() {
     }
 
     function calculateRoute() {
+
+        $.mobile.loading('show');
 
         //Clear directions
         $('#directions').html('');
@@ -531,6 +537,8 @@ function onDeviceReady() {
         else {
             $("#results").hide();
         }
+
+        $.mobile.loading('hide');
     }
 
     $(document).on("pagebeforeshow", "#PageGetDirections", function () {
@@ -553,6 +561,8 @@ function onDeviceReady() {
     //Reverse Geolocate
     function codeLatLng(lat, lon) {
 
+        $.mobile.loading('show');
+
         var geocoder = new google.maps.Geocoder();
 
         var input = lat + "," + lon;
@@ -572,6 +582,8 @@ function onDeviceReady() {
                 alert('Geocoder failed due to: ' + status);
             }
         });
+
+        $.mobile.loading('hide');
     }
 
     function locwhereamiError(error) {
