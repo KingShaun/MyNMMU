@@ -285,15 +285,7 @@ function onDeviceReady() {
         var storage = window.localStorage;
         var username = storage["username"];
         var password = storage["password"];
-        var isStudent = storage["isStudent"];;
-
-
-        //if (isStudent != "true") {
-        //    //Display message on page
-        //    $('#DivGraduationDetails').html('<p>This page is only available to current NMMU students.</p>');
-
-        //    return;
-        //}
+        var isStudent = storage["isStudent"];
 
         GetMyModules(username, password);
     });
@@ -304,21 +296,38 @@ function onDeviceReady() {
         });
     });
 
-    $(document).on('pagebeforeshow', '#PageMyModulesContent', function () {
+    $(document).on('pagecreate', '#PageMyModulesContent', function () {
         var contentHTML = "";
-        contentHTML += '<h3>' + MyModulesEntries[SelectedModulesEntry].modulename + '</h3>';
-        contentHTML += '<p>';
-        contentHTML += '<strong>Code:</strong> ' + MyModulesEntries[SelectedModulesEntry].modulecode + '<br /><br />';
-        contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a><br /><br />';
+        contentHTML += '<li data-role="list-divider" role="heading">' + MyModulesEntries[SelectedModulesEntry].modulename + '<br />(' + MyModulesEntries[SelectedModulesEntry].modulecode + ')</li>';
+        contentHTML += '<li>';
+        contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a>';
+        contentHTML += '</li>';
 
         //Show moodle link if it exists
         if (MyModulesEntries[SelectedModulesEntry].modulemoodle != "0") {
-            contentHTML += '<a href="#" class="MoodleLink">Moodle/Learn Site Site</a><br />';
+            contentHTML += '<li>';
+            contentHTML += '<a href="#" class="MoodleLink">Moodle/Learn Site Site</a>';
+            contentHTML += '</li>';
         }
-        contentHTML += '</p>';
+
+        //Show staff the email class link
+        if (window.localStorage["isStudent"] != "true") {
+            contentHTML += '<li>';
+            contentHTML += '<a href="mailto:' + MyModulesEntries[SelectedModulesEntry].modulecode + '@nmmu.ac.za">Email class</a>';
+            contentHTML += '</li>';
+        }
+
+        //Show staff the class list link
+        if (window.localStorage["isStudent"] != "true") {
+            contentHTML += '<li>';
+            //contentHTML += '<a href="#" class="ClassListLink">Class list</a>';
+            contentHTML += '<a href="#PageClassList">Class list</a>';
+            contentHTML += '</li>';
+        }
 
         $("#ModuleEntryText", this).html(contentHTML);
     });
+
 
     $(document).on('pageshow', '#PageMyModulesContent', function () {
         $(document).off('click', '.SharePointLink').on('click', '.SharePointLink', function (e) {
@@ -330,6 +339,14 @@ function onDeviceReady() {
                 window.open(MyModulesEntries[SelectedModulesEntry].modulemoodle, '_blank', 'location=yes');
             });
         }
+
+        //$(document).off('click', '.ClassListLink').on('click', '.ClassListLink', function (e) {
+        //    GetClassList(MyModulesEntries[SelectedModulesEntry].modulecode);
+        //});
+    });
+
+    $(document).on('pagebeforeshow', '#PageClassList', function () {
+        GetClassList(MyModulesEntries[SelectedModulesEntry].modulecode);
     });
 
     // My Journey Page
@@ -1344,9 +1361,22 @@ function GetADDetailsForAdvertPost(username, password) {
 var MyModulesEntries = [];
 
 function GetMyModules(username, password) {
+
+    function GetClassList() {
+        alert('test');
+    }
+    var url = '';
+
+    if (window.localStorage["isStudent"] != "true") {
+        url = "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetStaffModules";
+    }
+    else {
+        url = "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetMyModules";
+    }
+
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetMyModules",
+        url: url,
         contentType: 'application/json',
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
@@ -1398,16 +1428,17 @@ function GetMyModules(username, password) {
     });
 }
 
-function CreateAdvert() {
-
+function GetClassList(modulecode) {
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/Adverts.asmx/Upload",
+        url: "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetClassList",
         contentType: 'application/json',
-        //data: '{ username: "' + u + '", password: "' + p + '" }',
+        data: '{ modulecode: "' + modulecode + '" }',
         dataType: "json"
     }).done(function (msg) {
-        alert(JSON.stringify(msg));
+        //$.mobile.changePage("#PageClassList");
+        $("#DivClassList").html(msg.d);
+
     }).fail(function (msg) {
         alert("fail:" + msg);
     }).always(function () {
