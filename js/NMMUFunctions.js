@@ -280,7 +280,7 @@ function onDeviceReady() {
 
     var SelectedModulesEntry = "";
 
-    $(document).on('pagebeforeshow', '#PageMyModules', function () {
+    $(document).on('pageinit', '#PageMyModules', function () {
 
         var storage = window.localStorage;
         var username = storage["username"];
