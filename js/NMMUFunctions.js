@@ -280,7 +280,7 @@ function onDeviceReady() {
 
     var SelectedModulesEntry = "";
 
-    $(document).on('pageinit', '#PageMyModules', function () {
+    $(document).on('pagebeforeshow', '#PageMyModules', function () {
 
         var storage = window.localStorage;
         var username = storage["username"];
@@ -296,7 +296,7 @@ function onDeviceReady() {
         });
     });
 
-    $(document).on('pagecreate', '#PageMyModulesContent', function () {
+    $(document).on('pagebeforeshow', '#PageMyModulesContent', function () {
         var contentHTML = "";
         contentHTML += '<li data-role="list-divider" role="heading">' + MyModulesEntries[SelectedModulesEntry].modulename + '<br />(' + MyModulesEntries[SelectedModulesEntry].modulecode + ')</li>';
         contentHTML += '<li>';
@@ -325,7 +325,8 @@ function onDeviceReady() {
             contentHTML += '</li>';
         }
 
-        $("#ModuleEntryText", this).html(contentHTML);
+        $("#ModuleEntryTextListView", this).html(contentHTML);
+        $("#ModuleEntryTextListView").listview("refresh");
     });
 
 
