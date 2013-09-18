@@ -1362,9 +1362,6 @@ var MyModulesEntries = [];
 
 function GetMyModules(username, password) {
 
-    function GetClassList() {
-        alert('test');
-    }
     var url = '';
 
     if (window.localStorage["isStudent"] != "true") {
@@ -1436,7 +1433,8 @@ function GetClassList(modulecode) {
         data: '{ modulecode: "' + modulecode + '" }',
         dataType: "json"
     }).done(function (msg) {
-        //$.mobile.changePage("#PageClassList");
+        //Clear results
+        $("#DivClassList").html('');
         $("#DivClassList").html(msg.d);
 
     }).fail(function (msg) {
