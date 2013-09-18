@@ -1252,7 +1252,15 @@ function GetExamResults(username, password) {
     }).done(function (msg) {
         var tablerowsHTML;
         $.each(msg.d, function (i, v) {
-            tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Mark + "</td><td>" + v.Outcome + "</td></tr>";
+            if (v.Subject == "No records returned.") {
+                var noResults = document.getElementById('DivNoExamResults');
+                noResults.style.visibility = "visible";
+                noResults.style.display = "block";
+                noResults.innerHTML = "No exam results returned.";
+            }
+            else {
+                tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Mark + "</td><td>" + v.Outcome + "</td></tr>";
+            }
         });
 
         $("#ExamResultsRows").html(tablerowsHTML);
@@ -1275,7 +1283,15 @@ function GetExamTimetable(username, password) {
     }).done(function (msg) {
         var tablerowsHTML;
         $.each(msg.d, function (i, v) {
-            tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Subject_Description + "</td><td>" + v.Exam_Date + "</td></tr>";
+            if (v.Subject == "No records returned.") {
+                var noResults = document.getElementById('DivNoExamTTResults');
+                noResults.style.visibility = "visible";
+                noResults.style.display = "block";
+                noResults.innerHTML = "No exam timetable returned.";
+            }
+            else {
+                tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Subject_Description + "</td><td>" + v.Exam_Date + "</td></tr>";
+            }
         });
 
         $("#ExamTimetableRows").html(tablerowsHTML);
