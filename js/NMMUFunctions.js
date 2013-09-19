@@ -280,7 +280,7 @@ function onDeviceReady() {
 
     var SelectedModulesEntry = "";
 
-    $(document).on('pagebeforeshow', '#PageMyModules', function () {
+    $(document).on('pageinit', '#PageMyModules', function () {
 
         var storage = window.localStorage;
         var username = storage["username"];
@@ -290,7 +290,7 @@ function onDeviceReady() {
         GetMyModules(username, password);
     });
 
-    $(document).on('pageshow', '#PageMyModules', function () {
+    $(document).on('pagebeforeshow', '#PageMyModules', function () {
         $(document).off('click', '.ModuleContentLink').on('click', '.ModuleContentLink', function (e) {
             SelectedModulesEntry = $(this).data("entryid");
         });
