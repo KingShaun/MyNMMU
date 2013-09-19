@@ -1363,6 +1363,8 @@ var MyModulesEntries = [];
 
 function GetMyModules(username, password) {
 
+    $.mobile.loading('show');
+
     var url = '';
 
     if (window.localStorage["isStudent"] != "true") {
@@ -1427,6 +1429,9 @@ function GetMyModules(username, password) {
 }
 
 function GetClassList(modulecode) {
+
+    $.mobile.loading('show');
+
     $.ajax({
         type: "POST",
         url: "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetClassList",
@@ -1437,6 +1442,8 @@ function GetClassList(modulecode) {
         //Clear results
         $("#DivClassList").html('');
         $("#DivClassList").html(msg.d);
+
+        $.mobile.loading('hide');
 
     }).fail(function (msg) {
         alert("fail:" + msg);
