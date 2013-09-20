@@ -1430,25 +1430,35 @@ function GetMyModules(username, password) {
 
 function GetClassList(modulecode) {
 
-    $.mobile.loading('show');
-
     $.ajax({
         type: "POST",
         url: "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetClassList",
         contentType: 'application/json',
         data: '{ modulecode: "' + modulecode + '" }',
-        dataType: "json"
+        dataType: "json",
+        beforeSend: function () {
+            // Here we show the loader
+            $.mobile.loading('show');
+        },
+        //success: function (json) {
+        //        //Clear results
+        //        $("#DivClassList").html('');
+        //        $("#DivClassList").html(json.d);
+
+        //},
+        //complete: function () {
+        //    // Here we hide the loader because this handler always fires on any failed/success request 
+        //    $.mobile.loading('show');
+        //}
+    //});
     }).done(function (msg) {
         //Clear results
         $("#DivClassList").html('');
         $("#DivClassList").html(msg.d);
-
-        $.mobile.loading('hide');
-
     }).fail(function (msg) {
         alert("fail:" + msg);
     }).always(function () {
-
+        $.mobile.loading('hide');
     });
 }
 
