@@ -56,8 +56,8 @@
     -->
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />  
 
-    <!-- Define app icon for each platform.
-    <icon src="icon.png" /> -->
+    <!-- Define app icon for each platform.-->
+    <icon src="icon.png" /> 
     <icon src="icons/android/android/ldpi.png"      gap:platform="android"    gap:density="ldpi" />
     <icon src="icons/android/android/mdpi.png"      gap:platform="android"    gap:density="mdpi" />
     <icon src="icons/android/android/hdpi.png"      gap:platform="android"    gap:density="hdpi" />
