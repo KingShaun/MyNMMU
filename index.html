@@ -137,6 +137,10 @@
                 <li data-theme="d">
                     <a href="#" onclick='window.open("http://m.opac.seals.ac.za", "_blank", "location=yes");'>Library</a>
                 </li>
+                <li data-theme="d">
+                    <a href="#PageFeedback">Feedback</a>
+                </li>
+
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -191,6 +195,20 @@
         </div>
     </div>
     <!-- End advert post success -->
+
+    <!-- Feedback post success -->
+    <div id="FeedbackPostSuccess" data-role="dialog" data-close-btn="none">
+
+        <div data-role="header">
+            <h1>Success!</h1>
+        </div>
+
+        <div data-role="content">
+            <p style='color: green'>Thank you for your feedback.</p>
+            <a href="#" data-role="button" data-rel="back" data-theme="b">OK</a>
+        </div>
+    </div>
+    <!-- Feedback post success -->
 
     <!-- Not student message -->
     <div id="NotStudentDialog" data-role="dialog" data-close-btn="none" data-rel="back">
@@ -553,7 +571,7 @@
     </div>
     <!-- End Campus Health -->
 
-    <!-- My journey -->
+    <!-- Sports -->
     <div data-role="page" id="PageSports">
 
         <div data-role="header">
@@ -629,7 +647,8 @@
             </ul>
         </div>
     </div>
-    <!-- End My journey -->
+    <!-- End Sports -->
+
     <!-- About us -->
     <div data-role="page" id="PageAboutUs">
 
@@ -1080,5 +1099,33 @@
     </div>
     <!-- End class list -->
 
+    <!-- Feedback -->
+    <div data-role="page" id="PageFeedback">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Feedback</h1>
+        </div>
+
+        <div data-role="content">
+            <p>This application has been designed to help you with your work and link you to information relevant and useful in your day&ndash;to&ndash;day job. This page is your opportunity to tell the designers what we&rsquo;ve missed, done well or should still implement. We would appreciate your input.</p>
+            <form id="FormFeedback" class="ui-body ui-body-d ui-corner-all">
+                <div data-role="fieldcontain">
+                    <label for="YourName">Name:</label>
+                    <input type="text" value="" name="YourName" id="NameFeedback" maxlength="250" required disabled="disabled" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="YourEmail">Email:</label>
+                    <input type="email" value="" name="YourEmail" id="EmailFeedback" maxlength="150" required disabled="disabled" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="textareaDescription">Feedback:*</label>
+                    <textarea name="textareaDescription" id="textareaFeedback" placeholder="Details" maxlength="1000" required></textarea>
+                </div>
+                <input type="submit" data-theme="b" name="submitFeedback" id="submitFeedback" value="Submit">
+            </form>
+        </div>
+
+    </div>
+    <!-- End Feedback -->
 </body>
 </html>

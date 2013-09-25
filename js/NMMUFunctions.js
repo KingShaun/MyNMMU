@@ -743,15 +743,6 @@ function onDeviceReady() {
     $(document).on('pageinit', '#PageAdvertPost', function () {
         //$("#FormPostAdvert").on("submit", uploadPhoto);
 
-        $('#browse_photo').click(function () {
-
-            //navigator.camera.getPicture(uploadPhoto, function (message) {
-            navigator.camera.getPicture(onPhotoURISuccess, function (message) {
-                alert('get picture failed');
-            }, { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
-
-        });
-
         // validate signup form on keyup and submit
         $("#FormPostAdvert").validate({
 
@@ -874,6 +865,23 @@ function onDeviceReady() {
         }
         contentHTML += '<a href="#" data-role="button" data-theme="b" data-icon="delete" onclick="deleteGetMyAdvert(' + EditAdvertsEntries[SelectedEditAdvertsEntry].adid + ', ' + EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid + ')">Delete this advert</a>';
         $("#EditAdvertEntryText", this).html(contentHTML);
+    });
+
+    //Feedback form
+    //NMMU LOGIC: Set the feedback form's submit to fire the handleFeedback function. 
+    $(document).on('pageinit', '#PageFeedback', function () {
+        $("#FormFeedback").on("submit", handleFeedback);
+
+    });
+
+    $(document).on('pagebeforeshow', '#PageFeedback', function () {
+
+        //Clear all the inputs.
+        $("#FormFeedback").each(function () {
+            this.reset();
+        });
+
+        GetADDetailsForFeedback(window.localStorage["username"], window.localStorage["password"]);
     });
 
     //Main page init
@@ -1218,6 +1226,40 @@ function handleLogin() {
     return false;
 }
 
+function handleFeedback() {
+    var form = $("#FormFeedback");
+    //disable the button so we can't resubmit while we wait
+    $("#submitFeedback", form).attr("disabled", "disabled");
+    var user = $("#NameFeedback", form).val();
+    var useremail = $("#EmailFeedback", form).val();
+    var feedback = $("#textareaFeedback", form).val();
+
+    $.mobile.loading('show');
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Feedback.asmx/SendFeedback",
+        contentType: 'application/json',
+        data: '{ yourName: "' + user + '", yourEmail: "' + useremail + '", feedback: "' + feedback + '" }',
+        dataType: "json",
+        success: function (result) {
+        if (result.d == "Success") {
+            //alert("Success");
+            $("#submitFeedback").removeAttr("disabled");
+            $.mobile.loading('hide');
+            $.mobile.changePage("#FeedbackPostSuccess", {
+                role: "dialog"
+            });
+        }
+        else {
+            //alert("Error");
+            $.mobile.changePage("#PageError", { role: "dialog" });
+        }
+    }
+
+    });
+    return false;
+}
+
 function checkPreAuth() {
     $.mobile.loading('show');
     var form = $("#loginForm");
@@ -1350,6 +1392,25 @@ function GetADDetailsForAdvertPost(username, password) {
     }).done(function (msg) {
         $("#YourName", formAdvertPost).val(msg.d.FullName);
         $("#YourEmail", formAdvertPost).val(msg.d.Email);
+
+    }).fail(function (msg) {
+        alert("fail:" + msg);
+    }).always(function () {
+
+    });
+}
+
+function GetADDetailsForFeedback(username, password) {
+    var formFeedback = $("#FormFeedback");
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", password: "' + password + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+        $("#NameFeedback", formFeedback).val(msg.d.FullName);
+        $("#EmailFeedback", formFeedback).val(msg.d.Email);
 
     }).fail(function (msg) {
         alert("fail:" + msg);
