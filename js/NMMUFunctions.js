@@ -870,7 +870,21 @@ function onDeviceReady() {
     //Feedback form
     //NMMU LOGIC: Set the feedback form's submit to fire the handleFeedback function. 
     $(document).on('pageinit', '#PageFeedback', function () {
-        $("#FormFeedback").on("submit", handleFeedback);
+        //$("#FormFeedback").on("submit", handleFeedback);
+
+        // validate signup form on keyup and submit
+        $("#FormFeedback").validate({
+        rules: {
+                textareaFeedback: "required"
+        },
+        messages: {
+            textareaFeedback: "Please provide your feedback."
+        },
+        submitHandler: function (form) {
+            handleFeedback();
+            return false;
+        }
+    });
 
     });
 

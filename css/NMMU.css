@@ -25,6 +25,15 @@
     padding-right: 10px;
 }
 
+.StudentImage {
+    width:78px; 
+    height:100px;
+    box-shadow: 5px 5px 2px #8d8787; 
+    -webkit-border-radius: 0.3em; 
+    -moz-border-radius: 0.3em; 
+    border-radius: 0.3em;
+}
+
 .NMMUPhoneNumber
 {
     display: none;
