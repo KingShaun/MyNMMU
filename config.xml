@@ -103,8 +103,8 @@
   <icon src="icons/webos/icon.png" gap:platform="webos" />
   <icon src="icons/webos/miniicon.png" gap:platform="webos" gap:role="mini" />
 
-  <!-- Splash Screens 
-  <gap:splash src="splash.png" />-->
+  <!-- Splash Screens -->
+  <gap:splash src="splash.png" />
   <gap:splash src="splash/ios/Default-Landscape.png" gap:platform="ios" width="1024" height="768" />
   <gap:splash src="splash/ios/Default-Portrait.png" gap:platform="ios" width="768" height="1024" />
   <gap:splash src="splash/ios/Default.png" gap:platform="ios" width="320" height="480" />
