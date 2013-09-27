@@ -56,8 +56,8 @@
     -->
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />  
 
-    <!-- Define app icon for each platform.-->
-    <icon src="icon.png" /> 
+    <!-- Define app icon for each platform.
+    <icon src="icon.png" /> -->
     <!--<icon src="icons/android/android/ldpi.png"      gap:platform="android"    gap:density="ldpi" />
     <icon src="icons/android/android/mdpi.png"      gap:platform="android"    gap:density="mdpi" />
     <icon src="icons/android/android/hdpi.png"      gap:platform="android"    gap:density="hdpi" />
@@ -86,22 +86,22 @@
 
   <!-- Icons -->
 
-  <!--<icon src="icon.png" />
+  <icon src="icon.png" />
   <icon src="icons/ios/icon.png" gap:platform="ios" width="57" height="57" />
   <icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
   <icon src="icons/ios/icon_at_2x.png" gap:platform="ios" width="114" height="114" />
   <icon src="icons/ios/icon-72-2x.png" gap:platform="ios" width="144" height="144" />
-  --><!--<icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+  <icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
   <icon src="icons/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
   <icon src="icons/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
-  <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />--><!--
+  <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
   <icon src="icons/bb/icon.png" gap:platform="blackberry" />
   <icon src="icons/bb/icon_hover.png" gap:platform="blackberry" gap:state="hover"/>
   <icon src="icons/winphone/icon.png" gap:platform="winphone" />
-  --><!-- winphone requires a jpg for the tile icons --><!--
+   <!--winphone requires a jpg for the tile icons--> 
   <icon src="icons/winphone/tileicon.png" gap:platform="winphone" gap:role="background" />
   <icon src="icons/webos/icon.png" gap:platform="webos" />
-  <icon src="icons/webos/miniicon.png" gap:platform="webos" gap:role="mini" />-->
+  <icon src="icons/webos/miniicon.png" gap:platform="webos" gap:role="mini" />
 
   <!-- Splash Screens 
   <gap:splash src="splash.png" />-->
