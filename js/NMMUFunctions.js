@@ -1194,7 +1194,7 @@ function handleLogin() {
         $.mobile.loading('show');
         $.ajax({
             type: "POST",
-            url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
+            url: "https://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
             contentType: 'application/json',
             data: '{ username: "' + u + '", password: "' + p + '" }',
             dataType: "json"
@@ -1301,7 +1301,7 @@ function checkPreAuth() {
 function GetAccountStatus(username, password) {
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/AccountStatus.asmx/GetAccountStatus",
+        url: "https://webservices.nmmu.ac.za/mobileapp/AccountStatus.asmx/GetAccountStatus",
         contentType: 'application/json',
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
@@ -1318,7 +1318,7 @@ function GetAccountStatus(username, password) {
 function GetExamResults(username, password) {
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/ExamResults.asmx/GetExamResults",
+        url: "https://webservices.nmmu.ac.za/mobileapp/ExamResults.asmx/GetExamResults",
         contentType: 'application/json',
         //data: '{ StudentNumber: "' + username + '" }',
         data: '{ username: "' + username + '", password: "' + password + '" }',
@@ -1350,7 +1350,7 @@ function GetExamResults(username, password) {
 function GetExamTimetable(username, password) {
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/ExamTimetable.asmx/GetExamTimetable",
+        url: "https://webservices.nmmu.ac.za/mobileapp/ExamTimetable.asmx/GetExamTimetable",
         contentType: 'application/json',
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
@@ -1381,7 +1381,7 @@ function GetExamTimetable(username, password) {
 function GetGraduationDetails(username, password) {
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/GraduationDetails.asmx/GetGraduationDetails",
+        url: "https://webservices.nmmu.ac.za/mobileapp/GraduationDetails.asmx/GetGraduationDetails",
         contentType: 'application/json',
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
@@ -1399,7 +1399,7 @@ function GetADDetailsForAdvertPost(username, password) {
     var formAdvertPost = $("#FormPostAdvert");
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
+        url: "https://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
         contentType: 'application/json',
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
@@ -1418,7 +1418,7 @@ function GetADDetailsForFeedback(username, password) {
     var formFeedback = $("#FormFeedback");
     $.ajax({
         type: "POST",
-        url: "http://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
+        url: "https://webservices.nmmu.ac.za/mobileapp/adauthentication.asmx/IsAuthenticated",
         contentType: 'application/json',
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
@@ -1443,10 +1443,10 @@ function GetMyModules(username, password) {
     var url = '';
 
     if (window.localStorage["isStudent"] != "true") {
-        url = "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetStaffModules";
+        url = "https://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetStaffModules";
     }
     else {
-        url = "http://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetMyModules";
+        url = "https://webservices.nmmu.ac.za/mobileapp/MyModules.asmx/GetMyModules";
     }
 
     $.ajax({
