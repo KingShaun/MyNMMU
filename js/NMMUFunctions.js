@@ -1,4 +1,4 @@
-////Below is classic Jquery doc ready, use JQuery Mobile (JQM) page wide pageinit instead (or per page inits):
+﻿////Below is classic Jquery doc ready, use JQuery Mobile (JQM) page wide pageinit instead (or per page inits):
 ////$(document).ready() { 
 
 ////});
@@ -179,6 +179,7 @@ function onDeviceReady() {
 
     //NMMU LOGIC: Set the  PageLoggedInHome's logout click to clear localStorage. 
     $(document).on('pageinit', '#PageLoggedInHome', function () {
+
         $(".LogoutButton").on("click", function () {
             localStorage.clear("username");
             localStorage.clear("password");
@@ -187,6 +188,18 @@ function onDeviceReady() {
             $.mobile.changePage("#PageHome");
             //$.mobile.activePage.trigger("create");
         });
+    });
+
+    $(document).on('pagebeforeshow', '#PageLoggedInHome', function () {
+        //Show student list items
+        if (window.localStorage["isStudent"] == "true") {
+            $("#ListviewStaff").css('display', 'none');
+            $("#ListviewStudents").css('display', 'block');
+        }
+        else {
+            $("#ListviewStaff").css('display', 'block');
+            $("#ListviewStudents").css('display', 'none');
+        }
     });
     // ########################## End Login ############################ 
 
@@ -328,7 +341,6 @@ function onDeviceReady() {
         $("#ModuleEntryTextListView", this).html(contentHTML);
         $("#ModuleEntryTextListView").listview("refresh");
     });
-
 
     $(document).on('pageshow', '#PageMyModulesContent', function () {
         $(document).off('click', '.SharePointLink').on('click', '.SharePointLink', function (e) {

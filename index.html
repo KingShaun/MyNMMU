@@ -88,7 +88,7 @@
                     <a href="#PageSports">Sports</a>
                 </li>
                 <li data-theme="d">
-                    <a href="#PageCampusHealth">Campus health</a>
+                    <a href="#PageCampusHealth">Campus Health</a>
                 </li>
                 <li data-theme="d">
                     <a href="#PageSocialLinks">Social links</a>
@@ -113,7 +113,24 @@
         </div>
         <div data-role="content" class="main_div_blue" style="overflow:hidden;">
 
-            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="ListviewStaff">
+                <li data-role="list-divider" role="heading">My NMMU menu items
+                </li>
+                <li data-theme="d">
+                    <a href="#PageAdverts">Adverts</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageMyModules">Modules</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#" onclick='window.open("http://m.opac.seals.ac.za", "_blank", "location=yes");'>Library catalog</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageFeedback">Feedback</a>
+                </li>
+            </ul>
+
+            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="ListviewStudents">
                 <li data-role="list-divider" role="heading">My NMMU menu items
                 </li>
                 <li data-theme="d">
@@ -135,12 +152,11 @@
                     <a href="#PageMyModules">Modules</a>
                 </li>
                 <li data-theme="d">
-                    <a href="#" onclick='window.open("http://m.opac.seals.ac.za", "_blank", "location=yes");'>Library</a>
+                    <a href="#" onclick='window.open("http://m.opac.seals.ac.za", "_blank", "location=yes");'>Library catalog</a>
                 </li>
                 <li data-theme="d">
                     <a href="#PageFeedback">Feedback</a>
                 </li>
-
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -436,7 +452,7 @@
 
         <div data-role="content">
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>Library</h3>
+                <h3>Library. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415043851">2nd Avenue</a></li>
                     <li><a href="tel:0415042044">Business School</a></li>
@@ -448,7 +464,7 @@
             </div>
             <!-- /collapsible -->
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>Financial Aid - Bursaries</h3>
+                <h3>Financial Aid - Bursaries. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415042550">2nd Ave</a></li>
                     <li><a href="tel:0448015098">George</a></li>
@@ -459,7 +475,7 @@
             </div>
             <!-- /collapsible -->
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>Student Housing</h3>
+                <h3>Student Housing. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415042261">2nd Ave</a></li>
                     <li><a href="tel:0448015034">George</a></li>
@@ -471,7 +487,7 @@
             </div>
             <!-- /collapsible -->
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>Counselling /Career Testing</h3>
+                <h3>Counselling / Career Testing. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415042511">2nd Ave</a></li>
                     <li><a href="tel:0448015051">George</a></li>
@@ -482,7 +498,7 @@
             </div>
             <!-- /collapsible -->
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>Sport</h3>
+                <h3>Sport. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415042165">2nd Ave</a></li>
                     <li><a href="tel:0448015037">George</a></li>
@@ -493,14 +509,14 @@
             </div>
             <!-- /collapsible -->
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>International Students</h3>
+                <h3>International Students. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415042161">International Students</a></li>
                 </ul>
             </div>
             <!-- /collapsible -->
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>Disability Unit</h3>
+                <h3>Disability Unit. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415044756">Disability Unit</a></li>
                 </ul>
@@ -543,13 +559,13 @@
     <div data-role="page" id="PageCampusHealth">
 
         <div data-role="header">
-            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Campus health</h1>
+            <a href="#PageHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Campus Health</h1>
         </div>
 
         <div data-role="content">
             <p>Office hours are between 8:00am and 16:00pm. The numbers provided for after office hours (16:00 - 08:00) are for medical emergencies ONLY.</p>
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>Office hours</h3>
+                <h3>Office hours. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0415043762 ">2nd Avenue</a></li>
                     <li><a href="tel:0448015062">George</a></li>
@@ -560,7 +576,7 @@
             </div>
             <!-- /collapsible -->
             <div data-role="collapsible" data-theme="b" data-inset="true" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
-                <h3>After office hours</h3>
+                <h3>After office hours. Call:</h3>
                 <ul data-role="listview">
                     <li><a href="tel:0721381280">George campus</a></li>
                     <li><a href="tel:0415042342 ">Port Elizabeth campuses</a></li>
