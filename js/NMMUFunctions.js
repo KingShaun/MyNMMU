@@ -50,7 +50,7 @@ function onDeviceReady() {
 
         $.mobile.loading('show');
 
-        $.get("http://news.nmmu.ac.za/home?rss=nmmu-news", {}, function (res, code) {
+        $.get("http://news.nmmu.ac.za/?rss=nmmu-news", {}, function (res, code) {
             var xml = $(res);
             var items = xml.find("item");
             $.each(items, function (i, v) {
@@ -113,7 +113,7 @@ function onDeviceReady() {
 
         $.mobile.loading('show');
 
-        $.get("http://news.nmmu.ac.za/Home?rss=NMMU-events", {}, function (res, code) {
+        $.get("http://news.nmmu.ac.za/?rss=NMMU-events", {}, function (res, code) {
             var xml = $(res);
             var items = xml.find("item");
             $.each(items, function (i, v) {
