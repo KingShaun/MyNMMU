@@ -995,7 +995,8 @@ function handleGetAdverts() {
         $("#AdvertsLatest10ListView").listview("refresh");
 
     }).fail(function (msg) {
-        alert("fail:" + msg.d);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg.d);
     }).always(function () {
 
     });
@@ -1068,7 +1069,8 @@ function handleAdvertSearch() {
             //Make results visible
             //$('#DivAdvertsSearchResults').css('display', 'block');
         }).fail(function (msg) {
-            alert("fail:" + msg);
+            navigator.notification.alert("An error has occurred.", function () { });
+            //alert("fail:" + msg);
         }).always(function () {
 
         });
@@ -1142,7 +1144,8 @@ function handleGetMyAdverts() {
         $("#MyAdvertsListView").listview("refresh");
 
     }).fail(function (msg) {
-        alert("fail:" + msg.d);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg.d);
     }).always(function () {
 
     });
@@ -1321,7 +1324,8 @@ function GetAccountStatus(username, password) {
         $("#DivAccountStatus").html(msg.d.StatusMessage);
 
     }).fail(function (msg) {
-        alert("fail:" + msg.d);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg.d);
     }).always(function () {
 
     });
@@ -1353,7 +1357,8 @@ function GetExamResults(username, password) {
         $("#ExamResultsTable").table("refresh");
 
     }).fail(function (msg) {
-        alert("fail:" + msg);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
     }).always(function () {
 
     });
@@ -1384,7 +1389,8 @@ function GetExamTimetable(username, password) {
         $("#ExamTimetableTable").table("refresh");
 
     }).fail(function (msg) {
-        alert("fail:" + msg);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
     }).always(function () {
 
     });
@@ -1401,7 +1407,8 @@ function GetGraduationDetails(username, password) {
         $("#DivGraduationDetails").html(msg.d.GraduationMessage);
 
     }).fail(function (msg) {
-        alert("fail:" + msg);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
     }).always(function () {
 
     });
@@ -1420,7 +1427,8 @@ function GetADDetailsForAdvertPost(username, password) {
         $("#YourEmail", formAdvertPost).val(msg.d.Email);
 
     }).fail(function (msg) {
-        alert("fail:" + msg);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
     }).always(function () {
 
     });
@@ -1439,7 +1447,8 @@ function GetADDetailsForFeedback(username, password) {
         $("#EmailFeedback", formFeedback).val(msg.d.Email);
 
     }).fail(function (msg) {
-        alert("fail:" + msg);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
     }).always(function () {
 
     });
@@ -1509,7 +1518,8 @@ function GetMyModules(username, password) {
         $("#MyModulesListView").listview("refresh");
 
     }).fail(function (msg) {
-        alert("fail:" + msg.d);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg.d);
     }).always(function () {
 
     });
@@ -1543,7 +1553,8 @@ function GetClassList(modulecode) {
         $("#DivClassList").html('');
         $("#DivClassList").html(msg.d);
     }).fail(function (msg) {
-        alert("fail:" + msg);
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
     }).always(function () {
         $.mobile.loading('hide');
     });
