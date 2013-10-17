@@ -25,6 +25,10 @@
     padding-right: 10px;
 }
 
+.ui-page .ui-content .ui-listview .ui-li-desc {
+    white-space : normal;
+}​
+
 .StudentImage {
     width:78px; 
     height:100px;

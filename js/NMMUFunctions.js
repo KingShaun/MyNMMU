@@ -910,6 +910,10 @@ function onDeviceReady() {
         GetADDetailsForFeedback(window.localStorage["username"], window.localStorage["password"]);
     });
 
+    $(document).on('pagebeforeshow', '#PageAlmanac', function () {
+        GetAlmanac();
+    });
+
     //Main page init
     $(document).on('pageinit', function () {
 
@@ -1241,7 +1245,8 @@ function handleLogin() {
             $.mobile.loading('hide');
 
         }).fail(function (msg) {
-            alert("fail:" + msg);
+            navigator.notification.alert("An error has occurred.", function () { });
+            //alert("fail:" + msg);
         }).always(function () {
 
         });
@@ -1552,6 +1557,32 @@ function GetClassList(modulecode) {
         //Clear results
         $("#DivClassList").html('');
         $("#DivClassList").html(msg.d);
+    }).fail(function (msg) {
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
+    }).always(function () {
+        $.mobile.loading('hide');
+    });
+}
+
+function GetAlmanac() {
+
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Almanac.asmx/GetAlmanac",
+        contentType: 'application/json',
+        //data: '{ modulecode: "' + modulecode + '" }',
+        dataType: "json",
+        beforeSend: function () {
+            // Here we show the loader
+            $.mobile.loading('show');
+        },
+    }).done(function (msg) {
+        //Clear results
+        $("#DivAlmanac").html('');
+        $("#DivAlmanac").html(msg.d);
+
+        $("#DivAlmanac").listview("refresh");
     }).fail(function (msg) {
         navigator.notification.alert("An error has occurred.", function () { });
         //alert("fail:" + msg);

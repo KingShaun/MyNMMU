@@ -55,7 +55,7 @@
             <img src="images/bannerNMMULogo.png" alt="NMMU Logo" />
         </div>-->
 
-        <div data-role="content" class="main_div_blue" style="overflow:hidden;">
+        <div data-role="content" class="main_div_blue" style="overflow: hidden;">
 
             <ul data-role="listview" data-divider-theme="d" data-inset="true">
                 <li data-role="list-divider" role="heading">Menu items
@@ -111,10 +111,13 @@
         <div style="text-align: center; background-color: #003058; padding-top: 5px">
             <img src="images/bannerNMMULogo.png" alt="NMMU Logo" />
         </div>
-        <div data-role="content" class="main_div_blue" style="overflow:hidden;">
+        <div data-role="content" class="main_div_blue" style="overflow: hidden;">
 
             <ul data-role="listview" data-divider-theme="d" data-inset="true" id="ListviewStaff">
                 <li data-role="list-divider" role="heading">My NMMU menu items
+                </li>
+                <li data-theme="d">
+                    <a href="#PageAlmanac">Almanac</a>
                 </li>
                 <li data-theme="d">
                     <a href="#PageAdverts">Adverts</a>
@@ -144,6 +147,9 @@
                 </li>
                 <li data-theme="d">
                     <a href="#PageGraduationDetails">Graduation details</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageAlmanac">Almanac</a>
                 </li>
                 <li data-theme="d">
                     <a href="#PageAdverts">Adverts</a>
@@ -1144,7 +1150,20 @@
     </div>
     <!-- End Feedback -->
 
-        <script type="text/javascript" src="phonegap.js"></script>
+    <!-- Almanac -->
+    <div data-role="page" id="PageAlmanac">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Almanac</h1>
+        </div>
+
+        <div data-role="content">
+            <ul id="DivAlmanac" data-role="listview" data-inset="true"></ul>
+        </div>
+    </div>
+    <!-- End almanac -->
+
+    <script type="text/javascript" src="phonegap.js"></script>
 
 </body>
 </html>
