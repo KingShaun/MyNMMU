@@ -10,7 +10,7 @@
 }
 
 .AdvertImage {
-    width:256px; 
+    width:240px; 
     box-shadow: 5px 5px 2px #8d8787; 
     -webkit-border-radius: 0.3em; 
     -moz-border-radius: 0.3em; 
@@ -25,6 +25,45 @@
     padding-right: 10px;
 }
 
+ /*.ui-li-thumb, .ui-li-icon {
+    left: 1px;
+    max-height: 100px;
+    max-width: 80px;
+    position: absolute;
+    top: 0;
+}*/
+
+ /*#PageRegisteredAssets {
+    height   : 100%;
+    margin     : 0;
+    padding    : 0;
+}
+#PageRegisteredAssets .ui-content, #UlRegisteredAssets {
+    min-height : 100%;
+    height     : 100%;
+    margin     : 0;
+    padding    : 0;
+}*/
+
+ /*#UlRegisteredAssets .ui-li {
+    height : 10%;
+}*/
+
+  #UlRegisteredAssets .ui-li-thumb {
+    left: 5px;
+    max-height: 110px;
+    max-width: 80px;
+    position: absolute;
+    top: 5px;
+}
+
+    #UlNMMUID .ui-li-thumb {
+    left: 5px;
+    max-height: 110px;
+    max-width: 80px;
+    position: absolute;
+    top: 5px;
+}
 
 .StudentImage {
     width:78px; 
@@ -35,9 +74,20 @@
     border-radius: 0.3em;
 }
 
+.ADImage {
+    width:78px; 
+    height:110px;
+    box-shadow: 5px 5px 2px #8d8787; 
+    -webkit-border-radius: 0.3em; 
+    -moz-border-radius: 0.3em; 
+    border-radius: 0.3em;
+}
+
 .ui-page .ui-content .ui-listview .ui-li-desc {
     white-space : normal;
 }​
+
+
 
 .NMMUPhoneNumber
 {

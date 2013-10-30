@@ -728,28 +728,50 @@ function onDeviceReady() {
 
     $(document).on('pagebeforeshow', '#PageAdvertContent', function () {
         var contentHTML = "";
-        contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '</h3>';
-        contentHTML += '<p>';
-        contentHTML += '<strong>Submitted by:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adsubmittedby + '<br />';
-        contentHTML += '<strong>Email:</strong> <a href="mailto:' + AdvertsEntries[SelectedAdvertsEntry].ademail + '?subject=' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '">' + AdvertsEntries[SelectedAdvertsEntry].ademail + '</a><br />';
-        contentHTML += '<strong>Mobile:</strong> <a href="tel:' + AdvertsEntries[SelectedAdvertsEntry].admobile + '">' + AdvertsEntries[SelectedAdvertsEntry].admobile + '</a><br />';
-        contentHTML += '<strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '<br />';
-        //contentHTML += '<strong>Picture ID:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '<br />';
-        contentHTML += '</p>';
-        contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p>';
+        //contentHTML += '<h3>' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '</h3>';
+        //contentHTML += '<p>';
+        //contentHTML += '<strong>Submitted by:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adsubmittedby + '<br />';
+        //contentHTML += '<strong>Email:</strong> <a href="mailto:' + AdvertsEntries[SelectedAdvertsEntry].ademail + '?subject=' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '">' + AdvertsEntries[SelectedAdvertsEntry].ademail + '</a><br />';
+        //contentHTML += '<strong>Mobile:</strong> <a href="tel:' + AdvertsEntries[SelectedAdvertsEntry].admobile + '">' + AdvertsEntries[SelectedAdvertsEntry].admobile + '</a><br />';
+        //contentHTML += '<strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '<br />';
+        ////contentHTML += '<strong>Picture ID:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '<br />';
+        //contentHTML += '</p>';
+        //contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p>';
+
+        ////Show image if it exists
+        //if (AdvertsEntries[SelectedAdvertsEntry].adpictureid != -1) {
+        //    //contentHTML += '<img style="width:256px; box-shadow: 5px 5px 2px #8d8787; -moz-border-radius: 5px; border-radius: 5px;" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '" />';
+        //    contentHTML += '<div style="text-align:center">';
+        //    contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '" />';
+        //    contentHTML += '</div>';
+        //}
+
+        //contentHTML += '<ul data-role="listview" data-inset="true">';
+        contentHTML += '<li data-role="list-divider">' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '</li>';
+        contentHTML += '<li>';
+        contentHTML += '<h2>' + AdvertsEntries[SelectedAdvertsEntry].adsubmittedby + '</h2>';
+        contentHTML += '<p><strong>Email:</strong> <a href="mailto:' + AdvertsEntries[SelectedAdvertsEntry].ademail + '?subject=' + AdvertsEntries[SelectedAdvertsEntry].adsubject + '">' + AdvertsEntries[SelectedAdvertsEntry].ademail + '</a></p>';
+        contentHTML += '<p><strong>Mobile:</strong> <a href="tel:' + AdvertsEntries[SelectedAdvertsEntry].admobile + '">' + AdvertsEntries[SelectedAdvertsEntry].admobile + '</a></p>';
+        contentHTML += '<p><strong>Date submitted:</strong> ' + AdvertsEntries[SelectedAdvertsEntry].addatecreated + '</p><br />';
+        contentHTML += '<p>' + AdvertsEntries[SelectedAdvertsEntry].addescription + '</p><br />';
 
         //Show image if it exists
         if (AdvertsEntries[SelectedAdvertsEntry].adpictureid != -1) {
             //contentHTML += '<img style="width:256px; box-shadow: 5px 5px 2px #8d8787; -moz-border-radius: 5px; border-radius: 5px;" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '" />';
-            contentHTML += '<div style="text-align:center">';
-            contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '" />';
-            contentHTML += '</div>';
+            contentHTML += '<p style="text-align:center">';
+            contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + AdvertsEntries[SelectedAdvertsEntry].adpictureid + '" /><br /><br />';
+            contentHTML += '</p>';
         }
 
-        //contentHTML += AdvertsEntries[SelectedAdvertsEntry].description;
-        $("#AdvertEntryText", this).html(contentHTML);
-    });
+        contentHTML += '</li>';
+        //contentHTML += '</ul>';
 
+
+        //contentHTML += AdvertsEntries[SelectedAdvertsEntry].description;
+        //$("#AdvertEntryText", this).html(contentHTML);
+        $("#AdvertEntryText").html(contentHTML);
+        $("#AdvertEntryText").listview("refresh");
+    });
 
     //Advert post
     $(document).on('pageinit', '#PageAdvertPost', function () {
@@ -824,23 +846,43 @@ function onDeviceReady() {
 
     $(document).on('pagebeforeshow', '#PageSearchAdvertContent', function () {
         var contentHTML = "";
-        contentHTML += '<h3>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '</h3>';
-        contentHTML += '<p>';
-        contentHTML += '<strong>Submitted by:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubmittedby + '<br />';
-        contentHTML += '<strong>Email:</strong> <a href="mailto:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '?subject=' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '</a><br />';
-        contentHTML += '<strong>Mobile:</strong> <a href="tel:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '</a><br />'
-        contentHTML += '<strong>Date submitted:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addatecreated + '<br />';
-        contentHTML += '</p>';
-        contentHTML += '<p>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addescription + '</p>';
+        //contentHTML += '<h3>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '</h3>';
+        //contentHTML += '<p>';
+        //contentHTML += '<strong>Submitted by:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubmittedby + '<br />';
+        //contentHTML += '<strong>Email:</strong> <a href="mailto:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '?subject=' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '</a><br />';
+        //contentHTML += '<strong>Mobile:</strong> <a href="tel:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '</a><br />'
+        //contentHTML += '<strong>Date submitted:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addatecreated + '<br />';
+        //contentHTML += '</p>';
+        //contentHTML += '<p>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addescription + '</p>';
 
-        //Show image if it exists.
+        ////Show image if it exists.
+        //if (SearchAdvertsEntries[SelectedSearchAdvertsEntry].adpictureid != -1) {
+        //    contentHTML += '<div style="text-align:center">';
+        //    contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adpictureid + '" />';
+        //    contentHTML += '</div>';
+        //}
+
+        //$("#SearchAdvertEntryText", this).html(contentHTML);
+
+        contentHTML += '<li data-role="list-divider">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '</li>';
+        contentHTML += '<li>';
+        contentHTML += '<h2>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubmittedby + '</h2>';
+        contentHTML += '<p><strong>Email:</strong> <a href="mailto:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '?subject=' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adsubject + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].ademail + '</a></p>';
+        contentHTML += '<p><strong>Mobile:</strong> <a href="tel:' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '">' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].admobile + '</a></p>';
+        contentHTML += '<p><strong>Date submitted:</strong> ' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addatecreated + '</p><br />';
+        contentHTML += '<p>' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].addescription + '</p><br />';
+
+        //Show image if it exists
         if (SearchAdvertsEntries[SelectedSearchAdvertsEntry].adpictureid != -1) {
-            contentHTML += '<div style="text-align:center">';
-            contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adpictureid + '" />';
-            contentHTML += '</div>';
+            contentHTML += '<p style="text-align:center">';
+            contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + SearchAdvertsEntries[SelectedSearchAdvertsEntry].adpictureid + '" /><br /><br />';
+            contentHTML += '</p>';
         }
 
-        $("#SearchAdvertEntryText", this).html(contentHTML);
+        contentHTML += '</li>';
+
+        $("#SearchAdvertEntryText").html(contentHTML);
+        $("#SearchAdvertEntryText").listview("refresh");
     });
 
     //Array to store results in
@@ -858,25 +900,52 @@ function onDeviceReady() {
         });
     });
 
-    $(document).on('pagecreate', '#PageEditAdvertContent', function () {
+    //$(document).on('pagecreate', '#PageEditAdvertContent', function () {
+    $(document).on('pagebeforeshow', '#PageEditAdvertContent', function () {
         var contentHTML = "";
-        contentHTML += '<h3>' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubject + '</h3>';
-        contentHTML += '<p>';
-        contentHTML += '<strong>Submitted by:</strong> ' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubmittedby + '<br />';
-        contentHTML += '<strong>Email:</strong> <a href="mailto:' + EditAdvertsEntries[SelectedEditAdvertsEntry].ademail + '?subject=' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubject + '">' + EditAdvertsEntries[SelectedEditAdvertsEntry].ademail + '</a><br />';
-        contentHTML += '<strong>Mobile:</strong> <a href="tel:' + EditAdvertsEntries[SelectedEditAdvertsEntry].admobile + '">' + EditAdvertsEntries[SelectedEditAdvertsEntry].admobile + '</a><br />';
-        contentHTML += '<strong>Date submitted:</strong> ' + EditAdvertsEntries[SelectedEditAdvertsEntry].addatecreated + '<br />';
-        contentHTML += '</p>';
-        contentHTML += '<p>' + EditAdvertsEntries[SelectedEditAdvertsEntry].addescription + '</p>';
+        //contentHTML += '<h3>' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubject + '</h3>';
+        //contentHTML += '<p>';
+        //contentHTML += '<strong>Submitted by:</strong> ' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubmittedby + '<br />';
+        //contentHTML += '<strong>Email:</strong> <a href="mailto:' + EditAdvertsEntries[SelectedEditAdvertsEntry].ademail + '?subject=' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubject + '">' + EditAdvertsEntries[SelectedEditAdvertsEntry].ademail + '</a><br />';
+        //contentHTML += '<strong>Mobile:</strong> <a href="tel:' + EditAdvertsEntries[SelectedEditAdvertsEntry].admobile + '">' + EditAdvertsEntries[SelectedEditAdvertsEntry].admobile + '</a><br />';
+        //contentHTML += '<strong>Date submitted:</strong> ' + EditAdvertsEntries[SelectedEditAdvertsEntry].addatecreated + '<br />';
+        //contentHTML += '</p>';
+        //contentHTML += '<p>' + EditAdvertsEntries[SelectedEditAdvertsEntry].addescription + '</p>';
+
+        ////Show image if it exists
+        //if (EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid != -1) {
+        //    contentHTML += '<div style="text-align:center">';
+        //    contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid + '" />';
+        //    contentHTML += '</div>';
+        //}
+
+        contentHTML += '<li data-role="list-divider">' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubject + '</li>';
+        contentHTML += '<li>';
+        contentHTML += '<h2>' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubmittedby + '</h2>';
+        contentHTML += '<p><strong>Email:</strong> <a href="mailto:' + EditAdvertsEntries[SelectedEditAdvertsEntry].ademail + '?subject=' + EditAdvertsEntries[SelectedEditAdvertsEntry].adsubject + '">' + EditAdvertsEntries[SelectedEditAdvertsEntry].ademail + '</a></p>';
+        contentHTML += '<p><strong>Mobile:</strong> <a href="tel:' + EditAdvertsEntries[SelectedEditAdvertsEntry].admobile + '">' + EditAdvertsEntries[SelectedEditAdvertsEntry].admobile + '</a></p>';
+        contentHTML += '<p><strong>Date submitted:</strong> ' + EditAdvertsEntries[SelectedEditAdvertsEntry].addatecreated + '</p><br />';
+        contentHTML += '<p>' + EditAdvertsEntries[SelectedEditAdvertsEntry].addescription + '</p><br />';
 
         //Show image if it exists
         if (EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid != -1) {
-            contentHTML += '<div style="text-align:center">';
-            contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid + '" />';
-            contentHTML += '</div>';
+            contentHTML += '<p style="text-align:center">';
+            contentHTML += '<img class="AdvertImage" alt="Advert Image" src="http://webservices.nmmu.ac.za/mobileapp/GetAdvertImage.ashx?id=' + EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid + '" /><br /><br />';
+            contentHTML += '</p>';
         }
-        contentHTML += '<a href="#" data-role="button" data-theme="b" data-icon="delete" onclick="deleteGetMyAdvert(' + EditAdvertsEntries[SelectedEditAdvertsEntry].adid + ', ' + EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid + ')">Delete this advert</a>';
-        $("#EditAdvertEntryText", this).html(contentHTML);
+        contentHTML += '</li>';
+
+        //$("#EditAdvertEntryText", this).html(contentHTML);
+
+        $("#EditAdvertEntryText").html(contentHTML);
+        $("#EditAdvertEntryText").listview("refresh");
+
+        //contentHTML += '<a href="#" data-role="button" data-theme="b" data-icon="delete" onclick="deleteGetMyAdvert(' + EditAdvertsEntries[SelectedEditAdvertsEntry].adid + ', ' + EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid + ')">Delete this advert</a>';
+
+        // Add a delete button element
+        $('#EditAdvertEntryText').append('<a href="#" data-role="button" data-theme="b" data-icon="delete" onclick="deleteGetMyAdvert(' + EditAdvertsEntries[SelectedEditAdvertsEntry].adid + ', ' + EditAdvertsEntries[SelectedEditAdvertsEntry].adpictureid + ')">Delete this advert</a>');
+        // Enhance new button element
+        $('[data-role="button"]').button();
     });
 
     //Feedback form
@@ -912,6 +981,23 @@ function onDeviceReady() {
 
     $(document).on('pagebeforeshow', '#PageAlmanac', function () {
         GetAlmanac();
+    });
+
+    $(document).on('pageinit', '#PageRegisteredAssets', function () {
+        GetRegisteredADAssets(window.localStorage["username"]);
+    });
+
+    $(document).on('pageinit', '#PageNMMUID', function () {
+        if (window.localStorage["isStudent"] == "true") {
+            GetStudentProfile(window.localStorage["username"], window.localStorage["password"]);
+        }
+        else {
+            GetStaffProfile(window.localStorage["username"]);
+        }
+    });
+
+    $(document).on('pageinit', '#PageLeaveBalance', function () {
+        GetLeaveBalance(window.localStorage["username"]);
     });
 
     //Main page init
@@ -989,9 +1075,9 @@ function handleGetAdverts() {
 
         $.each(AdvertsEntries, function (i, v) {
             s += '<li>';
-            s += '<a href="#PageAdvertContent" class="AdvertContentLink" data-transition="slide" data-entryid="' + i + '">';
+            s += '<a href="#PageAdvertContent" class="AdvertContentLink" data-transition="slide" data-entryid="' + i + '"><p>';
             s += v.adsubject;
-            s += '</a>';
+            s += '</p></a>';
             s += '</li>';
         });
 
@@ -1053,7 +1139,7 @@ function handleAdvertSearch() {
             //The webservice will return one record into the array, saying no results found.
             if (SearchAdvertsEntries.length == 1 && SearchAdvertsEntries[0].adsubject == "No results found.") {
                 s += '<li>';
-                s += 'No results returned.';
+                s += '<p>No results returned.</p>';
                 s += '</li>';
             }
             else {
@@ -1061,7 +1147,7 @@ function handleAdvertSearch() {
                 $.each(SearchAdvertsEntries, function (i, v) {
                     s += '<li>';
                     s += '<a href="#PageSearchAdvertContent" class="SearchAdvertContentLink" data-transition="slide" data-entryid="' + i + '">';
-                    s += v.adsubject;
+                    s += '<p>' + v.adsubject + '</p>';
                     s += '</a>';
                     s += '</li>';
                 });
@@ -1130,7 +1216,7 @@ function handleGetMyAdverts() {
         //The webservice will return one record into the array, saying no results found.
         if (EditAdvertsEntries.length == 1 && EditAdvertsEntries[0].adsubject == "No results found.") {
             s += '<li>';
-            s += 'No adverts were found for your username.';
+            s += '<p>No adverts were found for your username.</p>';
             s += '</li>';
         }
         else {
@@ -1138,7 +1224,7 @@ function handleGetMyAdverts() {
             $.each(EditAdvertsEntries, function (i, v) {
                 s += '<li>';
                 s += '<a href="#PageEditAdvertContent" class="EditAdvertContentLink" data-transition="slide" data-entryid="' + i + '">';
-                s += v.adsubject;
+                s += '<p>' + v.adsubject + '</p>';
                 s += '</a>';
                 s += '</li>';
             });
@@ -1505,7 +1591,7 @@ function GetMyModules(username, password) {
         //The webservice will return one record into the array, saying no results found.
         if (MyModulesEntries.length == 1 && MyModulesEntries[0].modulename == "No results found.") {
             s += '<li>';
-            s += 'No modules returned.';
+            s += '<p>No modules returned.</p>';
             s += '</li>';
         }
         else {
@@ -1513,7 +1599,7 @@ function GetMyModules(username, password) {
             $.each(MyModulesEntries, function (i, v) {
                 s += '<li>';
                 s += '<a href="#PageMyModulesContent" class="ModuleContentLink" data-transition="slide" data-entryid="' + i + '">';
-                s += v.modulename;
+                s += '<p>' + v.modulename + '</p>';
                 s += '</a>';
                 s += '</li>';
             });
@@ -1588,6 +1674,228 @@ function GetAlmanac() {
         //alert("fail:" + msg);
     }).always(function () {
         $.mobile.loading('hide');
+    });
+}
+
+function GetRegisteredAssets(username) {
+
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Assets.asmx/GetUserAssets",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '" }',
+        dataType: "json",
+        beforeSend: function () {
+            // Here we show the loader
+            $.mobile.loading('show');
+        },
+    }).done(function (msg) {
+        //Clear results
+        $("#UlRegisteredAssets").html('');
+        $("#UlRegisteredAssets").html(msg.d);
+
+        $("#UlRegisteredAssets").listview("refresh");
+    }).fail(function (msg) {
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
+    }).always(function () {
+        $.mobile.loading('hide');
+    });
+}
+
+function GetLeaveBalance(username) {
+
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/LeaveBalance.asmx/GetLeaveBalance",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '" }',
+        dataType: "json",
+        beforeSend: function () {
+            // Here we show the loader
+            $.mobile.loading('show');
+        },
+    }).done(function (msg) {
+        //Clear results
+        $("#UlLeaveBalance").html('');
+        $("#UlLeaveBalance").html(msg.d);
+
+        $("#UlLeaveBalance").listview("refresh");
+    }).fail(function (msg) {
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
+    }).always(function () {
+        $.mobile.loading('hide');
+    });
+}
+
+//Stores adverts entries
+var AssetEntries = [];
+
+function GetRegisteredADAssets(username) {
+    //Store the html in s
+    var s = '';
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Assets.asmx/GetUserADAssets",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '" }',
+        dataType: "json",
+        beforeSend: function () {
+            // Here we show the loader
+            $.mobile.loading('show');
+        },
+    }).done(function (msg) {
+
+        //Clear the array
+        AssetEntries.length = 0;
+
+        $.each(msg.d, function (i, v) {
+
+            entry = {
+                assFullName: v.FullName,
+                assStaffNumber: v.StaffNumber,
+                assAssetDescription: v.AssetDescription,
+                assAssetBarcode: v.AssetBarcode
+            };
+            AssetEntries.push(entry);
+
+            $.mobile.loading('hide');
+
+            if (i == 0) {
+
+                s += '<li style="height:100px;">';
+                s += '<img  class="ADImage" alt="User Image" src="http://webservices.nmmu.ac.za/mobileapp/GetADImage.ashx?u=' + window.localStorage["username"] + '" />'
+                s += '<h2>'
+                s += v.FullName
+                s += '</h2>'
+                s += '<p>Staff number: ' + v.StaffNumber + '</p>';
+            }
+
+        });
+
+        //now draw the list
+        $.each(AssetEntries, function (i, v) {
+            s += '<li data-role="list-divider">' + v.assAssetDescription + '</li>';
+            s += '<li>';
+            s += '<p><strong>Barcode:</strong> ' + v.assAssetBarcode + '</p>';
+            s += '</li>';
+        });
+
+        $("#UlRegisteredAssets").html(s);
+        $("#UlRegisteredAssets").listview("refresh");
+
+    }).fail(function (msg) {
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
+    }).always(function () {
+        $.mobile.loading('hide');
+    });
+}
+
+//Stores adverts entries
+var NMMUIDEntries = [];
+
+function GetStaffProfile(username) {
+    //Store the html in s
+    var s = '';
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/NMMUID.asmx/GetNMMUID",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '" }',
+        dataType: "json",
+        beforeSend: function () {
+            // Here we show the loader
+            $.mobile.loading('show');
+        },
+    }).done(function (msg) {
+
+        ////Clear the array
+        //NMMUIDEntries.length = 0;
+
+        $.each(msg.d, function (i, v) {
+
+            entry = {
+                assFullName: v.FullName,
+                assStaffNumber: v.StaffNumber,
+                assEmail: v.Email,
+                assTelephone: v.Telephone,
+                assOffice: v.Office,
+                assJobTitle: v.JobTitle,
+                assDepartment: v.Department,
+                assManager: v.Manager
+            };
+            NMMUIDEntries.push(entry);
+
+
+                s += '<li style="height:100px;">';
+                s += '<img  class="ADImage" alt="User Image" src="http://webservices.nmmu.ac.za/mobileapp/GetADImage.ashx?u=' + window.localStorage["username"] + '" />'
+                s += '<h2>'
+                s += v.FullName
+                s += '</h2>'
+                s += '<p>Staff number: ' + v.StaffNumber + '</p>';
+                s += '</li>'
+                s += '<li data-role="list-divider">Details:</li>';
+                s += '<li>'
+                s += '<p><strong>Job title:</strong> ' + v.JobTitle + '</p>';
+                s += '<p><strong>Department:</strong> ' + v.Department + '</p>';
+                s += '<p><strong>Telephone:</strong> ' + v.Telephone + '</p>';
+                s += '<p><strong>Office:</strong> ' + v.Office + '</p>';
+                s += '<p><strong>Email:</strong> ' + v.Email + '</p>';
+                s += '<p><strong>Manager:</strong> ' + v.Manager + '</p>';
+                s += '</li>'
+
+        });
+
+        $("#UlNMMUID").html(s);
+        $("#UlNMMUID").listview("refresh");
+
+    }).fail(function (msg) {
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
+    }).always(function () {
+        $.mobile.loading('hide');
+    });
+}
+
+function GetStudentProfile(username) {
+
+    var s = '';
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/NMMUStudentID.asmx/GetNMMUStudentID",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '" }',
+        dataType: "json"
+    }).done(function (msg) {
+
+        $.each(msg.d, function (i, v) {
+            s += '<li style="height:100px;">';
+            s += '<img  class="ADImage" alt="User Image" src="http://webservices.nmmu.ac.za/mobileapp/GetADImage.ashx?u=' + window.localStorage["username"] + '" />';
+            s += '<h2>';
+            s += v.Title + ' ' + v.Firstnames + ' ' + v.Surname;
+            s += '</h2>';
+            s += '<p>Student number: ' + v.StudentNumber + '</p>';
+            s += '</li>';
+            s += '<li data-role="list-divider">Details:</li>';
+            s += '<li>';
+            s += '<p><strong>DOB:</strong> ' + v.DOB + '</p>';
+            s += '<p><strong>Qualification:</strong> ' + v.Qual_Desc + '</p>';
+            s += '<p><strong>Faculty:</strong> ' + v.Faculty_Desc + '</p>';
+            s += '<p><strong>Campus:</strong> ' + v.Campus_Desc + '</p>';            
+            s += '<p><strong>Academic year:</strong> ' + v.Academicyear + '</p>';
+            s += '</li>';
+        });
+
+        $("#UlNMMUID").html(s);
+        $("#UlNMMUID").listview("refresh");
+
+    }).fail(function (msg) {
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
+    }).always(function () {
+
     });
 }
 

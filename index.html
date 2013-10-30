@@ -129,7 +129,16 @@
                     <a href="#" onclick='window.open("http://m.opac.seals.ac.za", "_blank", "location=yes");'>Library catalog</a>
                 </li>
                 <li data-theme="d">
-                    <a href="#PageFeedback">Feedback</a>
+                    <a href="#PageFeedback">Feedback / Request</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageRegisteredAssets">Registered assets</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageNMMUID">NMMU profile</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageLeaveBalance">Leave balance</a>
                 </li>
             </ul>
 
@@ -162,6 +171,9 @@
                 </li>
                 <li data-theme="d">
                     <a href="#PageFeedback">Feedback / Request</a>
+                </li>
+                <li data-theme="d">
+                    <a href="#PageNMMUID">NMMU profile</a>
                 </li>
             </ul>
         </div>
@@ -694,7 +706,7 @@
             <a href="tel:0415041111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call us now (PE)</a>
             <a href="tel:0448015111" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call us now (George)</a>-->
 
-            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true">
                 <li data-role="list-divider" role="heading">Call us:
                 </li>
                 <li data-theme="d">
@@ -705,7 +717,7 @@
                 </li>
             </ul>
 
-            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true">
                 <li data-role="list-divider" role="heading">Email us:
                 </li>
                 <li data-theme="d">
@@ -742,7 +754,7 @@
 
         <div data-role="content">
 
-            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true">
                 <li data-role="list-divider" role="heading">Maps
                 </li>
                 <li data-theme="d">
@@ -922,7 +934,7 @@
                 </ul>
             </div>-->
 
-            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="AdvertsLatest10ListView">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true" id="AdvertsLatest10ListView">
             </ul>
         </div>
 
@@ -942,7 +954,8 @@
             <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
         </div>
 
-        <div data-role="content" id="AdvertEntryText">
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="AdvertEntryText"></ul>
         </div>
 
     </div>
@@ -961,7 +974,7 @@
             </form>
 
             <div id="DivAdvertsSearchResults">
-                <ul id="AdvertSearchResultsListView" data-divider-theme="d" data-role="listview" data-inset="true">
+                <ul id="AdvertSearchResultsListView" data-divider-theme="b" data-role="listview" data-inset="true">
                 </ul>
             </div>
 
@@ -980,7 +993,10 @@
             <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
         </div>
 
-        <div data-role="content" id="SearchAdvertEntryText">
+        <!--        <div data-role="content" id="SearchAdvertEntryText">
+        </div>-->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="SearchAdvertEntryText"></ul>
         </div>
 
     </div>
@@ -1064,7 +1080,7 @@
         </div>
 
         <div data-role="content">
-            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="MyAdvertsListView">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true" id="MyAdvertsListView">
             </ul>
         </div>
 
@@ -1076,7 +1092,8 @@
             <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Advert details</h1>
         </div>
 
-        <div data-role="content" id="EditAdvertEntryText">
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="EditAdvertEntryText"></ul>
         </div>
 
     </div>
@@ -1091,7 +1108,7 @@
         </div>
 
         <div data-role="content">
-            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="MyModulesListView">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true" id="MyModulesListView">
             </ul>
         </div>
     </div>
@@ -1103,7 +1120,7 @@
         </div>
 
         <div data-role="content">
-            <ul data-role="listview" data-divider-theme="d" data-inset="true" id="ModuleEntryTextListView">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true" id="ModuleEntryTextListView">
             </ul>
         </div>
     </div>
@@ -1162,6 +1179,46 @@
         </div>
     </div>
     <!-- End almanac -->
+
+    <!-- Registered Assets -->
+    <div data-role="page" id="PageRegisteredAssets">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Registered assets</h1>
+        </div>
+
+        <div data-role="content">
+            <ul id="UlRegisteredAssets" data-role="listview" data-inset="true"></ul>
+        </div>
+    </div>
+    <!-- End Registered Assets -->
+
+    <!-- NMMU Profile -->
+    <div data-role="page" id="PageNMMUID">
+
+        <div data-role="header">
+            <a href="#PageLoggedInHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>NMMU Profile</h1>
+        </div>
+
+        <div data-role="content">
+            <ul id="UlNMMUID" data-role="listview" data-inset="true"></ul>
+        </div>
+    </div>
+    <!-- End NMMU ID -->
+
+    <!-- Leave balance -->
+    <div data-role="page" id="PageLeaveBalance">
+
+        <div data-role="header">
+            <a href="#PageLoggedInHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Leave balance</h1>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="b" data-count-theme="e" id="UlLeaveBalance">
+            </ul>
+        </div>
+    </div>
+    <!-- End Leave balance -->
 
     <script type="text/javascript" src="phonegap.js"></script>
 
