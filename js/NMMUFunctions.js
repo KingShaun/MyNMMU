@@ -2192,6 +2192,7 @@ function uploadPicture() {
 
         //Rest of the form fields
         var params = new Object();
+        params.yourUsername = window.localStorage["username"];
         params.yourName = yourName;
         params.yourEmail = yourEmail;
         params.yourMobile = yourMobile;
