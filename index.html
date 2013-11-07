@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--For custom theming uncomment both line below.    
+    <!--For custom theming uncomment both line below. 
     <link rel="stylesheet" href="themes/NMMUTheme.min.css" />
-    <link rel="stylesheet" href="css/jquery.mobile.structure-1.3.2.min.css">-->
+    <link rel="stylesheet" href="css/jquery.mobile.structure-1.3.2.min.css"> -->  
     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css">
     <link rel="stylesheet" href="css/NMMU.css">
 
@@ -140,6 +140,9 @@
                 <li data-theme="d">
                     <a href="#PageLeaveBalance">Leave balance</a>
                 </li>
+                <li data-theme="d">
+                    <a href="#PageUsage">Usage</a>
+                </li>                
             </ul>
 
             <ul data-role="listview" data-divider-theme="d" data-inset="true" id="ListviewStudents">
@@ -175,6 +178,9 @@
                 <li data-theme="d">
                     <a href="#PageNMMUID">NMMU profile</a>
                 </li>
+                <li data-theme="d">
+                    <a href="#PageUsage">Usage</a>
+                </li> 
             </ul>
         </div>
         <div data-theme="a" data-role="footer" data-position="fixed">
@@ -242,7 +248,21 @@
             <a href="#" data-role="button" data-rel="back" data-theme="b">OK</a>
         </div>
     </div>
-    <!-- Feedback post success -->
+    <!-- End Feedback post success -->
+
+    <!-- Contact detail sent success -->
+    <div id="ContactDetailsSentSuccess" data-role="dialog" data-close-btn="none">
+
+        <div data-role="header">
+            <h1>Success!</h1>
+        </div>
+
+        <div data-role="content">
+            <p style='color: green'>Your profile details were sent.</p>
+            <a href="#" data-role="button" data-rel="back" data-theme="b">OK</a>
+        </div>
+    </div>
+    <!-- End Contact detail sent success -->
 
     <!-- Not student message -->
     <div id="NotStudentDialog" data-role="dialog" data-close-btn="none" data-rel="back">
@@ -310,7 +330,8 @@
             <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>News details</h1>
         </div>
 
-        <div data-role="content" id="NewsEntryText">
+        <div data-role="content" id="NewsEntryContent">
+            <ul data-role="listview" data-inset="true" id="NewsEntryText"></ul>
         </div>
 
     </div>
@@ -335,7 +356,8 @@
             <a href="#PageEvents" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Event details</h1>
         </div>
 
-        <div data-role="content" id="EventsEntryText">
+        <div data-role="content" id="EventsEntryContent">
+            <ul data-role="listview" data-inset="true" id="EventsEntryText"></ul>
         </div>
 
     </div>
@@ -410,6 +432,7 @@
                         <th>Subject</th>
                         <th>Description</th>
                         <th>Date</th>
+                        <th>Time</th>
                     </tr>
                 </thead>
                 <tbody id="ExamTimetableRows">
@@ -891,7 +914,7 @@
         </div>
 
         <div data-role="content">
-            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+            <ul data-role="listview" data-divider-theme="b" data-inset="true">
                 <li data-role="list-divider" role="heading">Where am I?</li>
                 <li id="LiWhereAmI"></li>
             </ul>
@@ -899,7 +922,7 @@
             <a href="tel:0415045000" class="NMMUPhoneNumber" data-role="button" data-theme="b">Call the police</a>
             <div class="NMMUPhoneNumberTablet">-->
             <div>
-                <ul data-role="listview" data-divider-theme="d" data-inset="true">
+                <ul data-role="listview" data-divider-theme="b" data-inset="true">
                     <li data-role="list-divider" role="heading">Help lines. Call:</li>
                     <li><a href="tel:0415041111">NMMU Security</a></li>
                     <li><a href="tel:0415045000">Humewood police</a></li>
@@ -1202,9 +1225,31 @@
 
         <div data-role="content">
             <ul id="UlNMMUID" data-role="listview" data-inset="true"></ul>
+            <a href="#" class="SendContactDetailsLink" id="SendContactDetailsLink" data-role="button" data-theme="b">Mail business card</a>
         </div>
     </div>
-    <!-- End NMMU ID -->
+    <!-- End NMMU Profile -->
+
+    <!-- Email NMMU Profile -->
+    <div data-role="page" id="PageEmailProfile">
+
+        <div data-role="header">
+            <a href="#PageNews" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Email NMMU Profile</h1>
+        </div>
+
+        <div data-role="content">
+            <p>Enter the recipient's email address below.</p>
+            <form id="FormEmailProfile" class="ui-body ui-body-d ui-corner-all">
+                <div data-role="fieldcontain">
+                    <label for="YourEmail">Email*:</label>
+                    <input type="email" value="" name="RecipientEmail" id="RecipientEmail" maxlength="150" />
+                </div>
+                <input type="submit" data-theme="b" name="submitContactDetails" id="submitContactDetails" value="Send">
+            </form>
+        </div>
+
+    </div>
+    <!-- End Email NMMU Profile -->
 
     <!-- Leave balance -->
     <div data-role="page" id="PageLeaveBalance">
@@ -1219,6 +1264,20 @@
         </div>
     </div>
     <!-- End Leave balance -->
+
+    <!-- Phone and Internet usage -->
+    <div data-role="page" id="PageUsage">
+
+        <div data-role="header">
+            <a href="#PageLoggedInHome" data-rel="back" data-icon="back">Back</a><img class="NMMUHeaderImage" src="images/LogoWhite.png" alt="Logo" /><h1>Usage</h1>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="b" id="UlUsage">
+            </ul>
+        </div>
+    </div>
+    <!-- End Phone and Internet usage -->
 
     <script type="text/javascript" src="phonegap.js"></script>
 

@@ -93,10 +93,18 @@ function onDeviceReady() {
     //NMMU LOGIC: To ensure the event fire everytime we hit the PageNewsContent page, use pagebeforeshow
     $(document).on('pagebeforeshow', '#PageNewsContent', function () {
         var contentHTML = "";
-        contentHTML += '<h3>' + NewsEntries[SelectedNewsEntry].title + '</h3>';
-        contentHTML += NewsEntries[SelectedNewsEntry].description;
-        contentHTML += '<p><a href="#" class="ReadEntry">Read Entry on Site</a></p>';
-        $("#NewsEntryText", this).html(contentHTML);
+        contentHTML += '<li data-role="list-divider">' + NewsEntries[SelectedNewsEntry].title + '</li>';
+        contentHTML += '<li>'
+        contentHTML += '<p>' + NewsEntries[SelectedNewsEntry].description + '</p>';
+        contentHTML += '</li>'
+        $("#NewsEntryText").html(contentHTML);
+        $("#NewsEntryText").listview("refresh");
+
+        //Add read story button
+        $('#NewsEntryText').append('<a href="#" data-role="button" data-theme="b" class="ReadEntry" data-mini="true">Read entry on site</a>');
+        // Enhance new button element
+        $('[data-role="button"]').button();
+
     });
 
     //NMMU LOGIC: PageNewsContent page pagebeforeshow created the links with the class ReadEntry, no use pageshow to assign the onclick event to fire InAppBrowser 
@@ -151,11 +159,20 @@ function onDeviceReady() {
 
     $(document).on('pagebeforeshow', '#PageEventsContent', function () {
         var contentHTML = "";
-        contentHTML += '<h3>' + EventsEntries[SelectedEventsEntry].title + '</h3>';
-        contentHTML += EventsEntries[SelectedEventsEntry].description;
+        contentHTML += '<li data-role="list-divider">' + EventsEntries[SelectedEventsEntry].title + '</li>';
+        contentHTML += '<li>'
+        contentHTML += '<h2>' + EventsEntries[SelectedEventsEntry].description + '</h2>';
         contentHTML += '<p><strong>Event date:</strong> ' + EventsEntries[SelectedEventsEntry].eventdate + '</p>';
-        contentHTML += '<p><a href="#" class="ReadEntry">Read Entry on Site</a></p>';
-        $("#EventsEntryText", this).html(contentHTML);
+        //contentHTML += '<p><a href="#" class="ReadEntry">Read Entry on Site</a></p>';
+        contentHTML += '</li>'
+        $("#EventsEntryText").html(contentHTML);
+        $("#EventsEntryText").listview("refresh");
+
+        //Add read story button
+        $('#EventsEntryText').append('<a href="#" data-role="button" data-theme="b" class="ReadEntry" data-mini="true">Read entry on site</a>');
+        // Enhance new button element
+        $('[data-role="button"]').button();
+
     });
 
     $(document).on('pageshow', '#PageEventsContent', function () {
@@ -190,6 +207,7 @@ function onDeviceReady() {
         });
     });
 
+    // Determine whether to show staff or student menu
     $(document).on('pagebeforeshow', '#PageLoggedInHome', function () {
         //Show student list items
         if (window.localStorage["isStudent"] == "true") {
@@ -979,16 +997,57 @@ function onDeviceReady() {
         GetADDetailsForFeedback(window.localStorage["username"], window.localStorage["password"]);
     });
 
+    //Email Profile Details form
+    $(document).on('pageinit', '#PageEmailProfile', function () {
+
+        // validate signup form on keyup and submit
+        $("#FormEmailProfile").validate({
+            rules: {
+                RecipientEmail: "required"
+            },
+            messages: {
+                RecipientEmail: "Please a valid email address."
+            },
+            submitHandler: function (form) {
+                handleSendProfileDetails(window.localStorage["username"]);
+                return false;
+            }
+        });
+
+    });
+
+    $(document).on('pagebeforeshow', '#PageEmailProfile', function () {
+        //Clear all the inputs.
+        $("#FormEmailProfile").each(function () {
+            this.reset();
+        });
+    });
+
+    //Almanac
     $(document).on('pagebeforeshow', '#PageAlmanac', function () {
         GetAlmanac();
     });
 
+    //Registered assests
     $(document).on('pageinit', '#PageRegisteredAssets', function () {
         GetRegisteredADAssets(window.localStorage["username"]);
     });
 
+    //NMMU Profile
     $(document).on('pageinit', '#PageNMMUID', function () {
+
+
+        $(".SendContactDetailsLink").on('click', function (event) {
+            $.mobile.changePage("#PageEmailProfile");
+        });
+
         if (window.localStorage["isStudent"] == "true") {
+
+            //Hide button
+            var sendButton = document.getElementById('SendContactDetailsLink');
+            sendButton.style.visibility = "hidden";
+            sendButton.style.display = "none";
+
             GetStudentProfile(window.localStorage["username"], window.localStorage["password"]);
         }
         else {
@@ -996,8 +1055,14 @@ function onDeviceReady() {
         }
     });
 
+    //Leave
     $(document).on('pageinit', '#PageLeaveBalance', function () {
         GetLeaveBalance(window.localStorage["username"]);
+    });
+
+    //Resources usage
+    $(document).on('pagebeforeshow', '#PageUsage', function () {
+        GetUsage(window.localStorage["username"], window.localStorage["isStudent"]);
     });
 
     //Main page init
@@ -1380,6 +1445,39 @@ function handleFeedback() {
     return false;
 }
 
+function handleSendProfileDetails(username) {
+    var form = $("#FormEmailProfile");
+    //disable the button so we can't resubmit while we wait
+    $("#submitContactDetails", form).attr("disabled", "disabled");
+
+    var recipientEmail = $("#RecipientEmail", form).val();
+
+    $.mobile.loading('show');
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/EmailContactDetails.asmx/SendEmailContactDetails",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", recipientEmail: "' + recipientEmail + '" }',
+        dataType: "json",
+        success: function (result) {
+            if (result.d == "Success") {
+                //alert("Success");
+                $("#submitContactDetails").removeAttr("disabled");
+                $.mobile.loading('hide');
+                $.mobile.changePage("#ContactDetailsSentSuccess", {
+                    role: "dialog"
+                });
+            }
+            else {
+                //alert("Error");
+                $.mobile.changePage("#PageError", { role: "dialog" });
+            }
+        }
+
+    });
+    return false;
+}
+
 function checkPreAuth() {
     $.mobile.loading('show');
     var form = $("#loginForm");
@@ -1472,7 +1570,7 @@ function GetExamTimetable(username, password) {
                 noResults.innerHTML = "No exam timetable returned.";
             }
             else {
-                tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Subject_Description + "</td><td>" + v.Exam_Date + "</td></tr>";
+                tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Subject_Description + "</td><td>" + v.Exam_Date + "</td><td>" + v.Start_Time + "</td></tr>";
             }
         });
 
@@ -1599,7 +1697,8 @@ function GetMyModules(username, password) {
             $.each(MyModulesEntries, function (i, v) {
                 s += '<li>';
                 s += '<a href="#PageMyModulesContent" class="ModuleContentLink" data-transition="slide" data-entryid="' + i + '">';
-                s += '<p>' + v.modulename + '</p>';
+                //s += '<p>' + v.modulename + '</p>';
+                s += v.modulename;
                 s += '</a>';
                 s += '</li>';
             });
@@ -1721,6 +1820,32 @@ function GetLeaveBalance(username) {
         $("#UlLeaveBalance").html(msg.d);
 
         $("#UlLeaveBalance").listview("refresh");
+    }).fail(function (msg) {
+        navigator.notification.alert("An error has occurred.", function () { });
+        //alert("fail:" + msg);
+    }).always(function () {
+        $.mobile.loading('hide');
+    });
+}
+
+function GetUsage(username, isStudent) {
+
+    $.ajax({
+        type: "POST",
+        url: "http://webservices.nmmu.ac.za/mobileapp/Usage.asmx/GetUsage",
+        contentType: 'application/json',
+        data: '{ username: "' + username + '", isStudent: "' + isStudent + '" }',
+        dataType: "json",
+        beforeSend: function () {
+            // Here we show the loader
+            $.mobile.loading('show');
+        },
+    }).done(function (msg) {
+        //Clear results
+        $("#UlUsage").html('');
+        $("#UlUsage").html(msg.d);
+
+        $("#UlUsage").listview("refresh");
     }).fail(function (msg) {
         navigator.notification.alert("An error has occurred.", function () { });
         //alert("fail:" + msg);
@@ -1961,7 +2086,6 @@ function takePicture() {
         { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI });
 };
 
-
 /**
  * Select picture from library
  */
@@ -2000,6 +2124,8 @@ function uploadPicture() {
     //disable the button so we can't resubmit while we wait
     $("#submitAdvert", form).attr("disabled", "disabled");
 
+
+    var yourUsername = window.localStorage["username"];
     var yourName = $("#YourName", form).val();
     var yourEmail = $("#YourEmail", form).val();
     var yourMobile = $("#YourMobile", form).val();
@@ -2023,7 +2149,7 @@ function uploadPicture() {
             // DataType needs to stay, otherwise the response object
             // will be treated as a single string
             //data: '{yourName: "' + yourName + '", yourEmail: "' + yourEmail + '", yourMobile: "' + yourMobile + '", yourSubject: "' + yourSubject + '", yourCategory: "' + yourCategory + '", yourDescription: "' + yourDescription + '" }',
-            data: { yourName: yourName, yourEmail: yourEmail, yourMobile: yourMobile, yourSubject: yourSubject, yourCategory: yourCategory, yourDescription: yourDescription },
+            data: { yourUsername: yourUsername, yourName: yourName, yourEmail: yourEmail, yourMobile: yourMobile, yourSubject: yourSubject, yourCategory: yourCategory, yourDescription: yourDescription },
             dataType: "json",
             success: function (result) {
                 if (result.message == "Success") {
