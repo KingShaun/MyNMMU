@@ -329,6 +329,8 @@ function onDeviceReady() {
 
     $(document).on('pagebeforeshow', '#PageMyModulesContent', function () {
         var contentHTML = "";
+        var marksHTML = '';
+
         contentHTML += '<li data-role="list-divider" role="heading">' + MyModulesEntries[SelectedModulesEntry].modulename + '<br />(' + MyModulesEntries[SelectedModulesEntry].modulecode + ')</li>';
         contentHTML += '<li>';
         contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a>';
@@ -339,6 +341,18 @@ function onDeviceReady() {
             contentHTML += '<li>';
             contentHTML += '<a href="#" class="MoodleLink">Moodle/Learn Site Site</a>';
             contentHTML += '</li>';
+        }
+
+        //Show marks if it exists to students
+        if (window.localStorage["isStudent"] == "true") {
+            if (MyModulesEntries[SelectedModulesEntry].modulemarks != "0") {
+                marksHTML += MyModulesEntries[SelectedModulesEntry].modulemarks;
+            }
+            //else {
+            //    marksHTML += '<li>';
+            //    marksHTML += '<p>No marks returned.</p>';
+            //    marksHTML += '</li>';
+            //}
         }
 
         //Show staff the email class link
@@ -358,6 +372,9 @@ function onDeviceReady() {
 
         $("#ModuleEntryTextListView", this).html(contentHTML);
         $("#ModuleEntryTextListView").listview("refresh");
+
+        $("#UlModuleMarks", this).html(marksHTML);
+        $("#UlModuleMarks").listview("refresh");
     });
 
     $(document).on('pageshow', '#PageMyModulesContent', function () {
@@ -1332,7 +1349,7 @@ function deleteGetMyAdvert(ID, PictureID) {
             dataType: "json",
             success: function (result) {
                 if (result.d == "Success") {
-                    //alert("Success");
+                    //alert("delete Success");
                     //$("#submitAdvert").removeAttr("disabled");
                     $.mobile.loading('hide');
                     $.mobile.changePage("#PageAdvertEdit", {
@@ -1340,7 +1357,7 @@ function deleteGetMyAdvert(ID, PictureID) {
                     });
                 }
                 else {
-                    //alert("Error");
+                    //alert("delete Error");
                     $.mobile.changePage("#PageError", { role: "dialog" });
                 }
             }
@@ -1537,6 +1554,12 @@ function GetExamResults(username, password) {
                 noResults.style.display = "block";
                 noResults.innerHTML = "No exam results returned.";
             }
+            else if (v.Subject == "Exam results are not currently available.") {
+                var noResults = document.getElementById('DivNoExamResults');
+                noResults.style.visibility = "visible";
+                noResults.style.display = "block";
+                noResults.innerHTML = "Exam results are currently unavailable.";
+            }
             else {
                 tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Mark + "</td><td>" + v.Outcome + "</td></tr>";
             }
@@ -1675,7 +1698,8 @@ function GetMyModules(username, password) {
                 modulecode: v.SubjectCode,
                 modulename: v.SubjectName,
                 modulesharepoint: v.LinkSharePoint,
-                modulemoodle: v.LinkMoodle
+                modulemoodle: v.LinkMoodle,
+                modulemarks: v.MarkString
             };
             MyModulesEntries.push(entry);
 
