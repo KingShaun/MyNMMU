@@ -32,6 +32,8 @@
 
 ////Page wide variables:
 
+////Change comment
+
 // PhoneGap is ready
 //
 function onDeviceReady() {
