@@ -49,12 +49,14 @@ function onDeviceReady() {
     // ############################## News ############################ 
     //NMMU LOGIC: On pageinit, run the RSS get and build the listview
     $(document).on('pageinit', '#PageNews', function () {
-
+        var s = '';
         $.mobile.loading('show');
 
         $.get("http://news.nmmu.ac.za/?rss=nmmu-news", {}, function (res, code) {
             var xml = $(res);
             var items = xml.find("item");
+
+            if (items.length > 0) {
             $.each(items, function (i, v) {
                 entry = {
                     title: $(v).find("title").text(),
@@ -63,11 +65,11 @@ function onDeviceReady() {
                 };
                 NewsEntries.push(entry);
 
-                $.mobile.loading('hide');
+                //$.mobile.loading('hide');
             });
 
             //now draw the list
-            var s = '';
+            
             $.each(NewsEntries, function (i, v) {
                 //s += '<li><a href="#PageNewsContent" class="NewsContentLink" data-entryid="' + i + '">' + v.title + '</a></li>';
                 s += '<li>';
@@ -77,6 +79,13 @@ function onDeviceReady() {
                 s += '</a>';
                 s += '</li>';
             });
+            }
+            else {
+                s += '<li>';
+                s += '<p>No events listed.</p>';
+                s += '</li>';
+            }
+            $.mobile.loading('hide');
             $("#NewsLinksList").append(s);
             $("#NewsLinksList").listview("refresh");
         });
@@ -121,25 +130,26 @@ function onDeviceReady() {
     //NMMU LOGIC: See news
     $(document).on('pageinit', '#PageEvents', function () {
 
+        var s = '';
+
         $.mobile.loading('show');
 
         $.get("http://news.nmmu.ac.za/?rss=NMMU-events", {}, function (res, code) {
             var xml = $(res);
             var items = xml.find("item");
-            $.each(items, function (i, v) {
-                entry = {
-                    title: $(v).find("title").text(),
-                    link: $(v).find("link").text(),
-                    description: $.trim($(v).find("description").text()),
-                    eventdate: $(v).find("pubDate").text()
-                };
-                EventsEntries.push(entry);
 
-                $.mobile.loading('hide');
-            });
-
+            if (items.length > 0) {
+                $.each(items, function (i, v) {
+                    entry = {
+                        title: $(v).find("title").text(),
+                        link: $(v).find("link").text(),
+                        description: $.trim($(v).find("description").text()),
+                        eventdate: $(v).find("pubDate").text()
+                    };
+                    EventsEntries.push(entry);
+                });
             //now draw the list
-            var s = '';
+            
             $.each(EventsEntries, function (i, v) {
                 s += '<li>';
                 s += '<a href="#PageEventsContent" class="EventsContentLink" data-entryid="' + i + '">';
@@ -148,6 +158,14 @@ function onDeviceReady() {
                 s += '</a>';
                 s += '</li>';
             });
+            }
+            else {
+                s += '<li>';
+                s += '<p>No events listed.</p>';
+                s += '</li>';
+            }
+            $.mobile.loading('hide');
+
             $("#EventsLinksList").append(s);
             $("#EventsLinksList").listview("refresh");
         });
@@ -341,7 +359,7 @@ function onDeviceReady() {
         //Show moodle link if it exists
         if (MyModulesEntries[SelectedModulesEntry].modulemoodle != "0") {
             contentHTML += '<li>';
-            contentHTML += '<a href="#" class="MoodleLink">Moodle/Learn Site Site</a>';
+            contentHTML += '<a href="#" class="MoodleLink">Moodle/iLearn Site</a>';
             contentHTML += '</li>';
         }
 
@@ -1522,6 +1540,7 @@ function checkPreAuth() {
 }
 
 function GetAccountStatus(username, password) {
+    var s = '';
     $.ajax({
         type: "POST",
         url: "https://webservices.nmmu.ac.za/mobileapp/AccountStatus.asmx/GetAccountStatus",
@@ -1529,7 +1548,14 @@ function GetAccountStatus(username, password) {
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
     }).done(function (msg) {
-        $("#DivAccountStatus").html(msg.d.StatusMessage);
+
+        //s += '<li data-role="list-divider">' + msg.d.StatusMessage + '</li>';
+        s += '<li>' + msg.d.StatusMessage + '</li>';
+
+        //$("#DivAccountStatus").html('<ul data-role="listview" data-inset="true"><li data-role="list-divider">' + msg.d.StatusMessage + '</li></ul>');
+
+        $("#ULAccountStatus").html(s);
+        $("#ULAccountStatus").listview("refresh");
 
     }).fail(function (msg) {
         navigator.notification.alert("An error has occurred.", function () { });
@@ -1548,27 +1574,45 @@ function GetExamResults(username, password) {
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
     }).done(function (msg) {
-        var tablerowsHTML;
+        //var tablerowsHTML;
+        var s = '';
         $.each(msg.d, function (i, v) {
             if (v.Subject == "No records returned.") {
-                var noResults = document.getElementById('DivNoExamResults');
-                noResults.style.visibility = "visible";
-                noResults.style.display = "block";
-                noResults.innerHTML = "No exam results returned.";
+                //var noResults = document.getElementById('DivNoExamResults');
+                //noResults.style.visibility = "visible";
+                //noResults.style.display = "block";
+                //noResults.innerHTML = "No exam results returned.";
+
+                s += '<li data-role="list-divider">Exam results</li>';
+                s += '<li>'
+                s += '<p>No exam results returned.</p>';
             }
-            else if (v.Subject == "Exam results are not currently available.") {
-                var noResults = document.getElementById('DivNoExamResults');
-                noResults.style.visibility = "visible";
-                noResults.style.display = "block";
-                noResults.innerHTML = "Exam results are currently unavailable.";
+            else if (v.Subject == "Exam results are currently unavailable.") {
+                //var noResults = document.getElementById('DivNoExamResults');
+                //noResults.style.visibility = "visible";
+                //noResults.style.display = "block";
+                //noResults.innerHTML = "Exam results are currently unavailable.";
+
+                s += '<li data-role="list-divider">Exam results</li>';
+                s += '<li>'
+                s += '<p>Exam results are currently unavailable.</p>';
             }
             else {
-                tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Mark + "</td><td>" + v.Outcome + "</td></tr>";
+                //tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Mark + "</td><td>" + v.Outcome + "</td></tr>";
+
+                s += '<li data-role="list-divider">' + v.Subject_Name + ' (' + v.Subject + ')</li>';
+                s += '<li>'
+                s += '<p><strong>Mark:</strong> ' + v.Mark + '</p>';
+                s += '<p><strong>Outcome:</strong> ' + v.Outcome + '</p>';
+                s += '</li>'
             }
         });
 
-        $("#ExamResultsRows").html(tablerowsHTML);
-        $("#ExamResultsTable").table("refresh");
+        //$("#ExamResultsRows").html(tablerowsHTML);
+        //$("#ExamResultsTable").table("refresh");
+
+        $("#ULExamResults").html(s);
+        $("#ULExamResults").listview("refresh");
 
     }).fail(function (msg) {
         navigator.notification.alert("An error has occurred.", function () { });
@@ -1586,21 +1630,39 @@ function GetExamTimetable(username, password) {
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
     }).done(function (msg) {
-        var tablerowsHTML;
+        //var tablerowsHTML;
+
+        var s = '';
+
         $.each(msg.d, function (i, v) {
             if (v.Subject == "No records returned.") {
-                var noResults = document.getElementById('DivNoExamTTResults');
-                noResults.style.visibility = "visible";
-                noResults.style.display = "block";
-                noResults.innerHTML = "No exam timetable returned.";
+                //var noResults = document.getElementById('DivNoExamTTResults');
+                //noResults.style.visibility = "visible";
+                //noResults.style.display = "block";
+                //noResults.innerHTML = "No exam timetable returned.";
+
+                s += '<li data-role="list-divider">Exam timetable</li>';
+                s += '<li>'
+                s += '<p>No exam timetable returned.</p>';
             }
             else {
-                tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Subject_Description + "</td><td>" + v.Exam_Date + "</td><td>" + v.Start_Time + "</td></tr>";
+                //tablerowsHTML += "<tr><td>" + v.Subject + "</td><td>" + v.Subject_Description + "</td><td>" + v.Exam_Date + "</td><td>" + v.Start_Time + "</td><td>" + v.Building_Name + " (" + v.Building_No + ")</td><td>" + v.Campus_Name + "</td></tr>";
+
+                s += '<li data-role="list-divider">' + v.Subject_Description + ' (' + v.Subject + ')</li>';
+                s += '<li>'
+                s += '<p><strong>Date:</strong> ' + v.Exam_Date + '</p>';
+                s += '<p><strong>Time:</strong> ' + v.Start_Time + '</p>';
+                s += '<p><strong>Venue:</strong> ' + v.Building_Name + ' (' + v.Building_No + ')</p>';
+                s += '<p><strong>Campus:</strong> ' + v.Campus_Name + '</p>';
+                s += '</li>'
             }
         });
 
-        $("#ExamTimetableRows").html(tablerowsHTML);
-        $("#ExamTimetableTable").table("refresh");
+        //$("#ExamTimetableRows").html(tablerowsHTML);
+        //$("#ExamTimetableTable").table("refresh");
+
+        $("#ULExamTT").html(s);
+        $("#ULExamTT").listview("refresh");
 
     }).fail(function (msg) {
         navigator.notification.alert("An error has occurred.", function () { });
@@ -1611,6 +1673,7 @@ function GetExamTimetable(username, password) {
 }
 
 function GetGraduationDetails(username, password) {
+    var s = '';
     $.ajax({
         type: "POST",
         url: "https://webservices.nmmu.ac.za/mobileapp/GraduationDetails.asmx/GetGraduationDetails",
@@ -1618,7 +1681,11 @@ function GetGraduationDetails(username, password) {
         data: '{ username: "' + username + '", password: "' + password + '" }',
         dataType: "json"
     }).done(function (msg) {
-        $("#DivGraduationDetails").html(msg.d.GraduationMessage);
+        //$("#DivGraduationDetails").html(msg.d.GraduationMessage);
+        s += '<li><p>' + msg.d.GraduationMessage + '</p></li>';
+
+        $("#ULGraduationDetails").html(s);
+        $("#ULGraduationDetails").listview("refresh");
 
     }).fail(function (msg) {
         navigator.notification.alert("An error has occurred.", function () { });
