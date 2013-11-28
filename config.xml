@@ -79,6 +79,7 @@
 
   <!-- Splash Screens -->
   <!--<gap:splash src="splash.png" />-->
+  <gap:splash src="splashWhite.png" />
   <gap:splash src="splash/ios/Default-Landscape.png" gap:platform="ios" width="1024" height="768" />
   <gap:splash src="splash/ios/Default-Portrait.png" gap:platform="ios" width="768" height="1024" />
   <gap:splash src="splash/ios/Default.png" gap:platform="ios" width="320" height="480" />
@@ -87,10 +88,10 @@
   <!-- retina iPad support: PhoneGap 2.5.0+ only -->
   <gap:splash src="splash/ios/Default-Landscape_at_2x.png" gap:platform="ios" width="2048" height="1496" />
   <gap:splash src="splash/ios/Default-Portrait_at_2x.png" gap:platform="ios" width="1536" height="2008" />  
-  <gap:splash src="splash/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+  <!--<gap:splash src="splash/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
   <gap:splash src="splash/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
   <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
-  <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+  <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />-->
   <gap:splash src="splash/bb/splash.png" gap:platform="blackberry" />
   <gap:splash src="splash/winphone/splash.jpg" gap:platform="winphone" />
 

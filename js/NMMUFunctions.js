@@ -353,7 +353,8 @@ function onDeviceReady() {
 
         contentHTML += '<li data-role="list-divider" role="heading">' + MyModulesEntries[SelectedModulesEntry].modulename + '<br />(' + MyModulesEntries[SelectedModulesEntry].modulecode + ')</li>';
         contentHTML += '<li>';
-        contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a>';
+        //contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a>';
+        contentHTML += '<a href="' + MyModulesEntries[SelectedModulesEntry].modulesharepoint + '">SharePoint/Collaboration Site</a>';
         contentHTML += '</li>';
 
         //Show moodle link if it exists
