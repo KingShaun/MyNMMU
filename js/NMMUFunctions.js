@@ -353,8 +353,10 @@ function onDeviceReady() {
 
         contentHTML += '<li data-role="list-divider" role="heading">' + MyModulesEntries[SelectedModulesEntry].modulename + '<br />(' + MyModulesEntries[SelectedModulesEntry].modulecode + ')</li>';
         contentHTML += '<li>';
-        //contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a>';
-        contentHTML += '<a href="' + MyModulesEntries[SelectedModulesEntry].modulesharepoint + '" target="_blank">SharePoint/Collaboration Site</a>';
+        contentHTML += '<a href="#" class="SharePointLink">SharePoint/Collaboration Site</a>';
+        //contentHTML += '<a href="' + MyModulesEntries[SelectedModulesEntry].modulesharepoint + '" target="_blank">SharePoint/Collaboration Site</a>';
+        //contentHTML += 'SharePoint/Collaboration Site<br /><br />';
+        //contentHTML += '<p>URL to enter in browser: ' + MyModulesEntries[SelectedModulesEntry].modulesharepoint + '</p>';
         contentHTML += '</li>';
 
         //Show moodle link if it exists
@@ -400,7 +402,7 @@ function onDeviceReady() {
 
     $(document).on('pageshow', '#PageMyModulesContent', function () {
         $(document).off('click', '.SharePointLink').on('click', '.SharePointLink', function (e) {
-            window.open(MyModulesEntries[SelectedModulesEntry].modulesharepoint, '_blank', 'location=yes');
+            window.open(MyModulesEntries[SelectedModulesEntry].modulesharepoint, '_system', 'location=yes');
         });
 
         if (MyModulesEntries[SelectedModulesEntry].modulemoodle != "0") {
